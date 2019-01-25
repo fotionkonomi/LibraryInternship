@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="table.css" />
+	<h:outputStylesheet library="css" name="forms.css" />
+
+
+	<style>
+</style>
+</h:head>
+<h:body>
+	<ui:include src="header-admin.xhtml"></ui:include>
+	<br/>
+	<h:form>
+
+		<h:panelGroup
+			rendered="#{not empty userBean.usersThatAreNotActivated()}">
+
+			<table align="center" width="100%">
+				<thead>
+					<tr>
+						<th id="headTable" colspan="8">Users whose accounts are not
+							activated yet</th>
+					</tr>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Age</th>
+						<th>Gender</th>
+						<th colspan="2">Role</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<ui:repeat var="user" value="#{userBean.listUser()}">
+						<tr>
+							<td>#{user.firstName}</td>
+							<td>#{user.lastName}</td>
+							<td>#{user.username}</td>
+							<td>#{user.email}</td>
+							<td>#{user.age}</td>
+							<ui:fragment rendered="#{user.gender eq true}">
+								<td>Male</td>
+							</ui:fragment>
+							<ui:fragment rendered="#{user.gender eq false}">
+								<td>Female</td>
+							</ui:fragment>
+
+							<td><ui:fragment
+									rendered="#{userBean.isAUserDTOAdmin(user) eq false}">
+									<p:growl id="message" showDetail="true" />
+
+									<p:commandButton class="submit"
+										style="background-color: green;"
+										action="#{userBean.becomeAdmin(user)}" value="Make admin"
+										update="message">
+										<p:confirm header="Confirmation" message="Are you sure?" />
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="Yes" type="button"
+											styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+										<p:commandButton value="No" type="button"
+											styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+									</p:confirmDialog>
+								</ui:fragment> <ui:fragment
+									rendered="#{userBean.isAUserDTOAdmin(user) eq true}">#{user.username} is an admin</ui:fragment>
+							</td>
+							<td><ui:fragment
+									rendered="#{userBean.isAUserDTOSecretary(user) eq false}">
+									<p:growl id="message1" showDetail="true" />
+									<p:commandButton class="button"
+										style="background-color: #ed6847;"
+										action="#{userBean.becomeSecretary(user)}" update="message1"
+										value="Make secretary">
+										<p:confirm header="Confirmation" message="Are you sure?" />
+
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="Yes" type="button"
+											styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+										<p:commandButton value="No" type="button"
+											styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+									</p:confirmDialog>
+								</ui:fragment>
+								<ui:fragment
+									rendered="#{userBean.isAUserDTOSecretary(user) eq true}">#{user.username} is a secretary</ui:fragment></td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{empty userBean.usersThatAreNotActivated()}">
+			<h1>There aren't any requests</h1>
+		</h:panelGroup>
+
+	</h:form>
+</h:body>
+</html>

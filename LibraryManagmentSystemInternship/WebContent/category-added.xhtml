@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="success.css" />
+
+	<h:outputStylesheet library="css" name="forms.css" />
+
+
+</h:head>
+<h:body>
+	<ui:include src="header-admin.xhtml"></ui:include>
+
+	<div id="container">
+		<div id="contact">
+			<section id="contact">
+				<div class="containeri">
+					<h:form class="form">
+						<div id="display-success">
+							<h2>YOU HAVE SUCCESSFULLY CREATED A CATEGORY</h2>
+						</div>
+						<h3>
+							Name: <span class="success">#{categoryBean.categoryName}</span><br />
+							<br />Description: <span class="success">#{categoryBean.categoryDescription}</span>
+						</h3>
+
+						<h:commandButton class="submit" value="Continue Creating"
+							action="#{userBean.createCategory}"></h:commandButton>
+					</h:form>
+				</div>
+			</section>
+		</div>
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="success.css" />
+
+	<h:outputStylesheet library="css" name="forms.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+</h:head>
+<h:body>
+	<ui:include src="header-admin.xhtml"></ui:include>
+
+	<h:panelGroup
+		rendered="#{not empty categoryBean.listCategoriesString()}">
+		<center>
+			<h3>Please fill out the fields to add book</h3>
+		</center>
+		<div id="container">
+			<div id="contact">
+				<section id="contact">
+					<div class="containeri">
+						<h:form class="form">
+							<p:growl id="message" showDetail="true" />
+					
+		Title of the book: <h:inputText class="input" required="true"
+								requiredMessage="Please, enter the title" a:placeholder="Title"
+								value="#{bookBean.bookTitle}" />
+							<br />
+		Author of the book: <h:inputText class="input" required="true"
+								requiredMessage="Please, enter the author"
+								a:placeholder="Author" value="#{bookBean.bookAuthor}" />
+							<br />
+		Please choose the category that it will be part of	
+		<br />
+							<div class="box">
+								<h:selectOneMenu class="select"
+									value="#{bookBean.categoryString}">
+									<f:selectItems value="#{categoryBean.listCategoriesString()}"
+										var="category" />
+								</h:selectOneMenu>
+							</div>
+							<br />
+							<p:commandButton value="Add Book" class="submit"
+								action="#{bookBean.addBook}" update="message">
+								<p:confirm header="Confirmation" message="Are you sure?" />
+
+							</p:commandButton>
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+							</p:confirmDialog>
+							<p:messages closable="true">
+							</p:messages>
+						</h:form>
+					</div>
+				</section>
+			</div>
+		</div>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{empty categoryBean.listCategoriesString()}">
+		<h1>There are no categories added yet</h1>
+	</h:panelGroup>
+</h:body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+              http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+<navigation-rule> 
+   <from-view-id>signUp.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{signUpBean.addUser}</from-action> 
+      <from-outcome>page</from-outcome> 
+      <to-view-id>not-activated.xhtml</to-view-id> 
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+<navigation-rule> 
+   <from-view-id>book.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{bookBean.addBook}</from-action> 
+      <from-outcome>added</from-outcome> 
+      <to-view-id>book-added.xhtml</to-view-id> 
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+<navigation-rule> 
+   <from-view-id>category.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{categoryBean.addCategory}</from-action> 
+      <from-outcome>added</from-outcome> 
+      <to-view-id>category-added.xhtml</to-view-id> 
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+<navigation-rule> 
+   <from-view-id>profile.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{userBean.change}</from-action> 
+      <from-outcome>changed</from-outcome> 
+      <to-view-id>changes.xhtml</to-view-id> 
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+<navigation-rule>
+	<from-view-id>index.xhtml</from-view-id>
+	<navigation-case>
+		<from-action>#{loginBean.login}</from-action>
+		<from-outcome>login</from-outcome>
+		<to-view-id>header-admin.xhtml</to-view-id>
+	</navigation-case>
+		
+	<navigation-case>
+		<from-action>#{loginBean.logIn}</from-action>
+		<from-outcome>notActivated</from-outcome>
+		<to-view-id>not-activated.xhtml</to-view-id>	
+	</navigation-case>
+	
+	<navigation-case>
+		<from-action>#{userBean.logIn}</from-action>
+		<from-outcome>disActivated</from-outcome>
+		<to-view-id>disactivated.xhtml</to-view-id>	
+	</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+	<from-view-id>request.xhtml</from-view-id>
+	<navigation-case>
+		<from-action>#{userBean.activate}</from-action>
+		<from-outcome>here</from-outcome>
+		<to-view-id>request.xhtml</to-view-id>
+		<redirect />
+	</navigation-case>
+	
+	<navigation-case>
+		<from-action>#{userBean.deActivate}</from-action>
+		<from-outcome>here</from-outcome>
+		<to-view-id>request.xhtml</to-view-id>
+		<redirect />
+	</navigation-case>
+</navigation-rule>
+
+
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+    
+    
+</faces-config>
