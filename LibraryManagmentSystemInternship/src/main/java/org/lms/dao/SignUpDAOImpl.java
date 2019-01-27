@@ -30,7 +30,8 @@ public class SignUpDAOImpl implements SignUpDAO {
 	@Override
 	public void addUser(UserDTO userDTO) throws ConstraintViolationException {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(userConverter.toModel(userDTO));
+		User user = userConverter.toModel(userDTO);
+		session.persist(user);
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -53,7 +54,6 @@ public class SignUpDAOImpl implements SignUpDAO {
 	public void addRolesForUser(UserDTO userDTO, List<String> rolesString) {
 		Session session = this.sessionFactory.getCurrentSession();
 		UserDTO userDTOFound = this.userDAO.findUser(userDTO.getUsername(), userDTO.getPassword());
-		System.out.println("NULL APO JO " + userDTO);
 		User user = this.userDAO.getUserById(userDTOFound);
 		List<Role> roles = roleDAO.toModelListFromString(rolesString);
 		for (Role role : roles) {

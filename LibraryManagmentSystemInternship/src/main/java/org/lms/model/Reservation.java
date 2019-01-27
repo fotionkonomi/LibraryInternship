@@ -20,11 +20,11 @@ public class Reservation {
 	@Column(name = "reservation_id")
 	private Integer reservationId;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User booker;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "book_id", nullable = false)
 	private Book book;
 

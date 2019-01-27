@@ -7,7 +7,6 @@ import org.lms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public class BookConverterImpl implements BookConverter {
 
 	@Autowired
@@ -31,6 +30,7 @@ public class BookConverterImpl implements BookConverter {
 	public BookDTO toDTO(Book book) {
 		BookDTO bookDTO = new BookDTO();
 		bookDTO.setBookId(book.getBookId());
+		bookDTO.setBookAuthor(book.getBookAuthor());
 		bookDTO.setBookTitle(book.getBookTitle());
 		bookDTO.setCategoryOfThisBook(categoryConverter.toDTO(book.getCategoryOfThisBook()));
 		return bookDTO;

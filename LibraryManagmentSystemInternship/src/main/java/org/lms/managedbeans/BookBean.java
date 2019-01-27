@@ -7,8 +7,11 @@ import javax.faces.bean.ManagedProperty;
 
 import org.lms.dto.BookDTO;
 import org.lms.dto.CategoryDTO;
+import org.lms.dto.UserDTO;
 import org.lms.service.BookService;
 import org.lms.service.CategoryService;
+import org.lms.service.ReservationService;
+import org.lms.service.UserService;
 
 @ManagedBean(name = "bookBean")
 public class BookBean {
@@ -16,11 +19,14 @@ public class BookBean {
 	private BookService bookService;
 	@ManagedProperty(value = "#{categoryService}")
 	private CategoryService categoryService;
+	@ManagedProperty(value = "#{reservationService}")
+	private ReservationService reservationService;
 	private String bookTitle;
 	private String bookAuthor;
 	private CategoryDTO categoryOfThisBook;
 	private BookDTO bookDTO = new BookDTO();
 	private String categoryString;
+	private BookDTO bookSelectedForReserve;
 
 	public String getCategoryString() {
 		return categoryString;
@@ -62,8 +68,34 @@ public class BookBean {
 		return ("added");
 	}
 	
+	public String deliverBook(BookDTO bookDTO) {
+		reservationService.bookDelivering(bookDTO);
+		return "header-admin";
+	}
+	
+	public String freeBook(BookDTO bookDTO) {
+		reservationService.bookFree(bookDTO);
+		return "header-admin";
+	}
+	
+	public UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO) {
+		return reservationService.getUserThatHasBookedTheBook(bookDTO);
+	}
+
+	public UserDTO getUserThatTheBookIsDelivered(BookDTO bookDTO) {
+		return reservationService.getUserThatTheBookIsDelivered(bookDTO);
+	}
+	
 	public List<BookDTO> listBook() {
 		return bookService.listBook();
+	}
+	
+	public List<BookDTO> listBooksBooked() {
+		return bookService.listBooksBooked();
+	}
+	
+	public List<BookDTO> listBooksDelivered() {
+		return bookService.listBooksDelivered();
 	}
 
 	public BookService getBookService() {
@@ -88,6 +120,26 @@ public class BookBean {
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+	
+	public String goToCreateBook() {
+		return "book";
+	}
+
+	public BookDTO getBookSelectedForReserve() {
+		return bookSelectedForReserve;
+	}
+
+	public void setBookSelectedForReserve(BookDTO bookSelectedForReserve) {
+		this.bookSelectedForReserve = bookSelectedForReserve;
+	}
+
+	public ReservationService getReservationService() {
+		return reservationService;
+	}
+
+	public void setReservationService(ReservationService reservationService) {
+		this.reservationService = reservationService;
 	}
 	
 	

@@ -31,6 +31,7 @@ public class SignUpBean {
 	private Integer age;
 	private String gender;
 	private String password;
+	
 	private UserDTO userDTO;
 
 	@PostConstruct

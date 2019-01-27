@@ -10,7 +10,6 @@ import org.lms.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public class CategoryConverterImpl implements CategoryConverter {
 
 	@Autowired

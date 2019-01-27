@@ -1,6 +1,5 @@
 package org.lms.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.lms.dto.RoleDTO;

@@ -5,12 +5,11 @@ import org.lms.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public class ReservationConverterImpl implements ReservationConverter {
 
 	@Autowired
 	private UserConverter userConverter;
-	
+
 	@Autowired
 	private BookConverter bookConverter;
 
@@ -23,6 +22,7 @@ public class ReservationConverterImpl implements ReservationConverter {
 		}
 		reservation.setBook(bookConverter.toModel(reservationDTO.getBookDTO()));
 		reservation.setBooker(userConverter.toModel(reservationDTO.getBookerDTO()));
+		reservation.setStatus(reservationDTO.getStatus());
 		return reservation;
 
 	}
@@ -30,8 +30,10 @@ public class ReservationConverterImpl implements ReservationConverter {
 	@Override
 	public ReservationDTO toDTO(Reservation reservation) {
 		ReservationDTO reservationDTO = new ReservationDTO();
+		reservationDTO.setReservationId(reservation.getReservationId());
 		reservationDTO.setBookDTO(bookConverter.toDTO(reservation.getBook()));
 		reservationDTO.setBookerDTO(userConverter.toDTO((reservation.getBooker())));
+		reservationDTO.setStatus(reservation.getStatus());
 		return reservationDTO;
 	}
 

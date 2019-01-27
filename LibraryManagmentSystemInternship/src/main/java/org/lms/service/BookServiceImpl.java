@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class BookServiceImpl implements BookService {
 
 	@Autowired
@@ -23,15 +24,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@Transactional
 	public void addBook(BookDTO bookDTO) {
 		this.bookDAO.addBook(bookDTO);
 	}
 
 	@Override
-	@Transactional
 	public List<BookDTO> listBook() {
 		return bookDAO.listBook();
+	}
+
+	@Override
+	public List<BookDTO> listBooksBooked() {
+		return bookDAO.listBooksBooked();
+	}
+
+	@Override
+	public List<BookDTO> listBooksDelivered() {
+		return bookDAO.listBooksDelivered();
 	}
 
 }

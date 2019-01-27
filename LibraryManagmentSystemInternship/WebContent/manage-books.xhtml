@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="table.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+
+</h:head>
+<h:body>
+	<ui:include src="header-admin.xhtml"></ui:include>
+	<h:form>
+		<h:panelGroup rendered="#{not empty bookBean.listBooksBooked()}">
+
+			<table align="center" width="100%">
+				<thead>
+					<tr>
+						<th id="headTable" colspan="5">Books that are booked</th>
+					</tr>
+					<tr>
+						<th>Book Title</th>
+						<th>Book Author</th>
+						<th>Category</th>
+						<th>Booker</th>
+						<th>Deliver</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<ui:repeat var="book" value="#{bookBean.listBooksBooked()}">
+						<tr>
+							<td>#{book.bookTitle}</td>
+							<td>#{book.bookAuthor}</td>
+							<td>#{book.categoryOfThisBook.categoryName}</td>
+							<td>#{bookBean.getUserThatHasBookedTheBook(book).username}</td>
+							<td><p:commandButton class="button"
+									style="background-color: green;"
+									action="#{bookBean.deliverBook(book)}" value="Deliver">
+								</p:commandButton></td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{empty bookBean.listBooksBooked()}">
+			<h1>There aren't any books booked</h1>
+		</h:panelGroup>
+	</h:form>
+	<br />
+	<h:form>
+		<h:panelGroup rendered="#{not empty bookBean.listBooksDelivered()}">
+
+			<table align="center" width="100%">
+				<thead>
+					<tr>
+						<th id="headTable" colspan="5">Books that are delivered</th>
+					</tr>
+					<tr>
+						<th>Book Title</th>
+						<th>Book Author</th>
+						<th>Category</th>
+						<th>Delivered to</th>
+						<th>Free</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<ui:repeat var="book" value="#{bookBean.listBooksDelivered()}">
+						<tr>
+							<td>#{book.bookTitle}</td>
+							<td>#{book.bookAuthor}</td>
+							<td>#{book.categoryOfThisBook.categoryName}</td>
+							<td>#{bookBean.getUserThatTheBookIsDelivered(book).username}</td>
+							<td><p:commandButton class="button"
+									style="background-color: green;"
+									action="#{bookBean.freeBook(book)}" value="Free">
+								</p:commandButton></td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{ empty bookBean.listBooksDelivered()}">
+			<h1>There aren't any requests</h1>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

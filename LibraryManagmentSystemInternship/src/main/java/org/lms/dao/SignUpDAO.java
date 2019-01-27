@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.lms.dto.UserDTO;
-import org.lms.model.Role;
 
 public interface SignUpDAO {
 

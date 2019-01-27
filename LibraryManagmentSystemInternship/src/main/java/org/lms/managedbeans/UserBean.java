@@ -10,15 +10,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.hibernate.exception.ConstraintViolationException;
+import org.lms.dto.BookDTO;
 import org.lms.dto.RoleDTO;
 import org.lms.dto.UserDTO;
 import org.lms.model.User;
+import org.lms.service.ReservationService;
 import org.lms.service.UserService;
 import org.lms.utils.Encryptor;
 import org.springframework.dao.DataIntegrityViolationException;
-
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
@@ -28,6 +27,8 @@ public class UserBean {
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
+	@ManagedProperty(value = "#{reservationService}")
+	private ReservationService reservationService;
 	private UserDTO userDTOLogged;
 	private UserDTO userToBeActivated;
 	private String username;
@@ -115,7 +116,6 @@ public class UserBean {
 
 	public Boolean isUserAdmin() {
 		for(RoleDTO roleDTO : rolesOfThisUser) {
-			System.out.println(roleDTO.getRoleName());
 			if(roleDTO.getRoleName().equals("Admin")) {
 				return true;
 			}
@@ -125,7 +125,6 @@ public class UserBean {
 	
 	public Boolean isUserSecretary() {
 		for(RoleDTO roleDTO : rolesOfThisUser) {
-			System.out.println(roleDTO.getRoleName());
 			if(roleDTO.getRoleName().equals("Secretary")) {
 				return true;
 			}
@@ -271,8 +270,19 @@ public class UserBean {
 	public void setRolesOfThisUser(List<RoleDTO> rolesOfThisUser) {
 		this.rolesOfThisUser = rolesOfThisUser;
 	}
-	
 
-	
+	public ReservationService getReservationService() {
+		return reservationService;
+	}
 
+	public void setReservationService(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
+		
+	public String reserveBook(BookDTO bookDTO) {
+		reservationService.bookReservation(bookDTO, userDTOLogged);
+		return "header-admin";
+	}
+	
+	
 }

@@ -138,6 +138,18 @@
 		<beans:property name="loginDAO" ref="loginDAO"></beans:property>
 	</beans:bean>
 	
+	<beans:bean id="reservationDAO" class="org.lms.dao.ReservationDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+		<beans:property name="reservationConverter"
+			ref="reservationConverter"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="reservationService"
+		class="org.lms.service.ReservationServiceImpl">
+		<beans:property name="reservationDAO" ref="reservationDAO"></beans:property>
+	</beans:bean>
+	
 	<beans:bean id="signUpDAO" class="org.lms.dao.SignUpDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />

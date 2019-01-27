@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.lms.dto.CategoryDTO;
@@ -11,6 +12,7 @@ import org.lms.model.Category;
 import org.lms.service.CategoryService;
 
 @ManagedBean(name = "categoryBean")
+@RequestScoped
 public class CategoryBean {
 
 	@ManagedProperty(value = "#{categoryService}")
@@ -67,5 +69,9 @@ public class CategoryBean {
 
 	public List<String> listCategoriesString() {
 		return categoryService.listCategoriesInString();
+	}
+	
+	public String goToCreateCategory() {
+		return ("category");
 	}
 }

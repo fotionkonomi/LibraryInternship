@@ -6,64 +6,50 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="table.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+
 </h:head>
 <h:body>
 	<ui:include src="header-admin.xhtml"></ui:include>
-		<h:form>
-		<h:panelGroup
-			rendered="#{not empty bookBean.listBook()}">
+	<h:form>
+		<h:panelGroup rendered="#{not empty bookBean.listBook()}">
 
 			<table align="center" width="100%">
 				<thead>
 					<tr>
-						<th id="headTable" colspan="8">Books that are available to book</th>
+						<th id="headTable" colspan="8">Books that are available to
+							book</th>
 					</tr>
 					<tr>
 						<th>Book Title</th>
 						<th>Book Author</th>
 						<th>Category</th>
-						
-						<th colspan="2">Your action</th>
+						<th>Deliver</th>
 					</tr>
 
 				</thead>
 				<tbody>
-					<ui:repeat var="user"
-						value="#{userBean.usersThatAreNotActivated()}">
+					<ui:repeat var="book" value="#{bookBean.listBook()}">
 						<tr>
-							<td>#{user.firstName}</td>
-							<td>#{user.lastName}</td>
-							<td>#{user.username}</td>
-							<td>#{user.email}</td>
-							<td>#{user.age}</td>
-							<ui:fragment rendered="#{user.gender eq true}">
-								<td>Male</td>
-							</ui:fragment>
-							<ui:fragment rendered="#{user.gender eq false}">
-								<td>Female</td>
-							</ui:fragment>
-							
-							<td><h:commandButton class="button"
-									style="background-color: green;" action="#{userBean.activate}"
-									value="Approve">
-									<f:setPropertyActionListener value="#{user}"
-										target="#{userBean.userToBeActivated}"></f:setPropertyActionListener>
-								</h:commandButton></td>
-							<td><h:commandButton class="button"
-									style="background-color: #ed6847;"
-									action="#{userBean.deActivate}" value="Disapprove">
-									<f:setPropertyActionListener value="#{user}"
-										target="#{userBean.userToBeActivated}"></f:setPropertyActionListener>
-								</h:commandButton></td>
+							<td>#{book.bookTitle}</td>
+							<td>#{book.bookAuthor}</td>
+							<td>#{book.categoryOfThisBook.categoryName}</td>
+
+							<td><p:commandButton class="button"
+									style="background-color: green;" action="#{userBean.reserveBook(book)}"
+									value="Reserve">
+								</p:commandButton></td>
 						</tr>
 					</ui:repeat>
 				</tbody>
 			</table>
 		</h:panelGroup>
-		<h:panelGroup rendered="#{empty userBean.usersThatAreNotActivated()}">
-			<h1>There aren't any requests</h1>
+		<h:panelGroup rendered="#{empty bookBean.listBook()}">
+			<h1>There aren't any books for you to book</h1>
 		</h:panelGroup>
 	</h:form>
-	
+
 </h:body>
 </html>

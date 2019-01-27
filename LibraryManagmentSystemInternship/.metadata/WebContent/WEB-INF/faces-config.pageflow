@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15475545160840" configfile="/JSF_Spring_Hibernate4/WebContent/WEB-INF/faces-config.xml">
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15475545160840" configfile="/LibraryManagmentSystemInternship/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="signUp.xhtml" x="122" y="178" id="pf15480601325663" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15480601325664" path="signUp.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="178" id="pf15480601325665" referenceLink="//@navigationRule.3/@navigationCase.1/@toViewId|" inlinks="pf15480601325664 pf154807184513211" path="not-activated.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf154807184513312" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf154807184513211 pf154811183501218 pf15482469869300" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="request.xhtml" x="122" y="946" id="pf154808456463015" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf154808456463016 pf154811183501219" inlinks="pf154808456463016 pf154811183501219" path="request.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="178" id="pf15480601325665" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" inlinks="pf15480601325664 pf154807184513211" path="not-activated.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf154807184513312" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf154807184513211 pf154811183501218 pf15482469869300" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="request.xhtml" x="122" y="946" id="pf154808456463015" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf154808456463016 pf154811183501219" inlinks="pf154808456463016 pf154811183501219" path="request.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="not-activated.xhtml" x="122" y="1330" id="pf154811183501220" referenceLink="//@navigationRule.3/@navigationCase.1/@toViewId|" path="not-activated.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="disactivated.xhtml" x="338" y="562" id="pf154811183501221" referenceLink="//@navigationRule.3/@navigationCase.2/@toViewId|" inlinks="pf154811183501218" path="disactivated.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="disactivated.xhtml" x="338" y="562" id="pf154811183501221" referenceLink="//@navigationRule.4/@navigationCase.2/@toViewId|" inlinks="pf154811183501218" path="disactivated.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="book.xhtml" x="122" y="1714" id="pf154816975844722" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf154816975844723" path="book.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="book-added.xhtml" x="338" y="1714" id="pf154816975844724" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf154816975844723" path="book-added.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" x="122" y="2098" id="pf154816975844725" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf154816975844726" path="category.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category-added.xhtml" x="338" y="2098" id="pf154816975844727" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf154816975844726" path="category-added.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="946" id="pf15482469869301" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15482469869300" path="header-admin.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="946" id="pf15482469869301" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15482469869300" path="header-admin.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" id="pf15482469869302" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15482469869303" path="profile.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="changes.xhtml" id="pf15482469869304" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15482469869303" path="changes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" id="pf15484257074230" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15484257074231" path="category.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="category-added.xhtml" id="pf15484257074232" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15484257074231" path="category-added.xhtml"/>
   <links id="pf15480601325664" target="pf15480601325665" source="pf15480601325663" outcome="page" fromaction="#{signUpBean.addUser}"/>
   <links id="pf154807184513211" target="pf15480601325665" source="pf154807184513312" outcome="notActivated" fromaction="#{loginBean.logIn}"/>
   <links id="pf154811183501218" target="pf154811183501221" source="pf154807184513312" outcome="disActivated" fromaction="#{userBean.logIn}"/>
   <links id="pf154816975844723" target="pf154816975844724" source="pf154816975844722" outcome="added" fromaction="#{bookBean.addBook}"/>
-  <links id="pf154816975844726" target="pf154816975844727" source="pf154816975844725" outcome="added" fromaction="#{categoryBean.addCategory}"/>
   <links id="pf15482469869300" target="pf15482469869301" source="pf154807184513312" outcome="login" fromaction="#{loginBean.login}"/>
   <links id="pf154808456463016" target="pf154808456463015" source="pf154808456463015" outcome="here" redirect="true" fromaction="#{userBean.activate}">
     <bendPoints d1Height="-36" d2Height="-36"/>
@@ -30,4 +29,5 @@
     <bendPoints d1Width="-94" d2Width="-94"/>
   </links>
   <links id="pf15482469869303" target="pf15482469869304" source="pf15482469869302" outcome="changed" fromaction="#{userBean.change}"/>
+  <links id="pf15484257074231" target="pf15484257074232" source="pf15484257074230" outcome="added" fromaction="#{categoryBean.addCategory}"/>
 </pageflow:Pageflow>

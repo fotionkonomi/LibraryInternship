@@ -44,7 +44,7 @@ public class BookDAOImpl implements BookDAO {
 		session.persist(book);
 	}
 	
-	private Book getBookById(BookDTO bookDTO) {
+	public Book getBookById(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("Select b from Book b where b.bookId=:bookId");
 		query.setParameter("bookId", bookDTO.getBookId());
@@ -63,6 +63,30 @@ public class BookDAOImpl implements BookDAO {
 	public List<BookDTO> listBook() {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("Select b from Book b Where b Not In (Select r.book From Reservation r where r.status = 1 or r.status = 2)");
+		List<Book> books = query.list();
+		List<BookDTO> booksDTO = new ArrayList<BookDTO>();
+		for(Book book : books) {
+			booksDTO.add(bookConverter.toDTO(book));
+		}
+		return booksDTO;
+	}
+
+	@Override
+	public List<BookDTO> listBooksBooked() {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("Select b from Book b where b In (Select r.book From Reservation r where r.status = 1)");
+		List<Book> books = query.list();
+		List<BookDTO> booksDTO = new ArrayList<BookDTO>();
+		for(Book book : books) {
+			booksDTO.add(bookConverter.toDTO(book));
+		}
+		return booksDTO;
+	}
+
+	@Override
+	public List<BookDTO> listBooksDelivered() {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("Select b from Book b where b In (Select r.book From Reservation r where r.status = 2)");
 		List<Book> books = query.list();
 		List<BookDTO> booksDTO = new ArrayList<BookDTO>();
 		for(Book book : books) {
