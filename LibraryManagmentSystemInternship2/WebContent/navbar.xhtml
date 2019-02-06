@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="all.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,700,400italic,700italic'
+		rel='stylesheet' type='text/css'></link>
+	<style>
+	.companyHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+#reset, .reset {
+	all: initial; * {
+	all: unset;
+}
+}
+</style>
+</h:head>
+<h:body>
+	<div id="header">
+		<div class="container">
+			<div class="logo">
+				<a style="color: white; font-size: 20px;" href="first-page-after-login.xhtml">Home</a>
+			</div>
+			<div class="menu" id="nav">
+
+				<div class="nav-drop">
+					<h:form>
+						<ol>
+							<ui:fragment rendered="#{userBean.isUserAdmin() eq true}">
+								<li><div class="dropdown">
+										<a class="dropbtn" href="#">Add more</a>
+										<div class="dropdown-content12">
+											<a href="category.xhtml">Category</a>
+											<a href="bookPF.xhtml">Book</a>
+										</div>
+									</div></li>
+								<li><div class="dropdown">
+										<a class="dropbtn" href="#">Manage users</a>
+										<div class="dropdown-content12">
+											<a href="request.xhtml">Accept Requests</a> <a
+												href="choose-roles.xhtml">Manage Roles</a>
+										</div>
+									</div></li>
+							</ui:fragment>
+							<li><a href="reserve.xhtml">Reserve Book</a></li>
+
+							<ui:fragment rendered="#{userBean.isUserSecretary() eq true}">
+								<li><a href="manage-books.xhtml">Manage Books</a></li>
+							</ui:fragment>
+							<li><div class="dropdown">
+									<a class="dropbtn" href="#">#{userBean.username}</a>
+									<div class="dropdown-content12">
+										<a href="profile.xhtml">Manage Profile</a>
+										<h:commandLink action="#{logOutBean.logout}">Log out</h:commandLink>
+									</div>
+								</div></li>
+						</ol>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

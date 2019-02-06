@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="util.css" />
+	<style>
+.select {
+	background: white;
+	color: #adadad;
+	width: 180px;
+	height: 25px;
+	border: solid;
+	border-color: #adadad;
+	font-size: 14px;
+}
+</style>
+</h:head>
+<h:body>
+
+	<p:tooltip />
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<h:form class="login100-form validate-form" id="form">
+					<p:growl id="msgs" showDetail="true" />
+
+					<center>
+						<h2>Welcome</h2>
+					</center>
+					<br />
+					<div class="wrap-input100 validate-input">
+						<h:inputText class="input100" value="#{signUpBean.firstName}"
+							a:placeholder="First Name" required="true"
+							requiredMessage="Please enter your first name" id="firstName"></h:inputText>
+						<p:messages for="firstName" closable="true"></p:messages>
+					</div>
+
+
+					<div class="wrap-input100 validate-input">
+						<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+						</span>
+						<h:inputText class="input100" required="true" id="lastName"
+							requiredMessage="Please enter your last name"
+							a:placeholder="Last Name" value="#{signUpBean.lastName}"></h:inputText>
+						<p:messages for="lastName" closable="true"></p:messages>
+
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<h:inputText class="input100" required="true"
+							requiredMessage="Please enter a username" id="username"
+							value="#{signUpBean.username}" a:placeholder="Username"></h:inputText>
+						<p:messages for="username" closable="true"></p:messages>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+						</span>
+						<h:inputText class="input100" required="true"
+							requiredMessage="Please enter an email" a:placeholder="Email"
+							value="#{signUpBean.email}" id="email"
+							validatorMessage="Email format is not correct">
+							<f:validateRegex
+								pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+						</h:inputText>
+						<p:messages for="email" closable="true" />
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+						</span>
+						<h:inputText class="input100" id="age" required="true"
+							requiredMessage="Please enter your age"
+							converterMessage="Please enter a number" a:placeholder="Age"
+							value="#{signUpBean.age}">
+							<f:convertNumber integerOnly="true"></f:convertNumber>
+
+						</h:inputText>
+						<p:messages for="age" closable="true"></p:messages>
+					</div>
+
+					<h:selectOneMenu id="gender" class="select"
+						value="#{signUpBean.gender}">
+						<f:selectItem itemValue="0" itemLabel="Select your gender" />
+						<f:selectItem itemValue="Male" itemLabel="Male" />
+						<f:selectItem itemValue="Female" itemLabel="Female" />
+					</h:selectOneMenu>
+					<p:messages for="gender" closable="true"></p:messages>
+					<br />
+					<br />
+					<br />
+
+					<div class="wrap-input100 validate-input">
+						<h:inputSecret class="input100" value="#{signUpBean.password}"
+							required="true" requiredMessage="Please enter a password"
+							validatorMessage="Password must contain at least an uppercase, a lowercase and a number"
+							a:placeholder="Password" id="password">
+							<f:validateRegex pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+						</h:inputSecret>
+						<p:messages for="password" closable="true"></p:messages>
+					</div>
+					<p:messages closable="true"></p:messages>
+					<p:messages for="Existing" closable="true">
+
+					</p:messages>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<p:commandButton class="button" value="Sign Up"
+								update=":form:msgs" onclick="PF('dlg3').show();"
+								action="#{signUpBean.addUser}" />
+
+						</div>
+
+					</div>
+					<p:dialog header="Success!" widgetVar="dlg3" showEffect="drop"
+						hideEffect="drop" height="180" width="600">
+						<h:outputText value="You have successfully signed up!"></h:outputText>
+						<br />
+						<br />
+						<br />
+						<h:outputText
+							value="Please wait until the administrators make your profile valid!"></h:outputText>
+
+					</p:dialog>
+				</h:form>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+</h:body>
+</html>

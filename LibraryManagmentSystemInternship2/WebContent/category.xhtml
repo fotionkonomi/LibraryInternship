@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="forms.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+	<style>
+.ui-datatable.ui-widget {
+	width: 80%;
+	opacity: 0.9;
+	border-radius: 50%;
+}
+</style>
+
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="title">
+			<h:outputText value="Categories"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<center>
+				<h:form id="form">
+					<p:growl id="msgs" showDetail="true" />
+
+					<p:dataTable selectionMode="single"
+						selection="#{categoryBean.selectedCategory}"
+						rowKey="#{category.categoryName}" id="categories1"
+						widgetVar="categories1" var="category"
+						value="#{categoryBean.allCategories}" editable="true"
+						style="margin-bottom:20px" paginator="true" rows="10"
+						rowsPerPageTemplate="10,20,30,40,50">
+						<f:facet name="header">
+            Categories
+        </f:facet>
+
+						<p:ajax event="rowSelect" />
+						<p:ajax event="rowUnselect" />
+						<p:column headerText="Name">
+
+							<h:outputText value="#{category.categoryName}" />
+
+						</p:column>
+
+						<p:column headerText="Description">
+
+							<h:outputText value="#{category.categoryDescription}" />
+
+						</p:column>
+
+						<p:column headerText="Date Created">
+							<h:outputText value="#{category.created}" />
+						</p:column>
+
+						<p:column headerText="Date Modified">
+							<h:outputText value="#{category.modified}" />
+						</p:column>
+
+
+						<p:column style="width:32px">
+							<p:rowEditor />
+						</p:column>
+					</p:dataTable>
+
+
+					<p:contextMenu for="categories1">
+						<p:menuitem value="View" update="catDetail" icon="pi pi-search"
+							oncomplete="PF('catDialog').show()" />
+					</p:contextMenu>
+
+
+
+
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:commandButton value="Add New Category"
+								styleClass="ui-priority-primary"
+								oncomplete="PF('addCat').show()" />
+						</div>
+					</div>
+					<p:dialog header="Add Category" widgetVar="addCat"
+						showEffect="fade" hideEffect="fade" resizable="true" height="150"
+						width="400">
+						<h:form>
+							<center>
+
+
+								<h:outputText value="Name:" />
+								<h:inputText value="#{categoryBean.categoryDTO.categoryName}" />
+
+								<h:outputText value="Description:" />
+								<h:inputText
+									value="#{categoryBean.categoryDTO.categoryDescription}" />
+
+
+							</center>
+
+							<h:commandButton value="Add Category"
+								styleClass="ui-priority-primary" process="@this"
+								action="#{categoryBean.addCategory}" >
+								<f:setPropertyActionListener value="#{categoryBean.categoryDTO}" target="#{categoryAddedBean.categoryAdded}" />
+								</h:commandButton>
+						</h:form>
+					</p:dialog>
+
+				</h:form>
+
+				<p:dialog header="Category Info" widgetVar="catDialog"
+					showEffect="fade" hideEffect="fade" resizable="true" height="150"
+					width="400">
+					<p:outputPanel id="catDetail" style="text-align:center;">
+						<center>
+							<p:panelGrid columns="2" columnClasses="label,value">
+
+
+								<h:outputText value="Name:" />
+								<h:outputText
+									value="#{categoryBean.selectedCategory.categoryName}" />
+
+								<h:outputText value="Description:" />
+								<h:outputText
+									value="#{categoryBean.selectedCategory.categoryDescription}" />
+
+
+							</p:panelGrid>
+						</center>
+						<h:form>
+							<p:commandButton value="Edit This Category"
+								styleClass="ui-priority-primary" process="@this"
+								action="#{categoryEditBean.goToEdit}" />
+						</h:form>
+					</p:outputPanel>
+				</p:dialog>
+
+
+			</center>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

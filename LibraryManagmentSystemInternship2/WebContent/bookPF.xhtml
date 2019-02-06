@@ -1,0 +1,145 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+
+
+</h:head>
+<h:body>
+		<ui:include src="navbar.xhtml"></ui:include>
+	<br />
+	<br />
+	<br />
+	<center>
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="books1" widgetVar="books1" var="book"
+				value="#{bookBean.listAllBooks}" editable="true"
+				style="margin-bottom:20px">
+				<f:facet name="header">
+            Books
+        </f:facet>
+
+				<p:ajax event="rowEdit" listener="#{bookBean.onRowEdit}"
+					update=":form:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{bookBean.onRowCancel}"
+					update=":form:msgs" />
+
+				<p:column headerText="Title">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{book.bookTitle}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{book.bookTitle}"
+								style="width:50%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Author">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{book.bookAuthor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{book.bookAuthor}" style="width:50%"
+								label="Author" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Category">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{book.categoryOfThisBook.categoryName}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{bookBean.categoryString}"
+								style="width:100%">
+								<f:selectItems value="#{categoryBean.listCategoriesString()}"
+									var="category" itemLabel="#{category}" itemValue="#{category}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:32px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:commandButton value="Add new row"
+						styleClass="ui-priority-primary" process="@this"
+						update=":form:msgs" onclick="PF('dlg3').show();" />
+				</div>
+			</div>
+			<p:dialog header="Add Book" widgetVar="dlg3" showEffect="drop"
+				hideEffect="drop" height="180" width="430">
+				<div class="reset">
+					<h4 style="color: black;">Please fill out the fields to enter
+						a new book</h4>
+				</div>
+				<center>
+					<div id="container">
+						<div id="contact">
+							<section id="contact">
+								<div class="containeri" id="reset">
+									<h:form class="form">
+										<p:growl id="message" />
+										<p:panelGrid styleClass="companyHeaderGrid" columns="3">
+		Title Of The Book : <h:inputText id="name" class="input"
+												required="true" requiredMessage="Please, enter the title!"
+												value="#{bookBean.bookTitle}" a:placeholder="Title" />
+											<p:messages for="title"></p:messages>
+											<br />
+		Author Of The Book: <h:inputText id="description" class="input"
+												a:placeholder="Description" required="true"
+												requiredMessage="Please, enter the author"
+												value="#{bookBean.bookAuthor}" />
+											<p:messages for="author"></p:messages>
+											<br />
+
+
+
+											<h:selectOneMenu class="select"
+												value="#{bookBean.categoryString}">
+												<f:selectItems
+													value="#{categoryBean.listCategoriesString()}"
+													var="category" />
+											</h:selectOneMenu>
+
+											<p:column style="width:32px">
+												<p:rowEditor />
+											</p:column>
+
+										</p:panelGrid>
+										<p:commandButton class="submit" update="message"
+											value="Add Book" action="#{bookBean.addBook}"
+											oncomplete="PF('books1').addRow();">
+											<p:confirm header="Confirmation" message="Are you sure?" />
+
+										</p:commandButton>
+
+										<p:confirmDialog global="true" showEffect="fade">
+											<p:commandButton value="Yes" type="button"
+												styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+											<p:commandButton value="No" type="button"
+												styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+										</p:confirmDialog>
+									</h:form>
+								</div>
+							</section>
+						</div>
+					</div>
+				</center>
+			</p:dialog>
+
+		</h:form>
+	</center>
+</h:body>
+</html>

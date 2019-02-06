@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="forms.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+	<style>
+.ui-datatable.ui-widget {
+	width: 80%;
+	opacity: 0.9;
+	border-radius: 50%;
+}
+</style>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Edit Category"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<center>
+			<h2 style="color: red;">ERROR!</h2>
+			<h3>There is a category with that name already created, you have to create categories with distinct names!</h3>
+			<a href="category.xhtml">Go back</a>
+			</center>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

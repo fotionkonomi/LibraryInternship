@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="util.css" />
+
+	<style>
+.select {
+	background: white;
+	color: #adadad;
+	width: 180px;
+	height: 25px;
+	border: solid;
+	border-color: #adadad;
+	font-size: 14px;
+}
+</style>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Profile"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<p:tooltip />
+			<center>
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<h:form class="login100-form validate-form">
+								<p:growl id="message" showDetail="true" />
+								<h2>Welcome</h2>
+
+								<br />
+								<div class="wrap-input100 validate-input">
+									<h:inputText class="input100"
+										value="#{userBean.userDTOChanges.firstName}"
+										a:placeholder="First Name" id="firstName"></h:inputText>
+									<p:messages for="firstName" closable="true"></p:messages>
+								</div>
+
+
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" id="lastName"
+										a:placeholder="Last Name"
+										value="#{userBean.userDTOChanges.lastName}"></h:inputText>
+									<p:messages for="lastName" closable="true"></p:messages>
+
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<h:inputText class="input100" id="username"
+										value="#{userBean.userDTOChanges.username}"
+										a:placeholder="Username"></h:inputText>
+									<p:messages for="username" closable="true"></p:messages>
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" a:placeholder="Email"
+										value="#{userBean.userDTOChanges.email}" id="email"
+										validatorMessage="Email format is not correct">
+										<f:validateRegex
+											pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+									</h:inputText>
+									<p:messages for="email" closable="true" />
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" id="age"
+										converterMessage="Please enter a number" a:placeholder="Age"
+										value="#{userBean.userDTOChanges.age}">
+										<f:convertNumber integerOnly="true"></f:convertNumber>
+
+									</h:inputText>
+									<p:messages for="age" closable="true"></p:messages>
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<h:inputSecret class="input100"
+										value="#{userBean.userDTOChanges.password}"
+										validatorMessage="Password must contain at least an uppercase, a lowercase and a number"
+										a:placeholder="Password" id="password">
+										<f:validateRegex
+											pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+									</h:inputSecret>
+									<p:messages for="password" closable="true"></p:messages>
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<h:inputSecret class="input100"
+										value="#{userBean.confirmation}"
+										a:placeholder="Confirmation password"></h:inputSecret>
+									<p:messages for="confirmation" closable="true"></p:messages>
+								</div>
+								<p:messages for="Existing" closable="true">
+
+								</p:messages>
+								<div class="container-login100-form-btn">
+									<div class="wrap-login100-form-btn">
+										<div class="login100-form-bgbtn"></div>
+										<p:commandButton class="button" value="Change"
+											action="#{userBean.change}" update="message">
+											<p:confirm header="Confirmation" message="Are you sure?" />
+										</p:commandButton>
+
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="fade">
+											<p:commandButton value="Yes" type="button"
+												styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+											<p:commandButton value="No" type="button"
+												styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+										</p:confirmDialog>
+										<ui:fragment rendered="#{userBean.isUserAdmin() eq false}">
+
+											<p:commandButton class="button"
+												value="I want to deactivate my account"
+												action="#{userBean.deActivateMyAccount}" update="message">
+												<p:confirm header="Confirmation"
+													message="This action is permanent, Are you sure?" />
+											</p:commandButton>
+										</ui:fragment>
+
+									</div>
+
+								</div>
+
+
+							</h:form>
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div id="dropDownSelect1"></div>
+			</center>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

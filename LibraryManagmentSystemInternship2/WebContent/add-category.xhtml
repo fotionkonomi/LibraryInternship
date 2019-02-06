@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="forms.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+
+	<style>
+.ui-datatable.ui-widget {
+	width: 80%;
+	opacity: 0.9;
+	border-radius: 50%;
+}
+</style>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="body">
+			<center>
+				<h:form class="form">
+					<p:growl id="message" />
+					<p:panelGrid styleClass="companyHeaderGrid" columns="3">
+		Name of category: <h:inputText id="name" class="input" required="true"
+							requiredMessage="Please, enter the name!"
+							value="#{categoryBean.categoryDTO.categoryName}"
+							a:placeholder="Name" />
+						<p:messages for="name"></p:messages>
+						<br />
+		Description: <h:inputText id="description" class="input"
+							a:placeholder="Description" required="true"
+							requiredMessage="Please, enter the description"
+							value="#{categoryBean.categoryDTO.categoryDescription}" />
+						<p:messages for="description"></p:messages>
+						<br />
+
+
+						<p:commandButton class="submit" value="Create Category"
+							action="#{categoryBean.addCategory}" update="message">
+							<p:confirm header="Confirmation" message="Are you sure?"  />
+
+						</p:commandButton>
+						<p:messages for="Created"></p:messages>
+						<p:messages for="Existing"></p:messages>
+					</p:panelGrid>
+					<p:confirmDialog  global="true" showEffect="fade">
+						<p:commandButton id="buton" value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</h:form>
+			</center>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

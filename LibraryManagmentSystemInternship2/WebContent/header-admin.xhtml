@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+</h:head>
+<h:body>
+	<header>
+		<div class="container">
+			<h:form>
+				<nav>
+					<a href="request.xhtml"><h:graphicImage class="logo"
+							url="https://parentnetworkwny.org/wp-content/uploads/resources-blue.png" /></a>
+					<ul>
+						<ui:fragment rendered="#{userBean.isUserAdmin() eq true}">
+							<li><div class="dropdown">
+									<a href="category.xhtml">Add Category</a>
+								</div></li>
+							<li><a href="manage-books.xhtml">Manage Books</a></li>
+							<li><a href="book.xhtml">Add Book</a></li>
+							<li><a href="choose-roles.xhtml">Roles of users</a></li>
+							<li><a href="request.xhtml">Requests</a></li>
+						</ui:fragment>
+						<li><a href="reserve.xhtml">Reserve Book</a></li>
+
+						<li><div class="dropdown">
+
+								<a href="#" class="dropbtn">#{userBean.username}</a>
+								<div class="dropdown-content">
+									<a href="profile.xhtml">Manage Profile</a>
+									<h:commandLink action="#{logOutBean.logout}">Log Out</h:commandLink>
+
+								</div>
+							</div></li>
+					</ul>
+				</nav>
+			</h:form>
+		</div>
+	</header>
+	<br />
+	<br />
+	<br />
+
+</h:body>
+</html>
