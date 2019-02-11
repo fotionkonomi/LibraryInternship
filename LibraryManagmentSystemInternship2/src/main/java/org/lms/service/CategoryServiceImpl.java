@@ -1,10 +1,13 @@
 package org.lms.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.lms.converter.CategoryConverter;
 import org.lms.dao.CategoryDAO;
 import org.lms.dto.CategoryDTO;
+import org.lms.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,11 +50,17 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public CategoryDTO categoryViaString(String categoryName) {
-		return this.categoryDAO.categoryViaCategory(categoryName);
+		return CategoryConverter.toDTO(this.categoryDAO.categoryViaString(categoryName));
 	}
 
 	@Override
 	public void updateCategory(CategoryDTO category) {
 		this.categoryDAO.updateCategory(category);
+	}
+
+	@Override
+	public CategoryDTO getCategoryById(int id) {
+		Category category =  categoryDAO.getCategoryById(id);
+		return CategoryConverter.toDTO(category);
 	}
 }

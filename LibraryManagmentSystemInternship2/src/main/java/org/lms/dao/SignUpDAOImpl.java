@@ -19,18 +19,15 @@ public class SignUpDAOImpl implements SignUpDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private UserConverter userConverter;
-
-	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Autowired
 	private RoleDAO roleDAO;
 
 	@Override
-	public void addUser(UserDTO userDTO){
+	public void addUser(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = userConverter.toModel(userDTO);
+		User user = UserConverter.toModel(userDTO);
 		session.persist(user);
 	}
 
@@ -40,14 +37,6 @@ public class SignUpDAOImpl implements SignUpDAO {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
-
-	public UserConverter getUserConverter() {
-		return userConverter;
-	}
-
-	public void setUserConverter(UserConverter userConverter) {
-		this.userConverter = userConverter;
 	}
 
 	@Override

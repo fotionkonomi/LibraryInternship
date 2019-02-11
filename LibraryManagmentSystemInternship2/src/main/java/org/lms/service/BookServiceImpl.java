@@ -2,8 +2,10 @@ package org.lms.service;
 
 import java.util.List;
 
+import org.lms.converter.BookConverter;
 import org.lms.dao.BookDAO;
 import org.lms.dto.BookDTO;
+import org.lms.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +53,17 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void updateBook(BookDTO bookDTO) {
 		bookDAO.updateBook(bookDTO);
+	}
+
+	@Override
+	public BookDTO getBookById(int id) {
+		Book book = bookDAO.getBookById(id);
+		return BookConverter.toDTO(book);
+	}
+
+	@Override
+	public BookDTO getBookByISBN(int isbn) {
+		return bookDAO.getBookByISBN(isbn);
 	}
 
 }

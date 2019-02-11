@@ -116,22 +116,13 @@
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<p:commandButton class="button" value="Sign Up"
-								update=":form:msgs" onclick="PF('dlg3').show();"
+								update=":form:msgs" 
 								action="#{signUpBean.addUser}" />
 
 						</div>
 
 					</div>
-					<p:dialog header="Success!" widgetVar="dlg3" showEffect="drop"
-						hideEffect="drop" height="180" width="600">
-						<h:outputText value="You have successfully signed up!"></h:outputText>
-						<br />
-						<br />
-						<br />
-						<h:outputText
-							value="Please wait until the administrators make your profile valid!"></h:outputText>
-
-					</p:dialog>
+				
 				</h:form>
 
 			</div>

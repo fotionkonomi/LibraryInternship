@@ -10,6 +10,10 @@ public interface BookService {
 
 	void updateBook(BookDTO bookDTO);
 	
+	BookDTO getBookById(int id);
+	
+	BookDTO getBookByISBN(int isbn);
+	
 	List<BookDTO> listAllBooks();
 	
 	List<BookDTO> listBookFree();
@@ -17,4 +21,6 @@ public interface BookService {
 	List<BookDTO> listBooksBooked();
 
 	List<BookDTO> listBooksDelivered();
+	
+	
 }

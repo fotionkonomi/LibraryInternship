@@ -16,77 +16,83 @@
 		</ui:define>
 
 		<ui:define name="body">
+			<style>
+.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
+	display: none;
+}
+
+.ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
+	border: none;
+}
+</style>
+			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
+
 			<center>
 				<h:form id="form">
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="books1" widgetVar="books1" var="book"
-						value="#{bookBean.listAllBooks}" editable="true" style="margin-bottom:20px" paginator="true"
-						rows="10" rowsPerPageTemplate="10,20,30,40,50">
+					<p:dataTable selectionMode="single"
+						selection="#{bookBean.bookSelected}" rowKey="#{book.isbn}"
+						id="books1" widgetVar="books1" var="book"
+						value="#{bookBean.listAllBooks}" editable="true"
+						style="margin-bottom:20px" paginator="true" rows="10"
+						rowsPerPageTemplate="10,20,30,40,50">
 						<f:facet name="header">
             Books
         </f:facet>
-
-						<p:ajax event="rowEdit" listener="#{bookBean.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{bookBean.onRowCancel}"
-							update=":form:msgs" />
-
-						<p:column headerText="Title">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{book.bookTitle}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{book.bookTitle}"
-										style="width:50%" />
-								</f:facet>
-							</p:cellEditor>
+						<p:ajax event="rowSelect" />
+						<p:ajax event="rowUnselect" />
+						<p:column style="width: 200px;" headerText="Photo">
+							<h:graphicImage style="width: 200px; height: 200px;"
+								library="images" name="#{book.image}"></h:graphicImage>
 						</p:column>
 
-						<p:column headerText="Author">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{book.bookAuthor}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{book.bookAuthor}" style="width:50%"
-										label="Author" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						<p:column headerText="Category">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{book.categoryOfThisBook.categoryName}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{bookBean.categoryString}"
-										style="width:100%">
-										<f:selectItems value="#{categoryBean.listCategoriesString()}"
-											var="category" itemLabel="#{category}"
-											itemValue="#{category}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Information">
+
+							<br />
+							<br />
+							<h:outputText class="labeljsf1" value="ISBN: " />
+
+							<h:outputText class="outputjsf1" value="#{book.isbn}" />
+
+
+
+							<br />
+							<br />
+							<h:outputText class="labeljsf1" value="Author: " />
+
+							<h:outputText class="outputjsf1" value="#{book.bookAuthor}" />
+							<br />
+							<br />
+							<h:outputText class="labeljsf1" value="Description: " />
+
+							<h:outputText class="outputjsf1"
+								value="#{book.getShortDescription()}" />
+							<br />
+							<br />
+							<h:outputText class="labeljsf1" value="Category: " />
+
+							<h:outputText class="outputjsf1"
+								value="#{book.categoryOfThisBook.categoryName}" />
+
+							<br />
+							<br />
+							<h:outputText class="labeljsf1date" value="Date created: " />
+
+							<h:outputText class="outputjsf1date" value="#{book.created}" />
+							<br />
+							<br />
+							<h:outputText class="labeljsf1date" value="Date modified: " />
+
+							<h:outputText class="outputjsf1date" value="#{book.modified}" />
 						</p:column>
 
-						<p:column headerText="ISBN">
-								<h:outputText value="#{book.isbn}" />
-						</p:column>
 
-						<p:column headerText="Date Created">
-							<h:outputText value="#{book.created}" />
-						</p:column>
-
-						<p:column headerText="Date Modified">
-							<h:outputText value="#{book.modified}" />
-						</p:column>
-						<p:column style="width:32px">
-							<p:rowEditor />
-						</p:column>
 					</p:dataTable>
-
+					<p:contextMenu for="books1">
+						<p:menuitem value="View" update="bookDetail" icon="pi pi-search"
+							oncomplete="PF('bookDialog').show()" />
+					</p:contextMenu>
 					<div class="ui-g">
 						<div class="ui-g-12">
 							<p:commandButton value="Add New Book"
@@ -94,8 +100,9 @@
 								update=":form:msgs" onclick="PF('dlg3').show();" />
 						</div>
 					</div>
+
 					<p:dialog header="Add Book" widgetVar="dlg3" showEffect="drop"
-						hideEffect="drop" height="250" width="430">
+						hideEffect="drop" height="400" width="430">
 						<div class="reset">
 							<h4 style="color: black;">Please fill out the fields to
 								enter a new book</h4>
@@ -105,52 +112,59 @@
 								<div id="contact">
 									<section id="contact">
 										<div class="containeri" id="reset">
-											<h:form class="form">
+											<h:form class="form" enctype="multipart/form-data">
 												<p:growl id="message" />
 												<p:panelGrid styleClass="companyHeaderGrid" columns="3">
-		Title Of The Book : <h:inputText id="name" class="input"
-														required="true" requiredMessage="Please, enter the title!"
-														value="#{bookBean.bookTitle}" a:placeholder="Title" />
-													<p:messages for="title"></p:messages>
-													<br />
-		Author Of The Book: <h:inputText id="description" class="input"
-														a:placeholder="Author" required="true"
-														requiredMessage="Please, enter the author"
-														value="#{bookBean.bookAuthor}" />
-													<p:messages for="author"></p:messages>
-													<br />
-
-											ISBN: <h:inputText id="isbn" class="input"
+													ISBN: <h:inputText id="isbn" class="input"
 														a:placeholder="ISBN" required="true"
 														requiredMessage="Please, enter the ISBN"
 														converterMessage="Please enter a number"
-														value="#{bookBean.isbn}">
+														value="#{bookBean.bookDTO.isbn}">
 														<f:convertNumber integerOnly="true"></f:convertNumber>
 													</h:inputText>
 													<p:messages for="isbn"></p:messages>
 													<br />
+		Title Of The Book : <h:inputText id="name" class="input"
+														required="true" requiredMessage="Please, enter the title!"
+														value="#{bookBean.bookDTO.bookTitle}"
+														a:placeholder="Title" />
+													<p:messages for="title"></p:messages>
+													<br />
+		Author Of The Book: <h:inputText id="author" class="input"
+														a:placeholder="Author" required="true"
+														requiredMessage="Please, enter the author"
+														value="#{bookBean.bookDTO.bookAuthor}" />
+													<p:messages for="author"></p:messages>
+													<br />
 
-													<h:selectOneMenu class="select"
+	Description: <h:inputTextarea id="description" class="input"
+														a:placeholder="Descripion" required="true"
+														requiredMessage="Please, enter the description"
+														value="#{bookBean.bookDTO.description}">
+													</h:inputTextarea>
+													<p:messages for="description"></p:messages>
+													<br />
+										
+													Category:<h:selectOneMenu class="select"
 														value="#{bookBean.categoryString}">
 														<f:selectItems
 															value="#{categoryBean.listCategoriesString()}"
 															var="category" />
 													</h:selectOneMenu>
+													<p:messages for="category"></p:messages>
+														
+														Upload image:
+														<p:fileUpload fileUploadListener="#{bookBean.upload}"
+														auto="true" fileLimit="1"
+														fileLimitMessage="Please select only one file!" />
+													<br />
 
 												</p:panelGrid>
 												<p:commandButton class="submit" update="message"
-													value="Add Book" action="#{bookBean.addBook}"
-													oncomplete="PF('books1').addRow();">
-													<p:confirm header="Confirmation" message="Are you sure?" />
+													ajax="false" value="Add Book" action="#{bookBean.addBook}">
 
 												</p:commandButton>
 
-												<p:confirmDialog global="true" showEffect="fade">
-													<p:commandButton value="Yes" type="button"
-														styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-													<p:commandButton value="No" type="button"
-														styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-												</p:confirmDialog>
 											</h:form>
 										</div>
 									</section>
@@ -161,6 +175,43 @@
 
 				</h:form>
 			</center>
+
+			<p:dialog header="Book Info" widgetVar="bookDialog" showEffect="fade"
+				hideEffect="fade" resizable="true" height="500px" width="500px">
+				<p:outputPanel id="bookDetail" style="text-align:center;">
+					<center>
+						<p:panelGrid columns="2" columnClasses="label,value">
+
+							<h:outputText value=""></h:outputText>
+							<center>
+								<h:graphicImage style="width: 200px; height: 200px;"
+									library="images" name="#{bookBean.bookSelected.image}"></h:graphicImage>
+							</center>
+							<h:outputText value="ISBN" />
+							<h:outputText value="#{bookBean.bookSelected.isbn}" />
+							<h:outputText value="Title:" />
+							<h:outputText value="#{bookBean.bookSelected.bookTitle}" />
+
+							<h:outputText value="Author" />
+							<h:outputText value="#{bookBean.bookSelected.bookAuthor}" />
+
+							<h:outputText value="Category" />
+							<h:outputText
+								value="#{bookBean.bookSelected.categoryOfThisBook.categoryName}" />
+							<h:outputText value="Description" />
+							<h:outputText value="#{bookBean.bookSelected.description}" />
+
+						</p:panelGrid>
+						<br /> <br />
+					</center>
+					<h:form>
+						<p:commandButton value="Edit This Book"
+							styleClass="ui-priority-primary"
+							action="#{bookBean.goToEditBook}">
+						</p:commandButton>
+					</h:form>
+				</p:outputPanel>
+			</p:dialog>
 		</ui:define>
 	</ui:composition>
 </h:body>

@@ -18,8 +18,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	private SessionFactory sessionFactory;
 
-	private CategoryConverter categoryConverter;
-
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
 	}
@@ -27,7 +25,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public void addCategory(CategoryDTO categoryDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(categoryConverter.toModel(categoryDTO));
+		session.persist(CategoryConverter.toModel(categoryDTO));
 			
 	}
 
@@ -37,7 +35,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		List<Category> categoryList = session.createQuery("Select c from Category c").list();
 		List<CategoryDTO> categoryDTOList = new ArrayList<>();
 		for (Category category : categoryList) {
-			categoryDTOList.add(categoryConverter.toDTO(category));
+			categoryDTOList.add(CategoryConverter.toDTO(category));
 		}
 
 		for (CategoryDTO categoryDTO : categoryDTOList) {
@@ -47,35 +45,26 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	}
 
-	public CategoryConverter getCategoryConverter() {
-		return categoryConverter;
-	}
-
-	public void setCategoryConverter(CategoryConverter categoryConverter) {
-		this.categoryConverter = categoryConverter;
-	}
-
 	@Override
-	public CategoryDTO categoryViaCategory(String categoryName) {
+	public Category categoryViaString(String categoryName) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("Select c from Category c where c.categoryName = :categoryName");
 		query.setParameter("categoryName", categoryName);
-		Category category = (Category) query.uniqueResult();
-		return categoryConverter.toDTO(category);
+		return (Category) query.uniqueResult();
 	}
 
 	@Override
-	public Category getCategoryById(CategoryDTO categoryDTO) {
+	public Category getCategoryById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("Select c from Category c where c.categoryId = :categoryId");
-		query.setParameter("categoryId", categoryDTO.getCategoryId());
+		query.setParameter("categoryId", id);
 		return (Category) query.uniqueResult();
 	}
 
 	@Override
 	public void updateCategory(CategoryDTO category) {
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(categoryConverter.toModel(category));
+		session.merge(CategoryConverter.toModel(category));
 	}
 
 }

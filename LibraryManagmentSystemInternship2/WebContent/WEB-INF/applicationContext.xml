@@ -57,47 +57,10 @@
 		</beans:property>
 	</beans:bean>
 
-	<beans:bean id="categoryConverter"
-		class="org.lms.converter.CategoryConverterImpl">
-		<beans:property name="bookConverter"
-			ref="bookConverter"></beans:property>
-
-
-	</beans:bean>
-	<beans:bean id="userConverter"
-		class="org.lms.converter.UserConverterImpl">
-		<beans:property name="roleConverter"
-			ref="roleConverter"></beans:property>
-
-	</beans:bean>
-	<beans:bean id="bookConverter"
-		class="org.lms.converter.BookConverterImpl">
-		<beans:property name="categoryConverter"
-			ref="categoryConverter"></beans:property>
-
-	</beans:bean>
-
-	<beans:bean id="reservationConverter"
-		class="org.lms.converter.ReservationConverterImpl">
-		<beans:property name="userConverter"
-			ref="userConverter"></beans:property>
-		<beans:property name="bookConverter"
-			ref="bookConverter"></beans:property>
-
-	</beans:bean>
-	<beans:bean id="roleConverter"
-		class="org.lms.converter.RoleConverterImpl">
-		<beans:property name="userConverter"
-			ref="userConverter"></beans:property>
-
-	</beans:bean>
-
 	<beans:bean id="categoryDAO"
 		class="org.lms.dao.CategoryDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="categoryConverter"
-			ref="categoryConverter" />
 	</beans:bean>
 	<beans:bean id="categoryService"
 		class="org.lms.service.CategoryServiceImpl">
@@ -108,8 +71,6 @@
 	<beans:bean id="userDAO" class="org.lms.dao.UserDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="userConverter"
-			ref="userConverter"></beans:property>
 		<beans:property name="roleDAO" ref="roleDAO"></beans:property>
 	</beans:bean>
 	<beans:bean id="userService"
@@ -121,15 +82,11 @@
 	<beans:bean id="roleDAO" class="org.lms.dao.RoleDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="roleConverter"
-			ref="roleConverter"></beans:property>
 	</beans:bean>
 
 	<beans:bean id="loginDAO" class="org.lms.dao.LoginDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="userConverter"
-			ref="userConverter"></beans:property>
 	</beans:bean>
 
 	<beans:bean id="loginService"
@@ -141,8 +98,6 @@
 		class="org.lms.dao.ReservationDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="reservationConverter"
-			ref="reservationConverter"></beans:property>
 	</beans:bean>
 
 	<beans:bean id="reservationService"
@@ -156,8 +111,6 @@
 	<beans:bean id="signUpDAO" class="org.lms.dao.SignUpDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="userConverter"
-			ref="userConverter"></beans:property>
 		<beans:property name="userDAO" ref="userDAO"></beans:property>
 		<beans:property name="roleDAO" ref="roleDAO"></beans:property>
 	</beans:bean>
@@ -175,8 +128,6 @@
 	<beans:bean id="bookDAO" class="org.lms.dao.BookDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
-		<beans:property name="bookConverter"
-			ref="bookConverter"></beans:property>
 		<beans:property name="categoryDAO" ref="categoryDAO"></beans:property>
 	</beans:bean>
 	<beans:bean id="bookService"

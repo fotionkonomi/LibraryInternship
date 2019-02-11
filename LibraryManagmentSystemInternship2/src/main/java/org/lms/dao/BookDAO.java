@@ -10,7 +10,9 @@ public interface BookDAO {
 	
 	void updateBook(BookDTO bookDTO);
 	
-	Book getBookById(BookDTO bookDTO);
+	Book getBookById(int id);
+	
+	BookDTO getBookByISBN(int isbn);
 	
 	List<BookDTO> listAllBooks();
 	

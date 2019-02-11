@@ -58,11 +58,12 @@ public class CategoryBean implements Serializable {
 		categoryDTO.setCreated(new Date());
 		categoryDTO.setModified(new Date());
 		try {
+			System.out.println("Kategoria " + categoryDTO.getCategoryName());
 			categoryService.addCategory(categoryDTO);
-			return "success";
+			return "category-added?faces-redirect=true&name=" + categoryDTO.getCategoryName();
 
 		} catch (ConstraintViolationException e) {
-			return "fail";
+			return "category-exists";
 		}
 	}
 
@@ -96,6 +97,10 @@ public class CategoryBean implements Serializable {
 
 	public void setSelectedCategory(CategoryDTO selectedCategory) {
 		this.selectedCategory = selectedCategory;
+	}
+	
+	public String goToEdit() {
+	    return "edit-category?faces-redirect=true&id=" + selectedCategory.getCategoryId();
 	}
 
 }

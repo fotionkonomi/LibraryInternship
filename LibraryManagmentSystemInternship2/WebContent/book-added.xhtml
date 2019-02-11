@@ -5,38 +5,47 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<h:outputStylesheet library="css" name="navbar.css" />
-	<h:outputStylesheet library="css" name="success.css" />
-
-	<h:outputStylesheet library="css" name="forms.css" />
-
-
 </h:head>
 <h:body>
-	<ui:include src="header-admin.xhtml"></ui:include>
-	<br/><br/><br/>
+	<ui:composition template="/template.xhtml">
 
-	<div id="container">
-		<div id="contact">
-			<section id="contact">
-				<div class="containeri">
-					<h:form class="form">
-						<div id="display-success">
-							<h2>YOU HAVE SUCCESSFULLY CREATED A BOOK</h2>
-						</div>
-						<h3>
-							Name: <span class="success">#{bookBean.bookTitle}</span><br />
-							<br />Description: <span class="success">#{bookBean.bookAuthor}</span>
-							<br/> Category of it: <span class="success">#{bookBean.categoryString}</span>
-						</h3>
+		<ui:define name="title">
+			<h:outputText value="Books"></h:outputText>
+		</ui:define>
 
-						<p:commandButton class="submit" value="Continue Creating"
-							action="#{bookBean.goToCreateBook}"></p:commandButton>
-					</h:form>
+		<ui:define name="body">
+			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
+				<h:form>
+				<center>
+					<h1 style="color: green;">YOU HAVE SUCCESSFULLY CREATED A BOOK</h1>
+				</center>
+				<h:graphicImage class="image" library="images"
+					name="#{bookAddedBean.bookAdded.image}"></h:graphicImage>
+
+				<div class="info">
+					<h:outputText class="inputi" value="#{bookAddedBean.bookAdded.bookTitle}"></h:outputText>
+
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Author: " />
+
+					<h:outputText class="outputjsf" value="#{bookAddedBean.bookAdded.bookAuthor}"></h:outputText>
+
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Category: " />
+
+					<h:outputText class="outputjsf"
+						value="#{bookAddedBean.bookAdded.categoryOfThisBook.categoryName}"></h:outputText>
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Description: " />
+
+					<h:outputText class="outputjsf" value="#{bookAddedBean.bookAdded.description}"></h:outputText>
 				</div>
-			</section>
-		</div>
-	</div>
+
+				<p:commandButton class="submit" value="Continue Creating"
+					action="#{bookAddedBean.goToAddBook}"></p:commandButton>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 
 </h:body>
 </html>

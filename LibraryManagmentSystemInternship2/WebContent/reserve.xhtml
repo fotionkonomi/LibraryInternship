@@ -23,7 +23,7 @@
 				<p:growl id="message" showDetail="true" />
 
 				<p:dataTable id="books1" widgetVar="books1" var="book"
-					value="#{bookBean.listAllBooks}" editable="true"
+					value="#{bookBean.listBooksFree}" editable="true"
 					style="margin-bottom:20px" paginator="true" rows="10"
 					rowsPerPageTemplate="10,20,30,40,50" selectionMode="multiple"
 					selection="#{bookBean.booksSelected}" rowKey="#{book.isbn}">

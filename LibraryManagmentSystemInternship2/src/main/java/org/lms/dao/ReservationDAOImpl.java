@@ -21,15 +21,6 @@ public class ReservationDAOImpl implements ReservationDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private ReservationConverter reservationConverter;
-
-	@Autowired
-	private BookConverter bookConverter;
-	
-	@Autowired
-	private UserConverter userConverter;
-
-	@Autowired
 	private BookDAO bookDAO;
 
 	@Override
@@ -39,7 +30,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		reservationDTO.setBookDTO(bookDTO);
 		reservationDTO.setBookerDTO(userDTO);
 		reservationDTO.setStatus(1);
-		session.persist(reservationConverter.toModel(reservationDTO));
+		session.persist(ReservationConverter.toModel(reservationDTO));
 	}
 
 	@Override
@@ -47,7 +38,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		ReservationDTO reservationDTO = getReservationOfTheBook(bookDTO);
 		reservationDTO.setStatus(2);
-		session.merge(reservationConverter.toModel(reservationDTO));
+		session.merge(ReservationConverter.toModel(reservationDTO));
 	}
 	
 	@Override
@@ -55,7 +46,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		ReservationDTO reservationDTO = getReservationOfTheBookDelivered(bookDTO);
 		reservationDTO.setStatus(0);
-		session.merge(reservationConverter.toModel(reservationDTO));
+		session.merge(ReservationConverter.toModel(reservationDTO));
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -66,60 +57,44 @@ public class ReservationDAOImpl implements ReservationDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public ReservationConverter getReservationConverter() {
-		return reservationConverter;
-	}
-
-	public void setReservationConverter(ReservationConverter reservationConverter) {
-		this.reservationConverter = reservationConverter;
-	}
-
 	@Override
 	public ReservationDTO getReservationOfTheBook(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Book book = bookConverter.toModel(bookDTO);
+		Book book = BookConverter.toModel(bookDTO);
 		Query query = session.createQuery("Select r from Reservation r where r.book = :book and r.status=1");
 		query.setParameter("book", book);
 		Reservation reservation = (Reservation) query.uniqueResult();
-		return reservationConverter.toDTO(reservation);
+		return ReservationConverter.toDTO(reservation);
 	}
 	
 	@Override
 	public UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Book book = bookConverter.toModel(bookDTO);
+		Book book = BookConverter.toModel(bookDTO);
 		Query query = session.createQuery("Select r from Reservation r where r.book = :book and r.status=1");
 		query.setParameter("book", book);
 		Reservation reservation = (Reservation) query.uniqueResult();
-		return reservationConverter.toDTO(reservation).getBookerDTO();
+		return ReservationConverter.toDTO(reservation).getBookerDTO();
 	}
 
 	@Override
 	public UserDTO getUserThatTheBookIsDelivered(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Book book = bookConverter.toModel(bookDTO);
+		Book book = BookConverter.toModel(bookDTO);
 		Query query = session.createQuery("Select r from Reservation r where r.book = :book and r.status=2");
 		query.setParameter("book", book);
 		Reservation reservation = (Reservation) query.uniqueResult();
-		return reservationConverter.toDTO(reservation).getBookerDTO();
+		return ReservationConverter.toDTO(reservation).getBookerDTO();
 	}
 
 	@Override
 	public ReservationDTO getReservationOfTheBookDelivered(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Book book = bookDAO.getBookById(bookDTO);
+		Book book = bookDAO.getBookById(bookDTO.getBookId());
 		Query query = session.createQuery("Select r from Reservation r where r.book = :book and r.status=2");
 		query.setParameter("book", book);
 		Reservation reservation = (Reservation) query.uniqueResult();
-		return reservationConverter.toDTO(reservation);
-	}
-
-	public BookConverter getBookConverter() {
-		return bookConverter;
-	}
-
-	public void setBookConverter(BookConverter bookConverter) {
-		this.bookConverter = bookConverter;
+		return ReservationConverter.toDTO(reservation);
 	}
 
 	public BookDAO getBookDAO() {
@@ -128,14 +103,6 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 	public void setBookDAO(BookDAO bookDAO) {
 		this.bookDAO = bookDAO;
-	}
-
-	public UserConverter getUserConverter() {
-		return userConverter;
-	}
-
-	public void setUserConverter(UserConverter userConverter) {
-		this.userConverter = userConverter;
 	}
 
 	

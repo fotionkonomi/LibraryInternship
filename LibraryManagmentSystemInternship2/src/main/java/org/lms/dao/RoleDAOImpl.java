@@ -18,22 +18,12 @@ import org.springframework.stereotype.Repository;
 public class RoleDAOImpl implements RoleDAO {
 
 	private SessionFactory sessionFactory;
-
-	private RoleConverter roleConverter;
 	
 	@Autowired
 	private UserDAO userDAO;
 
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
-	}
-
-	public RoleConverter getRoleConverter() {
-		return roleConverter;
-	}
-
-	public void setRoleConverter(RoleConverter roleConverter) {
-		this.roleConverter = roleConverter;
 	}
 
 	public UserDAO getUserDAO() {
@@ -91,7 +81,7 @@ public class RoleDAOImpl implements RoleDAO {
 		List<Role> roles = user.getRolesOfThisUser();
 		List<RoleDTO> rolesDTO = new ArrayList<>();
 		for(Role role : roles) {
-			rolesDTO.add(roleConverter.toDTO(role));
+			rolesDTO.add(RoleConverter.toDTO(role));
 		}
 		return rolesDTO;
 	}

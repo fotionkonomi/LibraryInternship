@@ -10,6 +10,6 @@ public interface CategoryDAO {
     public void addCategory(CategoryDTO category);
     void updateCategory(CategoryDTO category);
     public List<CategoryDTO> listCategory();
-    CategoryDTO categoryViaCategory(String categoryName);
-    Category getCategoryById(CategoryDTO categoryDTO);
+    Category categoryViaString(String categoryName);
+    Category getCategoryById(int id);
 }

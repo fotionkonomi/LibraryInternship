@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15475545160840" configfile="/LibraryManagmentSystemInternship2/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="signUp.xhtml" x="122" y="178" id="pf15480601325663" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15480601325664" path="signUp.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="178" id="pf15480601325665" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" inlinks="pf15480601325664 pf15489443559130" path="not-activated.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="header-admin.xhtml" x="338" y="178" id="pf15480601325665" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" inlinks="pf15480601325664 pf15498110473720" path="not-activated.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="not-activated.xhtml" x="122" y="1330" id="pf154811183501220" referenceLink="//@navigationRule.3/@navigationCase.1/@toViewId|" path="not-activated.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="book.xhtml" id="pf15489443559131" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15489443559132" path="book.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="book-added.xhtml" id="pf15489443559133" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15489443559132" path="book-added.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" id="pf15489443559134" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15489443559145 pf15494559307490" inlinks="pf154894451377425" path="category.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category-added.xhtml" id="pf15489443559146" referenceLink="//@navigationRule.2/@navigationCase.1/@toViewId|" inlinks="pf15489443559145" path="category-added.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" id="pf15489443559147" referenceLink="//@navigationRule.6/@navigationCase.6/@toViewId|" outlinks="pf15489443559148" inlinks="pf154894458613131" path="profile.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="changes.xhtml" id="pf15489443559149" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15489443559148" path="changes.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf154894435591410" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf154894435591411 pf15489443559130 pf154894435591412" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="first-page-after-login.xhtml" id="pf154894435591414" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf154894435591411 pf154894448833024" path="first-page-after-login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="disactivated.xhtml" id="pf154894435591415" referenceLink="//@navigationRule.4/@navigationCase.2/@toViewId|" inlinks="pf154894435591412" path="disactivated.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="request.xhtml" id="pf154894435591416" referenceLink="//@navigationRule.6/@navigationCase.2/@toViewId|" outlinks="pf154894435591417 pf154894435591418" inlinks="pf154894435591417 pf154894435591418 pf154894453234826" path="request.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf154894435591419" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf154894448833024 pf154894451377425 pf154894453234826 pf154894455405927 pf154894457492729 pf154894458613131 pf15490197168100" path="/*"/>
-  <nodes xsi:type="pageflow:PFPage" name="choose-roles.xhtml" id="pf154894455405928" referenceLink="//@navigationRule.6/@navigationCase.3/@toViewId|" inlinks="pf154894455405927" path="choose-roles.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="reserve.xhtml" id="pf154894457492730" referenceLink="//@navigationRule.6/@navigationCase.4/@toViewId|" inlinks="pf154894457492729" path="reserve.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="manage-books.xhtml" id="pf15490197168101" referenceLink="//@navigationRule.6/@navigationCase.5/@toViewId|" inlinks="pf15490197168100" path="manage-books.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category-exists.xhtml" id="pf15494559307491" referenceLink="//@navigationRule.2/@navigationCase.1/@toViewId|" inlinks="pf15494559307490" path="category-exists.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" id="pf15498110473721" referenceLink="//@navigationRule.6/@navigationCase.1/@toViewId|" inlinks="pf15498110473722" path="category.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" id="pf15498110473723" referenceLink="//@navigationRule.6/@navigationCase.6/@toViewId|" outlinks="pf15498110473724" inlinks="pf15498110473725" path="profile.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="changes.xhtml" id="pf15498110473726" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15498110473724" path="changes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf15498110473727" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf15498110473728 pf15498110473720 pf15498110473729" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="first-page-after-login.xhtml" id="pf154981104737210" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf15498110473728 pf154981104737211" path="first-page-after-login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="disactivated.xhtml" id="pf154981104737212" referenceLink="//@navigationRule.4/@navigationCase.2/@toViewId|" inlinks="pf15498110473729" path="disactivated.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="request.xhtml" id="pf154981104737213" referenceLink="//@navigationRule.6/@navigationCase.2/@toViewId|" outlinks="pf154981104737214 pf154981104737215" inlinks="pf154981104737214 pf154981104737215 pf154981104737216" path="request.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf154981104737217" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf154981104737211 pf15498110473722 pf154981104737216 pf154981104737218 pf154981104737219 pf154981104737220 pf15498110473725" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="choose-roles.xhtml" id="pf154981104737221" referenceLink="//@navigationRule.6/@navigationCase.3/@toViewId|" inlinks="pf154981104737218" path="choose-roles.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="reserve.xhtml" id="pf154981104737222" referenceLink="//@navigationRule.6/@navigationCase.4/@toViewId|" inlinks="pf154981104737219" path="reserve.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="manage-books.xhtml" id="pf154981104737223" referenceLink="//@navigationRule.6/@navigationCase.5/@toViewId|" inlinks="pf154981104737220" path="manage-books.xhtml"/>
   <links id="pf15480601325664" target="pf15480601325665" source="pf15480601325663" outcome="page" fromaction="#{signUpBean.addUser}"/>
   <links id="pf15489443559132" target="pf15489443559133" source="pf15489443559131" outcome="added" fromaction="#{bookBean.addBook}"/>
-  <links id="pf15489443559145" target="pf15489443559146" source="pf15489443559134" outcome="success" fromaction="#{categoryBean.addCategory}"/>
-  <links id="pf15489443559148" target="pf15489443559149" source="pf15489443559147" outcome="changed" fromaction="#{userBean.change}"/>
-  <links id="pf154894435591411" target="pf154894435591414" source="pf154894435591410" outcome="login" fromaction="#{loginBean.login}"/>
-  <links id="pf15489443559130" target="pf15480601325665" source="pf154894435591410" outcome="notActivated" fromaction="#{loginBean.logIn}"/>
-  <links id="pf154894435591412" target="pf154894435591415" source="pf154894435591410" outcome="disActivated" fromaction="#{userBean.logIn}"/>
-  <links id="pf154894435591417" target="pf154894435591416" source="pf154894435591416" outcome="here" redirect="true" fromaction="#{userBean.activate}"/>
-  <links id="pf154894435591418" target="pf154894435591416" source="pf154894435591416" outcome="here" redirect="true" fromaction="#{userBean.deActivate}"/>
-  <links id="pf154894448833024" target="pf154894435591414" source="pf154894435591419" outcome="index" redirect="true"/>
-  <links id="pf154894451377425" target="pf15489443559134" source="pf154894435591419" outcome="category" redirect="true"/>
-  <links id="pf154894453234826" target="pf154894435591416" source="pf154894435591419" outcome="request" redirect="true"/>
-  <links id="pf154894455405927" target="pf154894455405928" source="pf154894435591419" outcome="choose-role" redirect="true"/>
-  <links id="pf154894457492729" target="pf154894457492730" source="pf154894435591419" outcome="reserve" redirect="true"/>
-  <links id="pf154894458613131" target="pf15489443559147" source="pf154894435591419" outcome="profile" redirect="true"/>
-  <links id="pf15490197168100" target="pf15490197168101" source="pf154894435591419" outcome="manage" redirect="true"/>
-  <links id="pf15494559307490" target="pf15494559307491" source="pf15489443559134" outcome="fail" fromaction="#{categoryBean.addCategory}"/>
+  <links id="pf15498110473724" target="pf15498110473726" source="pf15498110473723" outcome="changed" fromaction="#{userBean.change}"/>
+  <links id="pf15498110473728" target="pf154981104737210" source="pf15498110473727" outcome="login" fromaction="#{loginBean.login}"/>
+  <links id="pf15498110473720" target="pf15480601325665" source="pf15498110473727" outcome="notActivated" fromaction="#{loginBean.logIn}"/>
+  <links id="pf15498110473729" target="pf154981104737212" source="pf15498110473727" outcome="disActivated" fromaction="#{userBean.logIn}"/>
+  <links id="pf154981104737214" target="pf154981104737213" source="pf154981104737213" outcome="here" redirect="true" fromaction="#{userBean.activate}"/>
+  <links id="pf154981104737215" target="pf154981104737213" source="pf154981104737213" outcome="here" redirect="true" fromaction="#{userBean.deActivate}"/>
+  <links id="pf154981104737211" target="pf154981104737210" source="pf154981104737217" outcome="index" redirect="true"/>
+  <links id="pf15498110473722" target="pf15498110473721" source="pf154981104737217" outcome="category" redirect="true"/>
+  <links id="pf154981104737216" target="pf154981104737213" source="pf154981104737217" outcome="request" redirect="true"/>
+  <links id="pf154981104737218" target="pf154981104737221" source="pf154981104737217" outcome="choose-role" redirect="true"/>
+  <links id="pf154981104737219" target="pf154981104737222" source="pf154981104737217" outcome="reserve" redirect="true"/>
+  <links id="pf154981104737220" target="pf154981104737223" source="pf154981104737217" outcome="manage" redirect="true"/>
+  <links id="pf15498110473725" target="pf15498110473723" source="pf154981104737217" outcome="profile" redirect="true"/>
 </pageflow:Pageflow>

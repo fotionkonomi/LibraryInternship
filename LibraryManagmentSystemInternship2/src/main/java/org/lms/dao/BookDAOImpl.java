@@ -21,33 +21,23 @@ public class BookDAOImpl implements BookDAO {
 	@Autowired
 	private CategoryDAO categoryDAO;
 
-	@Autowired
-	private BookConverter bookConverter;
-
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
-	}
-
-	public BookConverter getBookConverter() {
-		return bookConverter;
-	}
-
-	public void setBookConverter(BookConverter bookConverter) {
-		this.bookConverter = bookConverter;
 	}
 
 	@Override
 	public void addBook(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Book book = bookConverter.toModel(bookDTO);
-		book.setCategoryOfThisBook(this.categoryDAO.getCategoryById(bookDTO.getCategoryOfThisBook()));
+		Book book = BookConverter.toModel(bookDTO);
+		book.setCategoryOfThisBook(this.categoryDAO.getCategoryById(bookDTO.getCategoryOfThisBook().getCategoryId()));
 		session.persist(book);
 	}
 
-	public Book getBookById(BookDTO bookDTO) {
+	@Override
+	public Book getBookById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("Select b from Book b where b.bookId=:bookId");
-		query.setParameter("bookId", bookDTO.getBookId());
+		query.setParameter("bookId", id);
 		return (Book) query.uniqueResult();
 	}
 
@@ -66,7 +56,7 @@ public class BookDAOImpl implements BookDAO {
 		List<Book> books = query.list();
 		List<BookDTO> booksDTO = new ArrayList<>();
 		for (Book book : books) {
-			booksDTO.add(bookConverter.toDTO(book));
+			booksDTO.add(BookConverter.toDTO(book));
 		}
 		return booksDTO;
 	}
@@ -79,7 +69,7 @@ public class BookDAOImpl implements BookDAO {
 		List<Book> books = query.list();
 		List<BookDTO> booksDTO = new ArrayList<>();
 		for (Book book : books) {
-			booksDTO.add(bookConverter.toDTO(book));
+			booksDTO.add(BookConverter.toDTO(book));
 		}
 		return booksDTO;
 	}
@@ -92,7 +82,7 @@ public class BookDAOImpl implements BookDAO {
 		List<Book> books = query.list();
 		List<BookDTO> booksDTO = new ArrayList<>();
 		for (Book book : books) {
-			booksDTO.add(bookConverter.toDTO(book));
+			booksDTO.add(BookConverter.toDTO(book));
 		}
 		return booksDTO;
 	}
@@ -105,7 +95,7 @@ public class BookDAOImpl implements BookDAO {
 		List<Book> books = query.list();
 		List<BookDTO> booksDTO = new ArrayList<>();
 		for (Book book : books) {
-			booksDTO.add(bookConverter.toDTO(book));
+			booksDTO.add(BookConverter.toDTO(book));
 		}
 		return booksDTO;
 	}
@@ -113,7 +103,16 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public void updateBook(BookDTO bookDTO) {
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(bookConverter.toModel(bookDTO));
+		session.merge(BookConverter.toModel(bookDTO));
+	}
+
+	@Override
+	public BookDTO getBookByISBN(int isbn) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("Select b from Book b where b.isbn = :isbn");
+		query.setParameter("isbn", isbn);
+		Book book = (Book) query.uniqueResult();
+		return BookConverter.toDTO(book);
 	}
 
 }

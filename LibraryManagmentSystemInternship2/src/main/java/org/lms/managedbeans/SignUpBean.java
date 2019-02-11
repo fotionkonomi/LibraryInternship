@@ -39,7 +39,7 @@ public class SignUpBean {
 		userDTO = new UserDTO();
 	}
 
-	public void addUser() {
+	public String addUser() {
 		LOGGER.info("First Name entered in the form: " + firstName);
 		LOGGER.info("Last Name entered in the form: " + lastName);
 		LOGGER.info("Username entered in the form: " + username);
@@ -60,7 +60,7 @@ public class SignUpBean {
 		} else {
 			FacesContext.getCurrentInstance().addMessage("gender",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select your gender!", null));
-			return;
+			return null;
 		}
 		userDTO.setUsername(username);
 		userDTO.setActivated(0);
@@ -69,9 +69,10 @@ public class SignUpBean {
 		} catch (ConstraintViolationException e) {
 			FacesContext.getCurrentInstance().addMessage("Existing",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or email is already taken", null));
-			return;
+			return null;
 		}
 		userService.makeUserStudent(userDTO);
+		return "user-signed";
 	}
 
 	public String getFirstName() {

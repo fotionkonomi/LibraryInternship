@@ -21,9 +21,6 @@ public class UserDAOImpl implements UserDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private UserConverter userConverter;
-
-	@Autowired
 	private RoleDAO roleDAO;
 
 	public void setSessionFactory(SessionFactory sf) {
@@ -43,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
 		List<User> userList = session.createQuery("Select u From User u where u.activated=1").list();
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
 		for (User user : userList) {
-			userDTOList.add(userConverter.toDTO(user));
+			userDTOList.add(UserConverter.toDTO(user));
 		}
 		return userDTOList;
 	}
@@ -55,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
 		List<User> users = query.list();
 		List<UserDTO> usersDTO = new ArrayList<>();
 		for (User user : users) {
-			usersDTO.add(userConverter.toDTO(user));
+			usersDTO.add(UserConverter.toDTO(user));
 		}
 		return usersDTO;
 	}
@@ -63,30 +60,22 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void activateUser(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = userConverter.toModel(userDTO);
+		User user = UserConverter.toModel(userDTO);
 		user.setActivated(1);
 		session.merge(user);
-	}
-
-	public UserConverter getUserConverter() {
-		return userConverter;
-	}
-
-	public void setUserConverter(UserConverter userConverter) {
-		this.userConverter = userConverter;
 	}
 
 	@Override
 	public void deleteUser(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = userConverter.toModel(userDTO);
+		User user = UserConverter.toModel(userDTO);
 		session.delete(user);
 	}
 
 	@Override
 	public void deActivateUser(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = userConverter.toModel(userDTO);
+		User user = UserConverter.toModel(userDTO);
 		user.setActivated(-1);
 		session.merge(user);
 	}
@@ -100,7 +89,7 @@ public class UserDAOImpl implements UserDAO {
 		query.setString("password", password);
 		User user = (User) query.uniqueResult();
 		if (user != null) {
-			return userConverter.toDTO(user);
+			return UserConverter.toDTO(user);
 		}
 		return null;
 	}

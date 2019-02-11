@@ -11,7 +11,9 @@ public class BookDTO {
 	private Integer isbn;
 	private Date created;
 	private Date modified;
-
+	private String image;
+	private String description;
+	
 	public BookDTO() {
 
 	}
@@ -138,6 +140,32 @@ public class BookDTO {
 		return "BookDTO [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
 				+ ", categoryOfThisBook=" + categoryOfThisBook + ", isbn=" + isbn + ", created=" + created
 				+ ", modified=" + modified + "]";
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getShortDescription() {
+		if(description.length() < 200) {
+			return description;
+		} else {
+			String shortDescription = description.substring(0, 200);
+			shortDescription += "...";
+			return shortDescription;
+		}
 	}
 
 }

@@ -45,6 +45,12 @@ public class Book {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modified;
 
+	@Column(name = "image", nullable = false)
+	private String image;
+	
+	@Column(name = "description", nullable = false, length = 8000)
+	private String description;
+
 	public Integer getBookId() {
 		return bookId;
 	}
@@ -99,6 +105,22 @@ public class Book {
 
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

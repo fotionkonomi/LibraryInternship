@@ -16,9 +16,6 @@ public class LoginDAOImpl implements LoginDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Autowired
-	public UserConverter userConverter;
-	
 	@Override
 	public UserDTO login(String username, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -28,7 +25,7 @@ public class LoginDAOImpl implements LoginDAO {
 		query.setString("password", Encryptor.encrypt(password, 12));
 		User user = (User) query.uniqueResult();
 		if (user != null) {
-			return userConverter.toDTO(user);
+			return UserConverter.toDTO(user);
 		}
 		return null;
 	}
@@ -41,13 +38,6 @@ public class LoginDAOImpl implements LoginDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public UserConverter getUserConverter() {
-		return userConverter;
-	}
-
-	public void setUserConverter(UserConverter userConverter) {
-		this.userConverter = userConverter;
-	}
 	
 	
 }

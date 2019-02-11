@@ -64,9 +64,6 @@
 						</p:column>
 
 
-						<p:column style="width:32px">
-							<p:rowEditor />
-						</p:column>
 					</p:dataTable>
 
 
@@ -77,7 +74,6 @@
 
 
 
-
 					<div class="ui-g">
 						<div class="ui-g-12">
 							<p:commandButton value="Add New Category"
@@ -85,32 +81,35 @@
 								oncomplete="PF('addCat').show()" />
 						</div>
 					</div>
-					<p:dialog header="Add Category" widgetVar="addCat"
-						showEffect="fade" hideEffect="fade" resizable="true" height="150"
-						width="400">
-						<h:form>
-							<center>
-
-
-								<h:outputText value="Name:" />
-								<h:inputText value="#{categoryBean.categoryDTO.categoryName}" />
-
-								<h:outputText value="Description:" />
-								<h:inputText
-									value="#{categoryBean.categoryDTO.categoryDescription}" />
-
-
-							</center>
-
-							<h:commandButton value="Add Category"
-								styleClass="ui-priority-primary" process="@this"
-								action="#{categoryBean.addCategory}" >
-								<f:setPropertyActionListener value="#{categoryBean.categoryDTO}" target="#{categoryAddedBean.categoryAdded}" />
-								</h:commandButton>
-						</h:form>
-					</p:dialog>
-
 				</h:form>
+
+				<p:dialog header="Add Category" widgetVar="addCat" showEffect="drop"
+					showEffect="drop" resizable="true" height="150" width="400">
+					<h:form>
+						<center>
+
+
+							<h:outputText style="position: relative; left: -12px;"
+								value="Name:" />
+							<h:inputText style="position: relative; left: 23px;"
+								value="#{categoryBean.categoryDTO.categoryName}" />
+							<br /> <br />
+							<h:outputText value="Description:" />
+							<h:inputText style="position: relative; left: 8px;"
+								value="#{categoryBean.categoryDTO.categoryDescription}" />
+
+
+						</center>
+						<br />
+						<br />
+
+						<p:commandButton value="Add Category"
+							styleClass="ui-priority-primary"
+							action="#{categoryBean.addCategory}">
+						</p:commandButton>
+					</h:form>
+				</p:dialog>
+
 
 				<p:dialog header="Category Info" widgetVar="catDialog"
 					showEffect="fade" hideEffect="fade" resizable="true" height="150"
@@ -130,11 +129,13 @@
 
 
 							</p:panelGrid>
+							<br /> <br />
 						</center>
 						<h:form>
 							<p:commandButton value="Edit This Category"
-								styleClass="ui-priority-primary" process="@this"
-								action="#{categoryEditBean.goToEdit}" />
+								styleClass="ui-priority-primary"
+								action="#{categoryBean.goToEdit}">
+							</p:commandButton>
 						</h:form>
 					</p:outputPanel>
 				</p:dialog>
