@@ -37,10 +37,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 		for (Category category : categoryList) {
 			categoryDTOList.add(CategoryConverter.toDTO(category));
 		}
-
-		for (CategoryDTO categoryDTO : categoryDTOList) {
-			System.out.println(categoryDTO.getCategoryName());
-		}
 		return categoryDTOList;
 
 	}

@@ -34,20 +34,23 @@ public class AutherisationSecretary implements Filter {
 		boolean resourceRequest = request.getRequestURI()
 				.startsWith(request.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER + "/");
 		boolean ajaxRequest = "partial/ajax".equals(request.getHeader("Faces-Request"));
-		boolean isAdmin;
+		boolean isAdmin = true;
 		int check = 0;
-		List<RoleDTO> rolesOfThisUser = (List<RoleDTO>) session.getAttribute("roles");
-		for (RoleDTO roleDTO : rolesOfThisUser) {
-			if (roleDTO.getRoleName().equals("Secretary")) {
-				check++;
+		if (session != null) {
+			List<RoleDTO> rolesOfThisUser = (List<RoleDTO>) session.getAttribute("roles");
+			if (rolesOfThisUser != null) {
+				for (RoleDTO roleDTO : rolesOfThisUser) {
+					if (roleDTO.getRoleName().equals("Admin")) {
+						check++;
+					}
+				}
+				if (check == 0) {
+					isAdmin = false;
+				} else {
+					isAdmin = true;
+				}
 			}
 		}
-		if (check == 0) {
-			isAdmin = false;
-		} else {
-			isAdmin = true;
-		}
-
 		if (isAdmin) {
 			if (!resourceRequest) { // Prevent browser from caching restricted resources. See also
 									// https://stackoverflow.com/q/4194207/157882

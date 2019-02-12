@@ -58,7 +58,6 @@ public class CategoryBean implements Serializable {
 		categoryDTO.setCreated(new Date());
 		categoryDTO.setModified(new Date());
 		try {
-			System.out.println("Kategoria " + categoryDTO.getCategoryName());
 			categoryService.addCategory(categoryDTO);
 			return "category-added?faces-redirect=true&name=" + categoryDTO.getCategoryName();
 
