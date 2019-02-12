@@ -55,7 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<BookDTO> booksReservation(List<BookDTO> booksDTO, UserDTO userDTO) {
-		List<BookDTO> allBooksFree = bookService.listAllBooks();
+		List<BookDTO> allBooksFree = bookService.listBookFree();
 		List<BookDTO> booksNotReserved = new ArrayList<>();
 		for (BookDTO bookSelected : booksDTO) {
 			if (!allBooksFree.contains(bookSelected)) {
@@ -74,6 +74,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
+	}
+
+	@Override
+	public boolean isBookFree(BookDTO bookDTO) {
+		return reservationDAO.isBookFree(bookDTO);
 	}
 
 }

@@ -14,6 +14,8 @@ public interface BookService {
 	
 	BookDTO getBookByISBN(int isbn);
 	
+	List<BookDTO> getThreeRandomBooks();
+	
 	List<BookDTO> listAllBooks();
 	
 	List<BookDTO> listBookFree();

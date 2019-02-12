@@ -32,6 +32,8 @@
 		</ui:define>
 
 		<ui:define name="body">
+		<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="util.css" />
 			<p:tooltip />
 			<center>
 				<div class="limiter">
@@ -39,7 +41,7 @@
 						<div class="wrap-login100">
 							<h:form class="login100-form validate-form">
 								<p:growl id="message" showDetail="true" />
-								<h2>Welcome</h2>
+								<h2>Edit Your Profile</h2>
 
 								<br />
 								<div class="wrap-input100 validate-input">
@@ -112,7 +114,6 @@
 
 								</p:messages>
 								<div class="container-login100-form-btn">
-									<div class="wrap-login100-form-btn">
 										<div class="login100-form-bgbtn"></div>
 										<p:commandButton class="button" value="Change"
 											action="#{userBean.change}" update="message">
@@ -138,7 +139,6 @@
 
 									</div>
 
-								</div>
 
 
 							</h:form>

@@ -41,22 +41,22 @@
 								<li><div class="dropdown">
 										<a class="dropbtn" href="#">Add more</a>
 										<div class="dropdown-content12">
-											<a href="category.xhtml">Category</a>
-											<a href="bookPF.xhtml">Book</a>
+											<a href="/=Admin/category.xhtml">Category</a>
+											<a href="/Admin/book.xhtml">Book</a>
 										</div>
 									</div></li>
 								<li><div class="dropdown">
 										<a class="dropbtn" href="#">Manage users</a>
 										<div class="dropdown-content12">
-											<a href="request.xhtml">Accept Requests</a> <a
-												href="choose-roles.xhtml">Manage Roles</a>
+											<a href="/Admin/request.xhtml">Accept Requests</a> <a
+												href="/Admin/choose-roles.xhtml">Manage Roles</a>
 										</div>
 									</div></li>
 							</ui:fragment>
-							<li><a href="reserve.xhtml">Reserve Book</a></li>
+							<li><a href="/Student/reserve.xhtml">Reserve Book</a></li>
 
 							<ui:fragment rendered="#{userBean.isUserSecretary() eq true}">
-								<li><a href="manage-books.xhtml">Manage Books</a></li>
+								<li><a href="/Secretary/manage-books.xhtml">Manage Books</a></li>
 							</ui:fragment>
 							<li><div class="dropdown">
 									<a class="dropbtn" href="#">#{userBean.username}</a>

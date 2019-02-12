@@ -21,4 +21,6 @@ public interface ReservationDAO {
 	UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO);
 	
 	UserDTO getUserThatTheBookIsDelivered(BookDTO bookDTO);
+	
+	boolean isBookFree(BookDTO bookDTO);
 }

@@ -105,6 +105,21 @@ public class ReservationDAOImpl implements ReservationDAO {
 		this.bookDAO = bookDAO;
 	}
 
+	@Override
+	public boolean isBookFree(BookDTO bookDTO) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Book book = bookDAO.getBookById(bookDTO.getBookId());
+		Query query = session.createQuery("Select r from Reservation r where r.book= :book and (r.status=1 or r.status=2)");
+		query.setParameter("book", book);
+		if( (Reservation)query.uniqueResult() != null ) {
+			return false;
+		} else {
+			return true;
+		}
+		
+
+	}
+
 	
 
 

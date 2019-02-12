@@ -30,7 +30,7 @@ public class BookAddedBean {
 	}
 
 	public String goToAddBook() {
-		return "book";
+		return "book?faces-redirect=true";
 	}
 
 	public BookDTO getBookAdded() {

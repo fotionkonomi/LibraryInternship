@@ -41,26 +41,20 @@ public class BookBean implements Serializable {
 	private CategoryService categoryService;
 	@ManagedProperty(value = "#{reservationService}")
 	private ReservationService reservationService;
-	@ManagedProperty(value = "#{userBean}")
-	private UserBean userBean;
+	private List<BookDTO> filteredBooks;
 	private CategoryDTO categoryOfThisBook;
 	private BookDTO bookDTO;
 	private String categoryString;
-	private BookDTO bookSelectedForReserve;
 	private List<BookDTO> listAllBooks;
-	private List<BookDTO> booksSelected;
 	private BookDTO bookSelected;
 	private List<BookDTO> listBooksBooked;
-	private List<BookDTO> listBooksFree;
 	private String image;
 
 	@PostConstruct
 	public void init() {
 		listAllBooks = listAllBooks();
 		bookDTO = new BookDTO();
-		booksSelected = new ArrayList<>();
 		listBooksBooked = listBooksBooked();
-		listBooksFree = listBookFree();
 	}
 
 	public String getCategoryString() {
@@ -81,7 +75,6 @@ public class BookBean implements Serializable {
 
 	public void upload(FileUploadEvent event) {
 		image = event.getFile().getFileName();
-		System.out.println("TEEEST: " + image);
 	}
 
 	public String addBook() {
@@ -127,26 +120,6 @@ public class BookBean implements Serializable {
 	}
 
 //--------------------------------------------------------------
-	public void reserveBooks() {
-		List<BookDTO> booksNotReserved = reservationService.booksReservation(booksSelected,
-				userBean.getUserDTOLogged());
-		String books = "";
-		for (BookDTO bookDTO : booksNotReserved) {
-			books += bookDTO.getBookTitle() + " ";
-		}
-		if (booksNotReserved.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("You have successfully booked the selected books"));
-		} else if (booksNotReserved.size() == booksSelected.size()) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sorry, " + books + " were booked", null));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Sorry, " + books + " were booked, however, you have successfully booked the other books", null));
-		}
-		listAllBooks = listAllBooks();
-
-	}
 
 //----------------------------------------------------------------
 	public void freeBook(BookDTO bookDTO) {
@@ -209,15 +182,7 @@ public class BookBean implements Serializable {
 	}
 
 	public String goToCreateBook() {
-		return "book";
-	}
-
-	public BookDTO getBookSelectedForReserve() {
-		return bookSelectedForReserve;
-	}
-
-	public void setBookSelectedForReserve(BookDTO bookSelectedForReserve) {
-		this.bookSelectedForReserve = bookSelectedForReserve;
+		return "book?faces-redirect=true";
 	}
 
 	public ReservationService getReservationService() {
@@ -234,22 +199,6 @@ public class BookBean implements Serializable {
 
 	public void setListAllBooks(List<BookDTO> listAllBooks) {
 		this.listAllBooks = listAllBooks;
-	}
-
-	public List<BookDTO> getBooksSelected() {
-		return booksSelected;
-	}
-
-	public void setBooksSelected(List<BookDTO> booksSelected) {
-		this.booksSelected = booksSelected;
-	}
-
-	public UserBean getUserBean() {
-		return userBean;
-	}
-
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
 	}
 
 	public BookDTO getBookSelected() {
@@ -272,20 +221,20 @@ public class BookBean implements Serializable {
 		this.listBooksBooked = listBooksBooked;
 	}
 
-	public List<BookDTO> getListBooksFree() {
-		return listBooksFree;
-	}
-
-	public void setListBooksFree(List<BookDTO> listBooksFree) {
-		this.listBooksFree = listBooksFree;
-	}
-
 	public String getImage() {
 		return image;
 	}
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public List<BookDTO> getFilteredBooks() {
+		return filteredBooks;
+	}
+
+	public void setFilteredBooks(List<BookDTO> filteredBooks) {
+		this.filteredBooks = filteredBooks;
 	}
 
 }

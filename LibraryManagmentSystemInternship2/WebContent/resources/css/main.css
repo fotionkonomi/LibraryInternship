@@ -12,8 +12,9 @@ body, html {
 
 /*---------------------------------------------*/
 a {
+	font-weight:bold;
 	font-family: Trebuchet MS, sans-serif;
-	font-size: 18px;
+	font-size: 12px;
 	line-height: 1.7;
 	color: #400040;
 	margin: 0px;

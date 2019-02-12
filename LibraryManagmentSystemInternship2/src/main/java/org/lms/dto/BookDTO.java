@@ -13,7 +13,7 @@ public class BookDTO {
 	private Date modified;
 	private String image;
 	private String description;
-	
+
 	public BookDTO() {
 
 	}
@@ -83,6 +83,8 @@ public class BookDTO {
 		result = prime * result + ((bookTitle == null) ? 0 : bookTitle.hashCode());
 		result = prime * result + ((categoryOfThisBook == null) ? 0 : categoryOfThisBook.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
 		result = prime * result + ((modified == null) ? 0 : modified.hashCode());
 		return result;
@@ -122,6 +124,16 @@ public class BookDTO {
 				return false;
 		} else if (!created.equals(other.created))
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
 		if (isbn == null) {
 			if (other.isbn != null)
 				return false;
@@ -157,9 +169,9 @@ public class BookDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getShortDescription() {
-		if(description.length() < 200) {
+		if (description.length() < 200) {
 			return description;
 		} else {
 			String shortDescription = description.substring(0, 200);

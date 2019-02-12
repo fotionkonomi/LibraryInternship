@@ -34,12 +34,17 @@
 					<p:dataTable selectionMode="single"
 						selection="#{bookBean.bookSelected}" rowKey="#{book.isbn}"
 						id="books1" widgetVar="books1" var="book"
+						filteredValue="#{bookBean.filteredBooks}"
 						value="#{bookBean.listAllBooks}" editable="true"
-						style="margin-bottom:20px" paginator="true" rows="10"
-						rowsPerPageTemplate="10,20,30,40,50">
+						style="margin-bottom:20px" paginator="true" rows="3"
+						rowsPerPageTemplate="3,10,20,30,40,50">
 						<f:facet name="header">
-            Books
-        </f:facet>
+							<p:outputPanel>
+								<h:outputText value="Search all books:" />
+								<p:inputText id="globalFilter" onkeyup="PF('books1').filter()"
+									style="width:150px" placeholder="Enter keyword" />
+							</p:outputPanel>
+						</f:facet>
 						<p:ajax event="rowSelect" />
 						<p:ajax event="rowUnselect" />
 						<p:column style="width: 200px;" headerText="Photo">
@@ -47,8 +52,9 @@
 								library="images" name="#{book.image}"></h:graphicImage>
 						</p:column>
 
-						<p:column headerText="Information">
-
+						<p:column filterBy="#{book.bookTitle}" headerText="Information"
+							filterMatchMode="contains">
+							<h:outputText class="inputi1" value="#{book.bookTitle}" />
 							<br />
 							<br />
 							<h:outputText class="labeljsf1" value="ISBN: " />
@@ -180,28 +186,46 @@
 				hideEffect="fade" resizable="true" height="500px" width="500px">
 				<p:outputPanel id="bookDetail" style="text-align:center;">
 					<center>
-						<p:panelGrid columns="2" columnClasses="label,value">
-
+						<div>
 							<h:outputText value=""></h:outputText>
-							<center>
-								<h:graphicImage style="width: 200px; height: 200px;"
-									library="images" name="#{bookBean.bookSelected.image}"></h:graphicImage>
-							</center>
-							<h:outputText value="ISBN" />
-							<h:outputText value="#{bookBean.bookSelected.isbn}" />
-							<h:outputText value="Title:" />
-							<h:outputText value="#{bookBean.bookSelected.bookTitle}" />
+							<h:graphicImage class="imageView"
+								style="width: 200px; height: 200px;" library="images"
+								name="#{bookBean.bookSelected.image}"></h:graphicImage>
+							<div class="infoView">
+								<h:outputText class="labelView" value="ISBN:  " />
+								<h:outputText class="outputView"
+									value="#{bookBean.bookSelected.isbn}" />
+								<hr />
+								<br /> <br />
 
-							<h:outputText value="Author" />
-							<h:outputText value="#{bookBean.bookSelected.bookAuthor}" />
+								<h:outputText class="labelView" value="Title:  " />
 
-							<h:outputText value="Category" />
-							<h:outputText
-								value="#{bookBean.bookSelected.categoryOfThisBook.categoryName}" />
-							<h:outputText value="Description" />
-							<h:outputText value="#{bookBean.bookSelected.description}" />
+								<h:outputText class="outputView"
+									value="#{bookBean.bookSelected.bookTitle}" />
+								<hr />
+								<br /> <br />
 
-						</p:panelGrid>
+
+								<h:outputText class="labelView" value="Author:  " />
+								<h:outputText class="outputView"
+									value="#{bookBean.bookSelected.bookAuthor}" />
+								<hr />
+								<br /> <br />
+
+
+								<h:outputText class="labelView" value="Category:  " />
+								<h:outputText class="outputView"
+									value="#{bookBean.bookSelected.categoryOfThisBook.categoryName}" />
+								<hr />
+								<br /> <br />
+
+								<h:outputText class="labelView" value="Description:  " />
+								<h:outputText class="outputView"
+									value="#{bookBean.bookSelected.description}" />
+
+
+							</div>
+						</div>
 						<br /> <br />
 					</center>
 					<h:form>

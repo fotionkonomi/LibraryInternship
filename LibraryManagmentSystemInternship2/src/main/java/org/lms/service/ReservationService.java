@@ -11,6 +11,8 @@ public interface ReservationService {
 
 	List<BookDTO> booksReservation(List<BookDTO> booksDTO, UserDTO userDTO);
 	
+	boolean isBookFree(BookDTO bookDTO);
+	
 	void bookDelivering(BookDTO bookDTO);
 
 	void bookFree(BookDTO bookDTO);
