@@ -1,0 +1,149 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Manage books"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+
+			<h:form id="form">
+
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:dataTable id="books1" widgetVar="books1" var="book"
+					value="#{bookBean.listBooksBooked()}" editable="true"
+					paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50"
+					style="margin-bottom:20px">
+					<f:facet name="header">
+            Books
+        </f:facet>
+
+					<p:column headerText="Title">
+
+						<h:outputText value="#{book.bookTitle}" />
+
+					</p:column>
+
+					<p:column headerText="Author">
+
+						<h:outputText value="#{book.bookAuthor}" />
+
+					</p:column>
+					<p:column headerText="Category">
+
+						<h:outputText value="#{book.categoryOfThisBook.categoryName}" />
+
+					</p:column>
+
+					<p:column headerText="ISBN">
+						<h:outputText value="#{book.isbn}" />
+					</p:column>
+
+					<p:column headerText="Date Created">
+						<h:outputText value="#{book.created}" />
+					</p:column>
+
+					<p:column headerText="Date Modified">
+						<h:outputText value="#{book.modified}" />
+					</p:column>
+
+					<p:column headerText="Booker">
+						<h:outputText
+							value="#{bookBean.getUserThatHasBookedTheBook(book).username}" />
+					</p:column>
+
+					<p:column headerText="Deliver">
+						<p:growl id="message" showDetail="true" />
+						<p:commandButton class="button" style="background-color: #ed6847;"
+							action="#{bookBean.deliverBook(book)}" update="message"
+							value="Deliver">
+							<p:confirm header="Confirmation"
+								message="Deliver #{book.bookTitle} to #{bookBean.getUserThatHasBookedTheBook(book).username} ?" />
+
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+
+					</p:column>
+				</p:dataTable>
+
+<br/>
+<p:dataTable id="books2" widgetVar="books2" var="book"
+					value="#{bookBean.listBooksDelivered()}" editable="true"
+					paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50"
+					style="margin-bottom:20px">
+					<f:facet name="header">
+            Books
+        </f:facet>
+
+					<p:column headerText="Title">
+
+						<h:outputText value="#{book.bookTitle}" />
+
+					</p:column>
+
+					<p:column headerText="Author">
+
+						<h:outputText value="#{book.bookAuthor}" />
+
+					</p:column>
+					<p:column headerText="Category">
+
+						<h:outputText value="#{book.categoryOfThisBook.categoryName}" />
+
+					</p:column>
+
+					<p:column headerText="ISBN">
+						<h:outputText value="#{book.isbn}" />
+					</p:column>
+
+					<p:column headerText="Date Created">
+						<h:outputText value="#{book.created}" />
+					</p:column>
+
+					<p:column headerText="Date Modified">
+						<h:outputText value="#{book.modified}" />
+					</p:column>
+
+					<p:column headerText="Delivered To">
+						<h:outputText
+							value="#{bookBean.getUserThatTheBookIsDelivered(book).username}" />
+					</p:column>
+
+					<p:column headerText="Free">
+						<p:growl id="message" showDetail="true" />
+						<p:commandButton class="button" style="background-color: #ed6847;"
+							action="#{bookBean.freeBook(book)}" update="message"
+							value="Free">
+							<p:confirm header="Confirmation"
+								message="Free #{book.bookTitle} from #{bookBean.getUserThatTheBookIsDelivered(book).username} ?" />
+
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

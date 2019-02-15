@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="table.css" />
+
+	<style>
+</style>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="title">
+			<h:outputText value="Requests"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="users" widgetVar="users" var="user"
+					value="#{userRequestsBean.usersThatAreNotActivated()}"
+					editable="true" style="margin-bottom:20px" paginator="true"
+					rows="10" rowsPerPageTemplate="10,20,30,40,50">
+					<f:facet name="header">
+            Requests
+        </f:facet>
+
+					<p:column headerText="First Name">
+
+						<h:outputText value="#{user.firstName}" />
+
+					</p:column>
+
+					<p:column headerText="Last Name">
+
+						<h:outputText value="#{user.lastName}" />
+
+					</p:column>
+
+					<p:column headerText="Username">
+
+						<h:outputText value="#{user.username}" />
+
+					</p:column>
+
+					<p:column headerText="Age">
+
+						<h:outputText value="#{user.age}" />
+
+					</p:column>
+
+					<p:column headerText="Email">
+
+						<h:outputText value="#{user.email}" />
+
+					</p:column>
+
+					<p:column headerText="Gender">
+						<ui:fragment rendered="#{user.gender eq true}">
+							<h:outputText value="Male" />
+						</ui:fragment>
+						<ui:fragment rendered="#{user.gender eq false}">
+							<h:outputText value="Female" />
+						</ui:fragment>
+					</p:column>
+
+
+					<p:column headerText="Approve">
+						<p:growl id="mesazh" showDetail="true" />
+						<p:commandButton class="button" style="background-color: #ed6847;"
+							action="#{userRequestsBean.activate(user)}" update="mesazh"
+							value="Approve">
+
+							<p:confirm header="Confirmation"
+								message="Activate #{user.username} ?" />
+
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+
+					</p:column>
+
+					<p:column headerText="Disaprove">
+						<p:growl id="message1" showDetail="true" />
+						<p:commandButton class="button" style="background-color: #ed6847;"
+							action="#{userRequestsBean.deActivate(user)}" update="message1"
+							value="Disapprove">
+
+							<p:confirm header="Confirmation"
+								message="Deactivate #{user.username} 's account" />
+
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

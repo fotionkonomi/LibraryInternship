@@ -1,0 +1,73 @@
+@charset "ISO-8859-1";
+
+#contact {
+	margin: 0 auto;
+}
+
+.containeri {
+	width: 500px;
+	height: auto;
+	margin: 0 auto;
+	padding: 50px 0;
+}
+
+#contact .containeri .form .input, #contact .containeri .form .textarea
+	{
+	width: 97.4%;
+	height: 30px;
+	padding: 5px 10px;
+	font-size: 12px;
+	color: #800000;
+	letter-spacing: 1px;
+	background: rgba(255, 255, 255, 0.3);
+	border: 2px solid #350d9f;
+	margin-bottom: 25px;
+}
+
+#contact .containeri .form .input:focus, #contact .containeri .form .textarea:focus,
+	.input:focus {
+	color: #a80000;
+	border: 2px solid #a80000;
+}
+
+#contact .containeri .form .textarea {
+	height: 150px;
+	background-color: #f2f2f2;
+	border: 2px solid #350d9f;
+	color: #800000;
+}
+
+#contact .containeri .form .submit {
+	width: 100%; 
+	padding: 5px 10px;
+	font-size: 12px;
+	letter-spacing: 1px;
+	background: #350d9f;
+	height: 40px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #FFF;
+	border: 2px solid #350d9f;
+}
+
+#contact .containeri .form .submit:hover {
+	color: #FFF;
+	border: 2px solid #dd4545;
+	background-color: #110169;
+	cursor: pointer;
+}
+
+#contact .containeri .form .input {
+	color: #b43838;
+	background-color: #f2f2f2;
+}
+
+.box .select {
+	background: #f2f2f2;
+	color: #b43838;
+	width: 180px;
+	height: 25px;
+	border: none;
+	font-size: 14px;
+	
+}

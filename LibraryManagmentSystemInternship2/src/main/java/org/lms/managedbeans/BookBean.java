@@ -42,19 +42,16 @@ public class BookBean implements Serializable {
 	@ManagedProperty(value = "#{reservationService}")
 	private ReservationService reservationService;
 	private List<BookDTO> filteredBooks;
-	private CategoryDTO categoryOfThisBook;
 	private BookDTO bookDTO;
 	private String categoryString;
 	private List<BookDTO> listAllBooks;
 	private BookDTO bookSelected;
-	private List<BookDTO> listBooksBooked;
 	private String image;
 
 	@PostConstruct
 	public void init() {
 		listAllBooks = listAllBooks();
 		bookDTO = new BookDTO();
-		listBooksBooked = listBooksBooked();
 	}
 
 	public String getCategoryString() {
@@ -64,15 +61,7 @@ public class BookBean implements Serializable {
 	public void setCategoryString(String categoryString) {
 		this.categoryString = categoryString;
 	}
-
-	public CategoryDTO getCategoryOfThisBook() {
-		return categoryOfThisBook;
-	}
-
-	public void setCategoryOfThisBook(CategoryDTO categoryOfThisBook) {
-		this.categoryOfThisBook = categoryOfThisBook;
-	}
-
+	
 	public void upload(FileUploadEvent event) {
 		image = event.getFile().getFileName();
 	}
@@ -110,15 +99,7 @@ public class BookBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void deliverBook(BookDTO bookDTO) {
-		reservationService.bookDelivering(bookDTO);
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("manage-books.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 //--------------------------------------------------------------
 
 //----------------------------------------------------------------
@@ -212,15 +193,7 @@ public class BookBean implements Serializable {
 	public String goToEditBook() {
 		return "book-edit?faces-redirect=true&id=" + bookSelected.getBookId();
 	}
-
-	public List<BookDTO> getListBooksBooked() {
-		return listBooksBooked;
-	}
-
-	public void setListBooksBooked(List<BookDTO> listBooksBooked) {
-		this.listBooksBooked = listBooksBooked;
-	}
-
+	
 	public String getImage() {
 		return image;
 	}

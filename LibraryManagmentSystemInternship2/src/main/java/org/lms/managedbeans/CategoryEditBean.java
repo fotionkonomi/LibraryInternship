@@ -1,5 +1,6 @@
 package org.lms.managedbeans;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -30,10 +31,17 @@ public class CategoryEditBean {
 		String catId = paramMap.get("id");
 		try {
 			Integer categoryId = Integer.parseInt(catId);
-			categorySelected = categoryService.getCategoryById(categoryId);
+			try {
+				categorySelected = categoryService.getCategoryById(categoryId);
+			} catch (NullPointerException e) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/error-404.xhtml");
+			}
 
 		} catch (NumberFormatException e) {
 			e.getMessage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Categories"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+		<h:form>
+		<center>
+			<h2 style="color:green;">YOU HAVE SUCCESSFULLY CREATED A CATEGORY</h2>
+			<h3>
+				Name :
+				<h:outputText
+					value="#{categoryAddedBean.categoryAdded.categoryName}"></h:outputText>
+
+				<br /> <br /> Description:
+				<h:outputText
+					value="#{categoryAddedBean.categoryAdded.categoryDescription}"></h:outputText>
+			</h3>
+
+			<p:commandButton class="submit" value="Continue Creating"
+				action="#{categoryAddedBean.goToCreateCategory}"></p:commandButton>
+				</center>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

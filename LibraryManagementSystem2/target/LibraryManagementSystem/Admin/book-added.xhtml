@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Books"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
+				<h:form>
+				<center>
+					<h1 style="color: green;">YOU HAVE SUCCESSFULLY CREATED A BOOK</h1>
+				</center>
+				<h:graphicImage class="image" library="images"
+					name="#{bookAddedBean.bookAdded.image}"></h:graphicImage>
+
+				<div class="info">
+					<h:outputText class="inputi" value="#{bookAddedBean.bookAdded.bookTitle}"></h:outputText>
+
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Author: " />
+
+					<h:outputText class="outputjsf" value="#{bookAddedBean.bookAdded.bookAuthor}"></h:outputText>
+
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Category: " />
+
+					<h:outputText class="outputjsf"
+						value="#{bookAddedBean.bookAdded.categoryOfThisBook.categoryName}"></h:outputText>
+					<br /> <br />
+					<h:outputLabel class="labeljsf" value="Description: " />
+
+					<h:outputText class="outputjsf" value="#{bookAddedBean.bookAdded.description}"></h:outputText>
+				</div>
+
+				<p:commandButton class="submit" value="Continue Creating"
+					action="#{bookAddedBean.goToAddBook}"></p:commandButton>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

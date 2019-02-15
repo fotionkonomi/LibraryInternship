@@ -38,7 +38,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		ReservationDTO reservationDTO = getReservationOfTheBook(bookDTO);
 		reservationDTO.setStatus(2);
-		session.merge(ReservationConverter.toModel(reservationDTO));
+		session.clear();
+		session.update((ReservationConverter.toModel(reservationDTO)));
 	}
 	
 	@Override
@@ -46,8 +47,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		ReservationDTO reservationDTO = getReservationOfTheBookDelivered(bookDTO);
 		reservationDTO.setStatus(0);
-		session.merge(ReservationConverter.toModel(reservationDTO));
-	}
+		session.clear();
+		session.update((ReservationConverter.toModel(reservationDTO)));	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

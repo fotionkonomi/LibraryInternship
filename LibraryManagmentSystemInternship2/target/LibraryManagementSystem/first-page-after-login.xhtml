@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Profile"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+			<section id="one" class="wrapper style1 special">
+			<div class="container">
+				<header class="major">
+				<h2>Welcome to the LMS!</h2>
+				<p>You will find any book you need, and all for free!</p>
+				</header>
+				<div class="row 150%">
+					<div class="4u 12u$(medium)">
+						<section class="box"> <img
+							style="border-radius: 50%; width: 100px; height: 100px;"
+							src="https://previews.123rf.com/images/alexwhite/alexwhite1411/alexwhite141104495/33766884-book-icon-violet-button.jpg" />
+						<h3>A room without books is like a body without a soul</h3>
+						<p>
+							<i>"Marcus Tullius Cicero"</i>
+						</p>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			</section>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

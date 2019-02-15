@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+              http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+
+
+
+
+<navigation-rule> 
+   <from-view-id>book.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{bookBean.addBook}</from-action> 
+      <from-outcome>added</from-outcome> 
+      <to-view-id>Admin/book-added.xhtml</to-view-id> 
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+
+
+<navigation-rule> 
+   <from-view-id>profile.xhtml</from-view-id> 
+   
+   <navigation-case> 
+      <from-action>#{userBean.change}</from-action> 
+      <from-outcome>changed</from-outcome> 
+      <to-view-id>changes.xhtml</to-view-id> 
+      <redirect></redirect>
+   </navigation-case> 
+   
+   
+</navigation-rule>
+
+<navigation-rule>
+	<from-view-id>index.xhtml</from-view-id>
+	<navigation-case>
+		<from-action>#{loginBean.login}</from-action>
+		<from-outcome>login</from-outcome>
+		<to-view-id>first-page-after-login.xhtml</to-view-id>
+	</navigation-case>
+	
+
+</navigation-rule>
+
+<navigation-rule>
+	<from-view-id>Admin/request.xhtml</from-view-id>
+	<navigation-case>
+		<from-action>#{userBean.activate}</from-action>
+		<from-outcome>here</from-outcome>
+		<to-view-id>Admin/request.xhtml</to-view-id>
+		<redirect />
+	</navigation-case>
+	
+	<navigation-case>
+		<from-action>#{userBean.deActivate}</from-action>
+		<from-outcome>here</from-outcome>
+		<to-view-id>Admin/request.xhtml</to-view-id>
+		<redirect />
+	</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+  <from-view-id>/*</from-view-id>
+  <navigation-case>
+   <from-outcome>index</from-outcome>
+   <to-view-id>first-page-after-login.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>category</from-outcome>
+   <to-view-id>Admin/category.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>book</from-outcome>
+   <to-view-id>Admin/book.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>request</from-outcome>
+   <to-view-id>Admin/request.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>choose-role</from-outcome>
+   <to-view-id>Admin/choose-roles.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>reserve</from-outcome>
+   <to-view-id>Student/reserve.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+   <navigation-case>
+   <from-outcome>manage</from-outcome>
+   <to-view-id>Secretary/manage-books.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>deliver</from-outcome>
+   <to-view-id>Secretary/deliver-books.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>free</from-outcome>
+   <to-view-id>Secretary/free-books.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+   <navigation-case>
+   <from-outcome>profile</from-outcome>
+   <to-view-id>profile.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+ </navigation-rule>
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+    
+    
+</faces-config>

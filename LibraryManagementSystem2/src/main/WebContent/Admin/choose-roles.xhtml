@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="title">
+			<h:outputText value="Roles"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:dataTable selectionMode="single"
+					selection="#{userRolesBean.userSelected}" rowKey="#{user.username}"
+					id="users" widgetVar="users" var="user"
+					value="#{userRolesBean.allUsers}" style="margin-bottom:20px"
+					paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Search all users:" />
+							<p:inputText id="globalFilter" onkeyup="PF('users').filter()"
+								style="width:150px" placeholder="Enter username" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:ajax event="rowSelect" />
+					<p:ajax event="rowUnselect" />
+					<p:column headerText="First Name">
+						<h:outputText value="#{user.firstName}" />
+					</p:column>
+
+					<p:column headerText="Last Name">
+						<h:outputText value="#{user.lastName}" />
+					</p:column>
+
+					<p:column filterBy="#{user.username}" filterMatchMode="contains"
+						headerText="Username">
+						<h:outputText value="#{user.username}" />
+					</p:column>
+
+					<p:column headerText="Age">
+						<h:outputText value="#{user.age}" />
+					</p:column>
+
+					<p:column headerText="Email">
+						<h:outputText value="#{user.email}" />
+					</p:column>
+
+					<p:column headerText="Gender">
+						<ui:fragment rendered="#{user.gender eq true}">
+							<h:outputText value="Male" />
+						</ui:fragment>
+						<ui:fragment rendered="#{user.gender eq false}">
+							<h:outputText value="Female" />
+						</ui:fragment>
+					</p:column>
+
+
+					<p:column headerText="Admin">
+						<ui:fragment
+							rendered="#{userRolesBean.isAUserDTOAdmin(user) eq false}">
+							<p:growl id="message" showDetail="true" />
+
+							<p:commandButton class="submit" style="background-color: green;"
+								action="#{userRolesBean.makeAdmin(user)}" value="Make admin"
+								update="form">
+								<p:confirm header="Confirmation" message="Are you sure?" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+							</p:confirmDialog>
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{userRolesBean.isAUserDTOAdmin(user) eq true}">
+							<h:outputText value="#{user.username} is an admin" />
+						</ui:fragment>
+					</p:column>
+
+					<p:column headerText="Secretary">
+						<ui:fragment
+							rendered="#{userRolesBean.isAUserDTOSecretary(user) eq false}">
+							<p:growl id="message1" showDetail="true" />
+							<p:commandButton class="button"
+								style="background-color: #ed6847;"
+								action="#{userRolesBean.makeSecretary(user)}" update="form"
+								value="Make secretary">
+								<p:confirm header="Confirmation" message="Are you sure?" />
+
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+							</p:confirmDialog>
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{userRolesBean.isAUserDTOSecretary(user) eq true}">
+							<h:outputText value="#{user.username} is a secretary"></h:outputText>
+						</ui:fragment>
+					</p:column>
+
+				</p:dataTable>
+				<p:contextMenu for="users">
+					<p:menuitem value="Edit" action="#{userRolesBean.goToEdit}" icon="pi pi-search" />
+				</p:contextMenu>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

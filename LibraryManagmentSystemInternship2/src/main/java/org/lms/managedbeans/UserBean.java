@@ -102,15 +102,25 @@ public class UserBean {
 		return userService.findUsersThatAreNotActivated();
 	}
 
-	public String activate(UserDTO userToBeActivated) {
+	public void activate(UserDTO userToBeActivated) {
 		this.userService.activateUser(userToBeActivated);
-		return "here";
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("request.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
-	public String deActivate(UserDTO userToBeActivated) {
+	public void deActivate(UserDTO userToBeActivated) {
 		this.userService.deActivateUser(userToBeActivated);
-		return "here";
-	}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("request.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	}
 
 	public Boolean isUserAdmin() {
 		for (RoleDTO roleDTO : rolesOfThisUser) {
