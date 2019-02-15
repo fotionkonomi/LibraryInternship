@@ -25,6 +25,8 @@ CREATE TABLE category (
 	category_id int not null auto_increment,
     category_name varchar(20) not null,
     category_description varchar(255) not null,
+    created date not null,
+    modified date not null,
     PRIMARY KEY(category_id),
     UNIQUE(category_name)
 );
@@ -34,11 +36,10 @@ CREATE TABLE books(
     book_title varchar(30) not null,
     book_author varchar(40) not null,
     category_id int not null,
-    user_id int not null,
-    status int not null,
+	isbn int not null,
     PRIMARY KEY (book_id),
     FOREIGN KEY (category_id) REFERENCES category(category_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    UNIQUE(isbn)
 );
 
 CREATE TABLE user_role(
@@ -49,6 +50,16 @@ CREATE TABLE user_role(
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
+
+CREATE TABLE reservation (
+	reservation_id int not null auto_increment,
+	user_id int not null,
+	book_id int not null,
+	status int not null,
+	PRIMARY KEY (reservation_id),
+	FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (book_id) REFERENCES books(book_id);
+)
 
 
 
