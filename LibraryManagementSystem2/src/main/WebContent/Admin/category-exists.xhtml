@@ -5,16 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<h:outputStylesheet library="css" name="forms.css" />
-	<h:outputStylesheet library="css" name="main.css" />
-
-	<style>
-.ui-datatable.ui-widget {
-	width: 80%;
-	opacity: 0.9;
-	border-radius: 50%;
-}
-</style>
+	
 </h:head>
 <h:body>
 	<ui:composition template="/template.xhtml">
@@ -26,7 +17,9 @@
 		<ui:define name="body">
 			<center>
 			<h2 style="color: red;">ERROR!</h2>
+			<br/>
 			<h3>There is a category with that name already created, you have to create categories with distinct names!</h3>
+			<br/>
 			<a href="category.xhtml">Go back</a>
 			</center>
 		</ui:define>

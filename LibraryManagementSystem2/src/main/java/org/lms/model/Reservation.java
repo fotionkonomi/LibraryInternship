@@ -18,17 +18,31 @@ public class Reservation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reservation_id")
+	/**
+	 * Represents the primary key of the table reservation
+	 */
 	private Integer reservationId;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id", nullable = false)
+	/**
+	 * The student that has booked the book
+	 */
 	private User booker;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "book_id", nullable = false)
+	/**
+	 * The book that is booked by the student
+	 */
 	private Book book;
 
 	@Column(name = "status", nullable = false)
+	/**
+	 * 0 -> The book is free now
+	 * 1 -> The book is booked
+	 * 2 -> The book is delivered to the booker
+	 */
 	private Integer status;
 
 	public Integer getReservationId() {

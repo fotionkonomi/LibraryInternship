@@ -91,4 +91,18 @@ public class UserServiceImpl implements UserService {
 		return UserConverter.toDTO(userDAO.getUserById(id));
 	}
 
+	@Override
+	public void setRolesToUserViaListString(List<String> rolesString, UserDTO userDTO) {
+		for (String roleString : rolesString) {
+			if (roleString.equals("Admin")) {
+				makeUserAdmin(userDTO);
+			} else if (roleString.equals("Student")) {
+				makeUserStudent(userDTO);
+			} else if (roleString.equals("Secretary")) {
+				makeUserSecretary(userDTO);
+			}
+		}
+
+	}
+
 }

@@ -27,18 +27,18 @@
 			<center>
 
 				<h1 style="color: blue;">Category Editing</h1>
-				
+				<br/><br/>
 				<h:form>
 				<p:growl id="msgs" showDetail="true" />
 					<h:outputText style="position: relative; left: -12px;"
 									value="Name:" />
-					<h:inputText id="name"  style="position: relative; left: 23px;"
+					<h:inputText id="name"  style="position: relative; left: 23px;border: 1px solid grey"
 						value="#{categoryEditBean.categorySelected.categoryName}"></h:inputText>
-
+					<br/>
 					<br />
 					<br /> 	<h:outputText value="Description:" />
-					<h:inputText id="description"  style="position: relative; left: 8px;"
-						value="#{categoryEditBean.categorySelected.categoryDescription}"></h:inputText>
+					<h:inputTextarea rows="10" cols="25" id="description"  style="position: relative; left: 8px; border: 1px solid grey, min-width: 100px; min-height: 50px;"
+						value="#{categoryEditBean.categorySelected.categoryDescription}"></h:inputTextarea>
 					<br />
 					<br />
 					<p:messages></p:messages>

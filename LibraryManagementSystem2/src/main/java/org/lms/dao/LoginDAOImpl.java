@@ -15,7 +15,7 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public UserDTO login(String username, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -38,6 +38,4 @@ public class LoginDAOImpl implements LoginDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	
-	
 }

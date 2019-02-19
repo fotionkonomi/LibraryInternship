@@ -6,7 +6,11 @@ import org.lms.model.User;
 public class UserConverter {
 
 	
-
+	/**
+	 * Converts a user from a dto to a model
+	 * @param userDTO
+	 * @return
+	 */
 	public static User toModel(UserDTO userDTO) {
 		User user = new User();
 		user.setUserId(userDTO.getUserId());
@@ -23,6 +27,11 @@ public class UserConverter {
 
 	}
 
+	/**
+	 * Converts a user from a model to a dto
+	 * @param user
+	 * @return
+	 */
 	public static UserDTO toDTO(User user) {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(user.getUserId());

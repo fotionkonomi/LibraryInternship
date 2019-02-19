@@ -38,7 +38,7 @@
 					</center>
 					<br />
 					<div class="wrap-input100 validate-input">
-						<h:inputText class="input100" value="#{signUpBean.firstName}"
+						<h:inputText class="input100" value="#{signUpBean.userDTO.firstName}"
 							a:placeholder="First Name" required="true"
 							requiredMessage="Please enter your first name" id="firstName"></h:inputText>
 						<p:messages for="firstName" closable="true"></p:messages>
@@ -50,7 +50,7 @@
 						</span>
 						<h:inputText class="input100" required="true" id="lastName"
 							requiredMessage="Please enter your last name"
-							a:placeholder="Last Name" value="#{signUpBean.lastName}"></h:inputText>
+							a:placeholder="Last Name" value="#{signUpBean.userDTO.lastName}"></h:inputText>
 						<p:messages for="lastName" closable="true"></p:messages>
 
 					</div>
@@ -58,7 +58,7 @@
 					<div class="wrap-input100 validate-input">
 						<h:inputText class="input100" required="true"
 							requiredMessage="Please enter a username" id="username"
-							value="#{signUpBean.username}" a:placeholder="Username"></h:inputText>
+							value="#{signUpBean.userDTO.username}" a:placeholder="Username"></h:inputText>
 						<p:messages for="username" closable="true"></p:messages>
 					</div>
 
@@ -67,7 +67,7 @@
 						</span>
 						<h:inputText class="input100" required="true"
 							requiredMessage="Please enter an email" a:placeholder="Email"
-							value="#{signUpBean.email}" id="email"
+							value="#{signUpBean.userDTO.email}" id="email"
 							validatorMessage="Email format is not correct">
 							<f:validateRegex
 								pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
@@ -81,7 +81,7 @@
 						<h:inputText class="input100" id="age" required="true"
 							requiredMessage="Please enter your age"
 							converterMessage="Please enter a number" a:placeholder="Age"
-							value="#{signUpBean.age}">
+							value="#{signUpBean.userDTO.age}">
 							<f:convertNumber integerOnly="true"></f:convertNumber>
 
 						</h:inputText>
@@ -100,7 +100,7 @@
 					<br />
 
 					<div class="wrap-input100 validate-input">
-						<h:inputSecret class="input100" value="#{signUpBean.password}"
+						<h:inputSecret class="input100" value="#{signUpBean.userDTO.password}"
 							required="true" requiredMessage="Please enter a password"
 							validatorMessage="Password must contain at least an uppercase, a lowercase and a number"
 							a:placeholder="Password" id="password">
@@ -116,13 +116,12 @@
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<p:commandButton class="button" value="Sign Up"
-								update=":form:msgs" 
-								action="#{signUpBean.addUser}" />
+								update=":form:msgs" action="#{signUpBean.addUser}" />
 
 						</div>
 
 					</div>
-				
+
 				</h:form>
 
 			</div>

@@ -15,6 +15,9 @@ import org.lms.service.BookService;
 @ViewScoped
 public class BookAddedBean {
 
+	/**
+	 * The book that is just added to the system
+	 */
 	private BookDTO bookAdded;
 
 	@ManagedProperty(value = "#{bookService}")
@@ -29,6 +32,11 @@ public class BookAddedBean {
 		bookAdded = bookService.getBookByISBN(isbn);
 	}
 
+	/**
+	 * Redirects to the book.xhtml page
+	 * 
+	 * @return
+	 */
 	public String goToAddBook() {
 		return "book?faces-redirect=true";
 	}

@@ -4,14 +4,50 @@ import java.util.Date;
 
 public class BookDTO {
 
+	/**
+	 * A unique identifier for a book
+	 */
 	private Integer bookId;
+
+	/**
+	 * Title of the book
+	 */
 	private String bookTitle;
+
+	/**
+	 * Author of the book
+	 */
 	private String bookAuthor;
+
+	/**
+	 * Category of this book
+	 */
 	private CategoryDTO categoryOfThisBook;
+
+	/**
+	 * International Serial Book Number of this book. Has to be Unique!
+	 */
 	private Integer isbn;
+
+	/**
+	 * The date when the administrators have added this book to the system
+	 */
 	private Date created;
+
+	/**
+	 * The date when the administrators have edited this book. If it is not edited,
+	 * this field contains the date when the book has been added to the system
+	 */
 	private Date modified;
+	
+	/**
+	 * Contains the name of the image that associates this book
+	 */
 	private String image;
+	
+	/**
+	 * Description of this book
+	 */
 	private String description;
 
 	public BookDTO() {

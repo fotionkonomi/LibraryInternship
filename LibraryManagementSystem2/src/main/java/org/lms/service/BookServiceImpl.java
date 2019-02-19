@@ -1,6 +1,6 @@
 package org.lms.service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.lms.converter.BookConverter;
@@ -28,6 +28,8 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void addBook(BookDTO bookDTO) {
+		bookDTO.setCreated(new Date());
+		bookDTO.setModified(new Date());
 		this.bookDAO.addBook(bookDTO);
 	}
 
@@ -65,22 +67,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public BookDTO getBookByISBN(int isbn) {
 		return bookDAO.getBookByISBN(isbn);
-	}
-
-	@Override
-	public List<BookDTO> getThreeRandomBooks() {
-		List<BookDTO> three = new ArrayList<>();
-		List<BookDTO> allBooks = getAllBooks();
-		while(three.size() < 3){
-			int index = (int)(Math.random() * allBooks.size());
-			BookDTO bookDTO = allBooks.get(index);
-			if(three.contains(bookDTO)) {
-				continue;
-			} else {
-				three.add(bookDTO);
-			}
-		}
-		return three;
 	}
 
 }

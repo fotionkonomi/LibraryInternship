@@ -16,47 +16,57 @@
 		</ui:define>
 
 		<ui:define name="body">
+	<style>
+		td {
+			padding-right: 10px;
+			padding-left: 10px;
+			font-size: 15px;
+		}
+		th {
+			text-align: center;
+		}
+	</style>
+			<center>
+				<div id="display-success">
+					<h2>YOU HAVE SUCCESSFULLY EDITED YOUR PROFILE</h2>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th colspan="2">Your Profile</th>
+						</tr>
+					</thead>
+						<br/><br/><br/>
+					
+					<tbody>
+					
+						<tr>
+							<td><span class="data"> First Name</span></td>
+							<td>"#{userBean.userDTOLogged.firstName}"</td>
+						</tr>
+						<tr>
+							<td><span class="data">Last Name</span></td>
+							<td>"#{userBean.userDTOLogged.lastName}"</td>
+						</tr>
 
+						<tr>
+							<td><span class="data">Email</span></td>
+							<td>"#{userBean.userDTOLogged.email}"</td>
+						</tr>
 
-			<h:outputStylesheet library="css" name="navbar.css" />
-			<h:outputStylesheet library="css" name="main.css" />
-			<h:outputStylesheet library="css" name="table.css" />
-			<div id="display-success">
-				<h2>YOU HAVE SUCCESSFULLY EDITED YOUR PROFILE</h2>
-			</div>
-			<table>
-				<thead>
-					<tr>
-						<th colspan="2">Your Profile</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><span class="data"> First Name</span></td>
-						<td>"#{userBean.userDTOLogged.firstName}"</td>
-					</tr>
-					<tr>
-						<td><span class="data">Last Name</span></td>
-						<td>"#{userBean.userDTOLogged.lastName}"</td>
-					</tr>
+						<tr>
+							<td><span class="data">Username</span></td>
+							<td>"#{userBean.userDTOLogged.username}"</td>
+						</tr>
 
-					<tr>
-						<td><span class="data">Email</span></td>
-						<td>"#{userBean.userDTOLogged.email}"</td>
-					</tr>
+						<tr>
+							<td><span class="data">Age</span></td>
+							<td>"#{userBean.userDTOLogged.age}"</td>
+						</tr>
 
-					<tr>
-						<td><span class="data">Username</span></td>
-						<td>"#{userBean.userDTOLogged.username}"</td>
-					</tr>
-
-					<tr>
-						<td><span class="data">Age</span></td>
-						<td>"#{userBean.userDTOLogged.age}"</td>
-					</tr>
-
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</center>
 		</ui:define>
 	</ui:composition>
 </h:body>

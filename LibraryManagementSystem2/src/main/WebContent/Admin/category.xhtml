@@ -34,16 +34,22 @@
 						selection="#{categoryBean.selectedCategory}"
 						rowKey="#{category.categoryName}" id="categories1"
 						widgetVar="categories1" var="category"
-						value="#{categoryBean.allCategories}" editable="true"
-						style="margin-bottom:20px" paginator="true" rows="10"
-						rowsPerPageTemplate="10,20,30,40,50">
+						value="#{categoryBean.allCategories}"
+						filteredValue="#{categoryBean.filteredCategories}"
+						style="margin-bottom:20px" paginator="true" rows="5"
+						rowsPerPageTemplate="5,10,20,30,40,50">
 						<f:facet name="header">
-            Categories
-        </f:facet>
+							<p:outputPanel>
+								<h:outputText value="Search all categories:  " />
+								<p:inputText id="globalFilter" onkeyup="PF('categories1').filter()"
+									style="width:150px" placeholder="Enter category name" />
+							</p:outputPanel>
+						</f:facet>
 
 						<p:ajax event="rowSelect" />
 						<p:ajax event="rowUnselect" />
-						<p:column headerText="Name">
+						<p:column filterBy="#{category.categoryName}"
+							filterMatchMode="contains" headerText="Name">
 
 							<h:outputText value="#{category.categoryName}" />
 
@@ -51,7 +57,7 @@
 
 						<p:column headerText="Description">
 
-							<h:outputText value="#{category.categoryDescription}" />
+							<h:outputText value="#{categoryBean.getShortDescription(category)}" />
 
 						</p:column>
 
@@ -83,28 +89,33 @@
 					</div>
 				</h:form>
 
-				<p:dialog header="Add Category" widgetVar="addCat"
-					showEffect="drop" resizable="true" height="150" width="400">
-					
+				<p:dialog header="Add Category" widgetVar="addCat" showEffect="drop"
+					resizable="true" height="400" width="400">
+
 					<h:form>
+						<p:growl id="mess"></p:growl>
 						<center>
 
 
 							<h:outputText style="position: relative; left: -12px;"
 								value="Name:" />
 							<h:inputText style="position: relative; left: 23px;"
+								required="true" id="name" 
+								requiredMessage="Please enter the name of the category"
 								value="#{categoryBean.categoryDTO.categoryName}" />
 							<br /> <br />
-							<h:outputText value="Description:" />
-							<h:inputText style="position: relative; left: 8px;"
-								value="#{categoryBean.categoryDTO.categoryDescription}" />
 
+							<h:outputText value="Description:" />
+							<h:inputTextarea rows="10" cols="22" style="position: relative; left: 8px;"
+								required="true" id="description"
+								requiredMessage="Please enter a description for the category"
+								value="#{categoryBean.categoryDTO.categoryDescription}" />
 
 						</center>
 						<br />
 						<br />
 
-						<p:commandButton value="Add Category"
+						<p:commandButton value="Add Category" update="mess"
 							styleClass="ui-priority-primary"
 							action="#{categoryBean.addCategory}">
 						</p:commandButton>
@@ -113,8 +124,8 @@
 
 
 				<p:dialog header="Category Info" widgetVar="catDialog"
-					showEffect="fade" hideEffect="fade" resizable="true" height="150"
-					width="400">
+					showEffect="fade" hideEffect="fade" resizable="true" minHeight="200"
+					width="600">
 					<p:outputPanel id="catDetail" style="text-align:center;">
 						<center>
 							<p:panelGrid columns="2" columnClasses="label,value">

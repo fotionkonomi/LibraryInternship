@@ -86,6 +86,17 @@ public class RoleDAOImpl implements RoleDAO {
 		return rolesDTO;
 	}
 
+	@Override
+	public List<RoleDTO> getAllRoles() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Role> roles = session.createQuery("Select r from Role r").list();
+		List<RoleDTO> rolesDTO = new ArrayList<>();
+		for(Role role : roles) {
+			rolesDTO.add(RoleConverter.toDTO(role));
+		}
+		return rolesDTO;
+	}
+
 	
 }
 

@@ -8,25 +8,23 @@
 </h:head>
 <h:body>
 	<ui:composition template="/template.xhtml">
-		<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
 
 		<ui:define name="title">
 			<h:outputText value="Deliver books"></h:outputText>
 		</ui:define>
 
 		<ui:define name="body">
-			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
 
 			<h:form id="form">
 
 				<p:growl id="msgs" showDetail="true" />
 
 				<p:dataTable id="books1" widgetVar="books1" var="book"
-					value="#{bookDeliverBean.listBooksBooked}" paginator="true"
+					value="#{bookSecretaryBean.listBooksBooked}" paginator="true"
 					rows="10" rowsPerPageTemplate="10,20,30,40,50"
-					filteredValue="#{bookDeliverBean.filteredBooks}"
+					filteredValue="#{bookSecretaryBean.filteredBooks}"
 					selectionMode="multiple"
-					selection="#{bookDeliverBean.booksSelected}" rowKey="#{book.isbn}"
+					selection="#{bookSecretaryBean.booksSelected}" rowKey="#{book.isbn}"
 					style="margin-bottom:20px">
 					<f:facet name="header">
 						<p:outputPanel>
@@ -59,17 +57,17 @@
 					</p:column>
 
 					<p:column headerText="Booker"
-						filterBy="#{bookDeliverBean.getUserThatHasBookedTheBook(book).username}"
+						filterBy="#{bookSecretaryBean.getUserThatHasBookedTheBook(book).username}"
 						filterMatchMode="contains">
 						<h:outputText
-							value="#{bookDeliverBean.getUserThatHasBookedTheBook(book).username}" />
+							value="#{bookSecretaryBean.getUserThatHasBookedTheBook(book).username}" />
 					</p:column>
 
 
 
 				</p:dataTable>
 				<p:commandButton value="Deliver" update="form"
-					action="#{bookDeliverBean.deliverBooks}">
+					action="#{bookSecretaryBean.deliverBooks}">
 				</p:commandButton>
 			
 

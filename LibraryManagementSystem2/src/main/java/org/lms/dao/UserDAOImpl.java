@@ -6,7 +6,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.lms.converter.RoleConverter;
 import org.lms.converter.UserConverter;
+import org.lms.dto.RoleDTO;
 import org.lms.dto.UserDTO;
 import org.lms.model.Role;
 import org.lms.model.User;
@@ -61,6 +63,12 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = UserConverter.toModel(userDTO);
 		user.setActivated(1);
+		List<RoleDTO> rolesDTOOfThisUser = roleDAO.rolesOfAUser(userDTO);
+		List<Role> rolesOfThisUser = new ArrayList<>();
+		for(RoleDTO roleDTO : rolesDTOOfThisUser) {
+			rolesOfThisUser.add(RoleConverter.toModel(roleDTO));
+		}
+		user.setRolesOfThisUser(rolesOfThisUser);
 		session.merge(user);
 	}
 
@@ -76,6 +84,12 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = UserConverter.toModel(userDTO);
 		user.setActivated(-1);
+		List<RoleDTO> rolesDTOOfThisUser = roleDAO.rolesOfAUser(userDTO);
+		List<Role> rolesOfThisUser = new ArrayList<>();
+		for(RoleDTO roleDTO : rolesDTOOfThisUser) {
+			rolesOfThisUser.add(RoleConverter.toModel(roleDTO));
+		}
+		user.setRolesOfThisUser(rolesOfThisUser);
 		session.merge(user);
 	}
 
@@ -111,6 +125,12 @@ public class UserDAOImpl implements UserDAO {
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
 		user.setAge(userDTO.getAge());
+		List<RoleDTO> rolesDTOOfThisUser = roleDAO.rolesOfAUser(userDTO);
+		List<Role> rolesOfThisUser = new ArrayList<>();
+		for(RoleDTO roleDTO : rolesDTOOfThisUser) {
+			rolesOfThisUser.add(RoleConverter.toModel(roleDTO));
+		}
+		user.setRolesOfThisUser(rolesOfThisUser);
 		session.merge(user);
 	}
 
@@ -125,9 +145,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void makeUserAdmin(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = getUserById(userDTO.getUserId());
+		UserDTO userDTOFound = findUser(userDTO.getUsername(), userDTO.getPassword());
+		User user = getUserById(userDTOFound.getUserId());
 		Role role = roleDAO.getAdminRole();
 		user.addRole(role);
+		
 		session.merge(user);
 
 	}
@@ -161,7 +183,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void makeUserSecretary(UserDTO userDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = getUserById(userDTO.getUserId());
+		UserDTO userDTOFound = findUser(userDTO.getUsername(), userDTO.getPassword());
+		User user = getUserById(userDTOFound.getUserId());
 		Role role = roleDAO.getSecretaryRole();
 		user.addRole(role);
 		session.merge(user);

@@ -38,7 +38,7 @@ public class CategoryEditBean {
 		} catch (NumberFormatException e) {
 			redirectTo404();
 
-		}
+		} 
 	}
 
 	public CategoryDTO getCategorySelected() {
@@ -59,6 +59,10 @@ public class CategoryEditBean {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Category already exists!", null));
 
+		} catch(org.hibernate.exception.DataException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			return;
 		}
 	}
 

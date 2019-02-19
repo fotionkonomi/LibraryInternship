@@ -20,15 +20,27 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id", nullable = false)
+	/**
+	 * Represents the primary key of the roles table
+	 */
 	private Integer roleId;
 
 	@Column(name = "role_name", nullable = false, length = 12)
+	/**
+	 * Name of a role
+	 */
 	private String roleName;
 
 	@Column(name = "role_description", nullable = false, length = 255)
+	/**
+	 * Description of a role
+	 */
 	private String roleDescription;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "rolesOfThisUser")
+	/**
+	 * Users that have a role
+	 */
 	private List<User> usersThatHaveThisRole = new ArrayList<>();
 
 	public Integer getRoleId() {

@@ -5,6 +5,11 @@ import org.lms.model.Reservation;
 
 public class ReservationConverter {
 
+	/**
+	 * Converts a reservation object from a dto to a model
+	 * @param reservationDTO
+	 * @return
+	 */
 	public static Reservation toModel(ReservationDTO reservationDTO) {
 		Reservation reservation = new Reservation();
 		Integer id = reservationDTO.getReservationId();
@@ -18,6 +23,11 @@ public class ReservationConverter {
 
 	}
 
+	/**
+	 * Converts a reservation object from a model to a dto
+	 * @param reservation
+	 * @return
+	 */
 	public static ReservationDTO toDTO(Reservation reservation) {
 		ReservationDTO reservationDTO = new ReservationDTO();
 		reservationDTO.setReservationId(reservation.getReservationId());

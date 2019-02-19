@@ -15,7 +15,6 @@
 		</ui:define>
 
 		<ui:define name="body">
-			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
 
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
@@ -71,7 +70,7 @@
 							rendered="#{userRolesBean.isAUserDTOAdmin(user) eq false}">
 							<p:growl id="message" showDetail="true" />
 
-							<p:commandButton class="submit" style="background-color: green;"
+							<p:commandButton class="submit" style="background-color: green; margin: 0px; bottom: 5px;"
 								action="#{userRolesBean.makeAdmin(user)}" value="Make admin"
 								update="form">
 								<p:confirm header="Confirmation" message="Are you sure?" />
@@ -95,7 +94,7 @@
 							rendered="#{userRolesBean.isAUserDTOSecretary(user) eq false}">
 							<p:growl id="message1" showDetail="true" />
 							<p:commandButton class="button"
-								style="background-color: #ed6847;"
+								style="background-color: #ed6847; margin: 0px; bottom: 5px;"
 								action="#{userRolesBean.makeSecretary(user)}" update="form"
 								value="Make secretary">
 								<p:confirm header="Confirmation" message="Are you sure?" />

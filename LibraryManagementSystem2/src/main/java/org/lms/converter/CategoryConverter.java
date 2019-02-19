@@ -5,6 +5,11 @@ import org.lms.model.Category;
 
 public class CategoryConverter {
 
+	/**
+	 * Converts a category from a dto to a model
+	 * @param categoryDTO
+	 * @return
+	 */
 	public static Category toModel(CategoryDTO categoryDTO) {
 		Category category = new Category();
 		Integer id = categoryDTO.getCategoryId();
@@ -18,6 +23,11 @@ public class CategoryConverter {
 		return category;
 	}
 
+	/**
+	 * Converts a category from a model to a dto
+	 * @param category
+	 * @return
+	 */
 	public static CategoryDTO toDTO(Category category) {
 		CategoryDTO categoryDTO = new CategoryDTO();
 		categoryDTO.setCategoryId(category.getCategoryId());

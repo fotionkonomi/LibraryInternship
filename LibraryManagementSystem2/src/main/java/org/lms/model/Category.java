@@ -17,23 +17,42 @@ public class Category {
 	@Id
 	@Column(name = "category_id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/**
+	 * Primary key of category table
+	 */
 	private int categoryId;
 
 	@Column(name = "category_name", nullable = false, length = 20, unique = true)
+	/**
+	 * Name of the category
+	 */
 	private String categoryName;
 
 	@Column(name = "created", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
+	/**
+	 * The date that the administrators have created this category
+	 */
 	private Date created;
 
 	@Column(name = "modified", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
+	/**
+	 * The date that the administrators have edited this category. If the category
+	 * hasn't been edited, this field is equal to the 'created' field
+	 */
 	private Date modified;
 
-	@Column(name = "category_description", nullable = false, length = 255)
+	@Column(name = "category_description", nullable = false, length = 8000)
+	/**
+	 * Description of a category
+	 */
 	private String categoryDescription;
 
 	@OneToMany(mappedBy = "categoryOfThisBook")
+	/**
+	 * Books of this category
+	 */
 	private List<Book> booksOfThisCategory = new ArrayList<>();
 
 	public int getCategoryId() {

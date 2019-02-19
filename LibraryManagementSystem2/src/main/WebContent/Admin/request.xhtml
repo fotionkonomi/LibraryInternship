@@ -72,7 +72,7 @@
 
 					<p:column headerText="Approve">
 						<p:growl id="mesazh" showDetail="true" />
-						<p:commandButton class="button" style="background-color: #ed6847;"
+						<p:commandButton class="button" style="background-color: #ed6847; margin: 0px; bottom: 5px;"
 							action="#{userRequestsBean.activate(user)}" update="mesazh"
 							value="Approve">
 
@@ -91,7 +91,7 @@
 
 					<p:column headerText="Disaprove">
 						<p:growl id="message1" showDetail="true" />
-						<p:commandButton class="button" style="background-color: #ed6847;"
+						<p:commandButton class="button" style="background-color: #ed6847; margin: 0px; bottom: 5px;"
 							action="#{userRequestsBean.deActivate(user)}" update="message1"
 							value="Disapprove">
 

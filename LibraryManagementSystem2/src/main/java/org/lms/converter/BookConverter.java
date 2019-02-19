@@ -5,7 +5,12 @@ import org.lms.model.Book;
 
 public class BookConverter {
 
-
+	/**
+	 * Converts a book from a dto to a model
+	 * 
+	 * @param bookDTO
+	 * @return
+	 */
 	public static Book toModel(BookDTO bookDTO) {
 		Book book = new Book();
 		Integer id = bookDTO.getBookId();
@@ -23,6 +28,12 @@ public class BookConverter {
 		return book;
 	}
 
+	/**
+	 * Converts a book from a model to a dto
+	 * 
+	 * @param book
+	 * @return
+	 */
 	public static BookDTO toDTO(Book book) {
 		BookDTO bookDTO = new BookDTO();
 		bookDTO.setBookId(book.getBookId());

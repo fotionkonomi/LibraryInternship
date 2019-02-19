@@ -1,13 +1,14 @@
 package org.lms.managedbeans;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.lms.dto.CategoryDTO;
@@ -30,10 +31,12 @@ public class CategoryBean implements Serializable {
 	private CategoryDTO selectedCategory;
 
 	private List<CategoryDTO> allCategories;
+	
+	private List<CategoryDTO> filteredCategories;
 
 	@PostConstruct
 	public void init() {
-		allCategories = listCategories();
+		allCategories = categoryService.getAllCategories();
 		categoryDTO = new CategoryDTO();
 		selectedCategory = new CategoryDTO();
 	}
@@ -55,19 +58,17 @@ public class CategoryBean implements Serializable {
 	}
 
 	public String addCategory() {
-		categoryDTO.setCreated(new Date());
-		categoryDTO.setModified(new Date());
 		try {
 			categoryService.addCategory(categoryDTO);
 			return "category-added?faces-redirect=true&name=" + categoryDTO.getCategoryName();
 
 		} catch (ConstraintViolationException e) {
 			return "category-exists";
+		} catch(org.hibernate.exception.DataException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			return null;
 		}
-	}
-
-	public List<CategoryDTO> listCategories() {
-		return categoryService.listCategory();
 	}
 
 	public List<String> listCategoriesString() {
@@ -100,6 +101,18 @@ public class CategoryBean implements Serializable {
 	
 	public String goToEdit() {
 	    return "edit-category?faces-redirect=true&id=" + selectedCategory.getCategoryId();
+	}
+
+	public List<CategoryDTO> getFilteredCategories() {
+		return filteredCategories;
+	}
+
+	public void setFilteredCategories(List<CategoryDTO> filteredCategories) {
+		this.filteredCategories = filteredCategories;
+	}
+	
+	public String getShortDescription(CategoryDTO categoryDTO) {
+		return categoryDTO.getCategoryDescription().substring(0, 200) + " ... ";
 	}
 
 }

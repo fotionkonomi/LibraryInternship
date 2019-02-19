@@ -29,39 +29,68 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false)
+	/**
+	 * Represents the primary key of the id of users table.
+	 */
 	private Integer userId;
 
 	@Column(name = "first_name", nullable = false, length = 30)
+	/**
+	 * First name of a user
+	 */
 	private String firstName;
 
 	@Column(name = "last_name", nullable = false, length = 30)
+	/**
+	 * Last name of a user
+	 */
 	private String lastName;
 
 	@Column(name = "username", nullable = false, length = 20, unique = true)
+	/**
+	 * Username of a user
+	 */
 	private String username;
 
 	@Column(name = "age", nullable = false)
+	/**
+	 * Age of a user
+	 */
 	private Integer age;
 
 	@Column(name = "gender", nullable = false)
+	/**
+	 * Age of a user
+	 */
 	private Boolean gender;
 
 	@Column(name = "email", nullable = false, length = 40, unique = true)
+	/**
+	 * Email of a user
+	 */
 	private String email;
 
 	@Column(name = "password", nullable = false, length = 40)
+	/**
+	 * Password of a user
+	 */
 	private String password;
 
 	@Column(name = "activated", nullable = false)
+	/**
+	 * 0 -> User's profile has not been activated by the administrators yet
+	 * 1 -> User's profile is activated
+	 * -1 -> User's profile has not been approved by the administrators
+	 * -2 -> User's profile has been deactivated
+	 */
 	private Integer activated;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	/**
+	 * List that keeps the roles of a user
+	 */
 	private List<Role> rolesOfThisUser = new ArrayList<>();
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	private List<Book> booksOfThisUser = new ArrayList<Book>();
 
 	public Integer getUserId() {
 		return userId;
@@ -143,13 +172,6 @@ public class User implements Serializable {
 		this.rolesOfThisUser = rolesOfThisUser;
 	}
 
-	public List<Book> getBooksOfThisUser() {
-		return booksOfThisUser;
-	}
-
-	public void setBooksOfThisUser(List<Book> booksOfThisUser) {
-		this.booksOfThisUser = booksOfThisUser;
-	}
 
 	@Override
 	public int hashCode() {
@@ -157,7 +179,6 @@ public class User implements Serializable {
 		int result = 1;
 		result = prime * result + ((activated == null) ? 0 : activated.hashCode());
 		result = prime * result + ((age == null) ? 0 : age.hashCode());
-		result = prime * result + ((booksOfThisUser == null) ? 0 : booksOfThisUser.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
@@ -187,11 +208,6 @@ public class User implements Serializable {
 			if (other.age != null)
 				return false;
 		} else if (!age.equals(other.age))
-			return false;
-		if (booksOfThisUser == null) {
-			if (other.booksOfThisUser != null)
-				return false;
-		} else if (!booksOfThisUser.equals(other.booksOfThisUser))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -240,10 +256,13 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
 				+ username + ", age=" + age + ", gender=" + gender + ", email=" + email + ", password=" + password
-				+ ", activated=" + activated + ", rolesOfThisUser=" + rolesOfThisUser + ", booksOfThisUser="
-				+ booksOfThisUser + "]";
+				+ ", activated=" + activated + ", rolesOfThisUser=" + rolesOfThisUser + "]";
 	}
 
+	/**
+	 * Adds a role for a user
+	 * @param role
+	 */
 	public void addRole(Role role) {
 		this.rolesOfThisUser.add(role);
 		role.getUsersThatHaveThisRole().add(this);

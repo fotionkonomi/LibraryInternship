@@ -29,7 +29,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	@Override
-	public List<CategoryDTO> listCategory() {
+	public List<CategoryDTO> getAllCategories() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Category> categoryList = session.createQuery("Select c from Category c").list();
 		List<CategoryDTO> categoryDTOList = new ArrayList<>();

@@ -16,8 +16,7 @@
 		</ui:define>
 
 		<ui:define name="body">
-			<h:outputStylesheet library="css" name="main.css" />
-			<h:outputStylesheet library="css" name="util.css" />
+	
 			<p:tooltip />
 			<center>
 				<div class="limiter">
@@ -30,8 +29,8 @@
 								<br />
 								<div class="wrap-input100 validate-input">
 									<h:inputText class="input100"
-										value="#{userEditBean.userToEdit.firstName}"
-										a:placeholder="First Name" id="firstName"></h:inputText>
+										value="#{userEditBean.newFirstName}"
+										a:placeholder="#{userEditBean.userToEdit.firstName}" id="firstName"></h:inputText>
 									<p:messages for="firstName" closable="true"></p:messages>
 								</div>
 
@@ -40,48 +39,28 @@
 									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
 									</span>
 									<h:inputText class="input100" id="lastName"
-										a:placeholder="Last Name"
-										value="#{userEditBean.userToEdit.lastName}"></h:inputText>
+										a:placeholder="#{userEditBean.userToEdit.lastName}"
+										value="#{userEditBean.newLastName}"></h:inputText>
 									<p:messages for="lastName" closable="true"></p:messages>
 
 								</div>
-
-								<div class="wrap-input100 validate-input">
-									<h:inputText class="input100" id="username"
-										value="#{userEditBean.userToEdit.username}"
-										a:placeholder="Username"></h:inputText>
-									<p:messages for="username" closable="true"></p:messages>
-								</div>
-
-								<div class="wrap-input100 validate-input">
-									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
-									</span>
-									<h:inputText class="input100" a:placeholder="Email"
-										value="#{userEditBean.userToEdit.email}" id="email"
-										validatorMessage="Email format is not correct">
-										<f:validateRegex
-											pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
-									</h:inputText>
-									<p:messages for="email" closable="true" />
-								</div>
-
+								
 								<div class="wrap-input100 validate-input">
 									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
 									</span>
 									<h:inputText class="input100" id="age"
-										converterMessage="Please enter a number" a:placeholder="Age"
-										value="#{userEditBean.userToEdit.age}">
+										converterMessage="Please enter a number" a:placeholder="#{userEditBean.userToEdit.age}"
+										value="#{userEditBean.newAge}">
 										<f:convertNumber integerOnly="true"></f:convertNumber>
 
 									</h:inputText>
 									<p:messages for="age" closable="true"></p:messages>
 								</div>
 
-								</p:messages>
 								<div class="container-login100-form-btn">
 									<div class="login100-form-bgbtn"></div>
 									<p:commandButton class="button" value="Change"
-										action="#{userBean.change}" update="message">
+										action="#{userEditBean.change}" update="message">
 										<p:confirm header="Confirmation" message="Are you sure?" />
 									</p:commandButton>
 
@@ -92,11 +71,11 @@
 										<p:commandButton value="No" type="button"
 											styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 									</p:confirmDialog>
-									<ui:fragment rendered="#{userBean.isUserAdmin() eq false}">
+									<ui:fragment rendered="#{userEditBean.isUserAdmin() eq false}">
 
 										<p:commandButton class="button"
-											value="I want to deactivate my account"
-											action="#{userBean.deActivateMyAccount}" update="message">
+											value="Deactivate account"
+											action="#{userEditBean.deActivateAccount}" update="message">
 											<p:confirm header="Confirmation"
 												message="This action is permanent, Are you sure?" />
 										</p:commandButton>

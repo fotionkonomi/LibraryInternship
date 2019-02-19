@@ -14,15 +14,14 @@
 		</ui:define>
 
 		<ui:define name="body">
-			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
 
 				<p:dataTable id="books1" widgetVar="books1" var="book"
-					value="#{bookFreeBean.listBooksDelivered}" paginator="true"
+					value="#{bookSecretaryBean.listBooksDelivered}" paginator="true"
 					rows="10" rowsPerPageTemplate="10,20,30,40,50"
-					filteredValue="#{bookFreeBean.filteredBooks}"
-					selectionMode="multiple" selection="#{bookFreeBean.booksSelected}"
+					filteredValue="#{bookSecretaryBean.filteredBooks}"
+					selectionMode="multiple" selection="#{bookSecretaryBean.booksSelected}"
 					rowKey="#{book.isbn}" style="margin-bottom:20px">
 					<f:facet name="header">
 						<p:outputPanel>
@@ -55,17 +54,17 @@
 					</p:column>
 
 					<p:column headerText="Booker"
-						filterBy="#{bookFreeBean.getUserThatHasTheBook(book).username}"
+						filterBy="#{bookSecretaryBean.getUserThatHasTheBook(book).username}"
 						filterMatchMode="contains">
 						<h:outputText
-							value="#{bookFreeBean.getUserThatHasTheBook(book).username}" />
+							value="#{bookSecretaryBean.getUserThatHasTheBook(book).username}" />
 					</p:column>
 
 
 
 				</p:dataTable>
 				<p:commandButton value="Free" update="form"
-					action="#{bookFreeBean.freeBooks}">
+					action="#{bookSecretaryBean.freeBooks}">
 				</p:commandButton>
 
 

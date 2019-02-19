@@ -16,21 +16,21 @@
 		</ui:define>
 
 		<ui:define name="body">
-			<style>
-.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
-	display: none;
-}
 
-.ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
-	border: none;
-}
-</style>
-			<h:outputStylesheet library="css" name="book-added.css"></h:outputStylesheet>
 
-			<center>
-				<h:form id="form">
-					<p:growl id="msgs" showDetail="true" />
-
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<center>
+					<div class="ui-g-12">
+						<h:outputLabel style="font-size: 15px; color: green;"
+							value="Press button to add a new book: "></h:outputLabel>
+						<p:commandButton
+							style="width: 200px; height: 50px; background: #4a7bc9;"
+							value="Add New Book" styleClass="ui-priority-primary"
+							process="@this" update=":form:msgs" onclick="PF('dlg3').show();" />
+					</div>
+				</center>
+				<center>
 					<p:dataTable selectionMode="single"
 						selection="#{bookBean.bookSelected}" rowKey="#{book.isbn}"
 						id="books1" widgetVar="books1" var="book"
@@ -40,7 +40,7 @@
 						rowsPerPageTemplate="3,10,20,30,40,50">
 						<f:facet name="header">
 							<p:outputPanel>
-								<h:outputText value="Search all books:" />
+								<h:outputText value="Search all books:  " />
 								<p:inputText id="globalFilter" onkeyup="PF('books1').filter()"
 									style="width:150px" placeholder="Enter keyword" />
 							</p:outputPanel>
@@ -99,14 +99,6 @@
 						<p:menuitem value="View" update="bookDetail" icon="pi pi-search"
 							oncomplete="PF('bookDialog').show()" />
 					</p:contextMenu>
-					<div class="ui-g">
-						<div class="ui-g-12">
-							<p:commandButton value="Add New Book"
-								styleClass="ui-priority-primary" process="@this"
-								update=":form:msgs" onclick="PF('dlg3').show();" />
-						</div>
-					</div>
-
 					<p:dialog header="Add Book" widgetVar="dlg3" showEffect="drop"
 						hideEffect="drop" height="400" width="430">
 						<div class="reset">
@@ -161,18 +153,22 @@
 														
 														Upload image:
 														<p:fileUpload fileUploadListener="#{bookBean.upload}"
+														required="true" requiredMessage="Please enter an image"
 														auto="true" fileLimit="1" oncomplete="start();"
 														fileLimitMessage="Please select only one file!" />
 
 
 													<br />
-													<h4 id="uploaded" style="display: none;">Image
-														uploaded</h4>
+													<center>
+														<h4 id="uploaded"
+															style="display: none; position: relative; left: -140px; top: 20px;">Image
+															uploaded</h4>
 
-
+													</center>
 												</p:panelGrid>
+												<br />
 												<p:commandButton class="submit" update="message"
-													ajax="false" value="Add Book" action="#{bookBean.addBook}">
+													value="Add Book" action="#{bookBean.addBook}">
 
 												</p:commandButton>
 
@@ -183,12 +179,11 @@
 							</div>
 						</center>
 					</p:dialog>
-
-				</h:form>
-			</center>
-
-			<p:dialog header="Book Info" widgetVar="bookDialog" showEffect="fade"
-				hideEffect="fade" resizable="true" height="500px" width="500px">
+				</center>
+			</h:form>
+<br/><br/>
+			<p:dialog position="bottom" header="Book Info" widgetVar="bookDialog" showEffect="fade"
+				hideEffect="fade" resizable="true" height="600" width="700">
 				<p:outputPanel id="bookDetail" style="text-align:center;">
 					<center>
 						<div>

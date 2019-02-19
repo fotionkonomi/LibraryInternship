@@ -1,0 +1,135 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="title">
+			<h:outputText value="Edit User"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+
+			<p:tooltip />
+			<center>
+				<div class="limiter">
+					<div class="container-login100">
+						<div class="wrap-login100">
+							<h:form id="form" class="login100-form validate-form">
+								<p:growl id="msgs" showDetail="true" />
+								<h2>Create New User</h2>
+
+								<br />
+								<div class="wrap-input100 validate-input">
+									<h:inputText class="input100" required="true"
+										requiredMessage="Please enter the first name"
+										value="#{userCreateBean.userDTO.firstName}"
+										a:placeholder="First name" id="firstName"></h:inputText>
+									<p:messages for="firstName" closable="true"></p:messages>
+								</div>
+
+
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" id="lastName" required="true"
+										requiredMessage="Please enter the last name"
+										a:placeholder="Last name"
+										value="#{userCreateBean.userDTO.lastName}"></h:inputText>
+									<p:messages for="lastName" closable="true"></p:messages>
+
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<h:inputText class="input100" required="true"
+										requiredMessage="Please enter a username" id="username"
+										value="#{userCreateBean.userDTO.username}"
+										a:placeholder="Username"></h:inputText>
+									<p:messages for="username" closable="true"></p:messages>
+								</div>
+
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" required="true"
+										requiredMessage="Please enter an email" a:placeholder="Email"
+										value="#{userCreateBean.userDTO.email}" id="email"
+										validatorMessage="Email format is not correct">
+										<f:validateRegex
+											pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+									</h:inputText>
+									<p:messages for="email" closable="true" />
+								</div>
+								<div class="wrap-input100 validate-input">
+									<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+									</span>
+									<h:inputText class="input100" id="age"
+										converterMessage="Please enter a number" a:placeholder="Age"
+										value="#{userCreateBean.userDTO.age}">
+										<f:convertNumber integerOnly="true"></f:convertNumber>
+
+									</h:inputText>
+									<p:messages for="age" closable="true"></p:messages>
+								</div>
+								<h:selectOneMenu id="gender" class="select"
+									value="#{userCreateBean.gender}">
+									<f:selectItem itemValue="0" itemLabel="Select your gender" />
+									<f:selectItem itemValue="Male" itemLabel="Male" />
+									<f:selectItem itemValue="Female" itemLabel="Female" />
+								</h:selectOneMenu>
+								<p:messages for="gender" closable="true"></p:messages>
+								<br />
+								<br />
+								<br />
+
+								<div class="wrap-input100 validate-input">
+									<h:inputSecret class="input100"
+										value="#{userCreateBean.userDTO.password}" required="true"
+										requiredMessage="Please enter a password"
+										validatorMessage="Password must contain at least an uppercase, a lowercase and a number"
+										a:placeholder="Password" id="password">
+										<f:validateRegex
+											pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+									</h:inputSecret>
+									<p:messages for="password" closable="true"></p:messages>
+								</div>
+								<p:messages closable="true"></p:messages>
+								<p:messages for="Existing" closable="true">
+								</p:messages>
+
+
+								<h3 style="margin-top: 0">Choose Roles</h3>
+								<p:pickList id="pickList" value="#{userCreateBean.roles}"
+									var="roles" itemLabel="#{roles}" itemValue="#{roles}" />
+
+								<div class="container-login100-form-btn">
+									<div class="wrap-login100-form-btn">
+										<br /> <br />
+										<p:commandButton class="button" value="Sign Up"
+											update=":form:msgs" action="#{userCreateBean.addUser}" />
+
+									</div>
+
+								</div>
+							</h:form>
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div id="dropDownSelect1"></div>
+			</center>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -92,6 +92,15 @@ public class UserBean {
 		return false;
 	}
 
+	public Boolean isUserStudent() {
+		for (RoleDTO roleDTO : rolesOfThisUser) {
+			if (roleDTO.getRoleName().equals("Student")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public Boolean isUserSecretary() {
 		for (RoleDTO roleDTO : rolesOfThisUser) {
 			if (roleDTO.getRoleName().equals("Secretary")) {
@@ -124,7 +133,8 @@ public class UserBean {
 			return null;
 
 		} else if (!Encryptor.encrypt(confirmation, 12).equals(userDTOLogged.getPassword())) {
-			context.addMessage("confirmation", new FacesMessage("The confirmation password is not correct"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "The confirmation password is not correct", null));
 			return null;
 		}
 		String newFirstName = userDTOChanges.getFirstName();
@@ -138,44 +148,58 @@ public class UserBean {
 		if (newFirstName.length() == 0) {
 			newFirstName = userDTOLogged.getFirstName();
 		} else if (newFirstName.equals(userDTOLogged.getFirstName())) {
-			context.addMessage("firstName", new FacesMessage("You entered the same first name as before"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You entered the same first name as before", null));
 			checkForError = true;
 		}
 		if (newLastName.length() == 0) {
 			newLastName = userDTOLogged.getLastName();
 		} else if (newLastName.equals(userDTOLogged.getLastName())) {
-			context.addMessage("lastName", new FacesMessage("You entered the same last name as before"));
+
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You entered the same last name as before", null));
 			checkForError = true;
 		}
 		if (newUsername.length() == 0) {
 			newUsername = userDTOLogged.getUsername();
 		} else if (newUsername.equals(userDTOLogged.getUsername())) {
-			context.addMessage("username", new FacesMessage("You entered the same username as before"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You entered the same username as before", null));
 			checkForError = true;
 		}
 		if (newAge == null) {
 			newAge = userDTOLogged.getAge();
 		} else if (newAge == userDTOLogged.getAge()) {
-			context.addMessage("age",
-					new FacesMessage("You entered the same age as before!\nYou keep getting older you know!"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"You entered the same age as before! You keep getting older you know.", null));
+
 			checkForError = true;
 		}
 		if (newEmail.length() == 0) {
 			newEmail = userDTOLogged.getEmail();
 		} else if (newEmail.equals(userDTOLogged.getEmail())) {
-			context.addMessage("email", new FacesMessage("You entered the same email as before"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You entered the same email as before", null));
 			checkForError = true;
 		}
 		if (newPassword.length() == 0) {
 			newPassword = userDTOLogged.getPassword();
 		} else if (Encryptor.encrypt(newPassword, 12).equals(userDTOLogged.getPassword())) {
-			context.addMessage("password", new FacesMessage("You entered the same password as before"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You entered the same password as before", null));
 			checkForError = true;
 
 		} else {
 			checkForEncryption = true;
 		}
 		if (checkForError == true) {
+			return null;
+		}
+		if (newFirstName.equals(userDTOLogged.getFirstName()) && newLastName.equals(userDTOLogged.getLastName())
+				&& newUsername.equals(userDTOLogged.getUsername()) && newEmail.equals(userDTOLogged.getEmail())
+				&& newAge == userDTOLogged.getAge() && newPassword.equals(userDTOLogged.getPassword())) {
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You did not enter any new data!", null));
 			return null;
 		}
 		userDTOLogged.setFirstName(newFirstName);
@@ -192,8 +216,13 @@ public class UserBean {
 			userService.updateUser(userDTOLogged);
 			username = userDTOLogged.getUsername();
 		} catch (DataIntegrityViolationException e) {
-			context.addMessage("Existing", new FacesMessage("Username or email are already taken"));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or email are already taken", null));
 			userDTOLogged = (UserDTO) context.getExternalContext().getSessionMap().get("user");
+			return null;
+		} catch(org.hibernate.exception.DataException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
 			return null;
 		}
 		context.getExternalContext().getSessionMap().replace("user", userDTOLogged);
@@ -220,5 +249,5 @@ public class UserBean {
 	public void setRolesOfThisUser(List<RoleDTO> rolesOfThisUser) {
 		this.rolesOfThisUser = rolesOfThisUser;
 	}
-	
+
 }

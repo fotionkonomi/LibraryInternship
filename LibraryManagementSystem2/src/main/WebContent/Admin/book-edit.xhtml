@@ -17,17 +17,6 @@
 
 		<ui:define name="body">
 			<style>
-.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
-	display: none;
-}
-
-.ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
-	border: none;
-}
-
-.ui-layout-unit-content.ui-widget-content {
-	background: #fff;
-}
 </style>
 
 			<center>
@@ -39,7 +28,8 @@
 
 					<h:outputText style="position: relative; left: -12px;"
 						value="Title:" />
-					<h:inputText id="title" style="position: relative; left: 23px;"
+					<h:inputText id="title"
+						style="position: relative; left: 23px; border: 1px solid grey"
 						value="#{bookEditBean.bookSelected.bookTitle}"></h:inputText>
 
 					<br />
@@ -47,7 +37,7 @@
 					<h:outputText style="position: relative; left: -5px;"
 						value="Author:" />
 					<h:inputText id="description"
-						style="position: relative; left: 16px;"
+						style="position: relative; left: 16px; border: 1px solid grey;"
 						value="#{bookEditBean.bookSelected.bookAuthor}"></h:inputText>
 					<br />
 					<br />
@@ -55,13 +45,17 @@
 						value="Category:" />
 
 					<h:selectOneMenu class="select"
-						style="position: relative; left: 10px;"
+						style="position: relative; left: 6px; border: 1px solid grey"
 						value="#{bookEditBean.categoryString}">
 						<f:selectItems value="#{bookEditBean.allCategoriesString()}"
 							var="category" />
 					</h:selectOneMenu>
 					<br />
-					<br/>
+					<br />
+					<h:outputText value="Description: "></h:outputText>
+					<h:inputTextarea cols="38" rows="10" value="#{bookEditBean.bookSelected.description}"></h:inputTextarea>
+					<br />
+					<br />
 					<h:outputText style="position: relative; left: -5px;"
 						value="Upload an image: " />
 					<p:fileUpload fileUploadListener="#{bookEditBean.upload}"

@@ -97,6 +97,12 @@
   </navigation-case>
   
    <navigation-case>
+   <from-outcome>create-user</from-outcome>
+   <to-view-id>Admin/create-user.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
    <from-outcome>reserve</from-outcome>
    <to-view-id>Student/reserve.xhtml</to-view-id>
    <redirect/>

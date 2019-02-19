@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 	        boolean loginRequest = request.getRequestURI().equals(loginURL);
 	        boolean resourceRequest = request.getRequestURI().startsWith(request.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER + "/");
 	        boolean ajaxRequest = "partial/ajax".equals(request.getHeader("Faces-Request"));
-	        if (loggedIn || loginRequest || resourceRequest || pageRequested.equals("/LibraryManagementSystem/signUp.xhtml")) {
+	        if (loggedIn || loginRequest || resourceRequest || pageRequested.equals("/LibraryManagementSystem/signUp.xhtml") || pageRequested.equals("/LibraryManagementSystem/deleted.xhtml")) {
 	            if (!resourceRequest) { // Prevent browser from caching restricted resources. See also https://stackoverflow.com/q/4194207/157882
 	                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 	                response.setHeader("Pragma", "no-cache"); // HTTP 1.0.

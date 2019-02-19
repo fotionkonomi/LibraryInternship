@@ -4,17 +4,18 @@
   <nodes xsi:type="pageflow:PFPage" name="Admin/book-added.xhtml" x="338" y="178" id="pf15501623216503" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15501623216502" path="Admin/book-added.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" x="338" y="946" id="pf15501623216504" referenceLink="//@navigationRule.4/@navigationCase.9/@toViewId|" outlinks="pf15501623216505" inlinks="pf15501623216506" path="profile.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="changes.xhtml" x="554" y="946" id="pf15501623216507" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15501623216505" path="changes.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf15501623216508" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15501623216509" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="first-page-after-login.xhtml" x="338" y="562" id="pf155016232165010" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15501623216509 pf155016232165011" path="first-page-after-login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf15501623216508" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15501623216509" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="first-page-after-login.xhtml" x="338" y="562" id="pf155016232165010" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15501623216509 pf155016232165011" path="first-page-after-login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Admin/request.xhtml" x="338" y="1330" id="pf155016232165012" referenceLink="//@navigationRule.4/@navigationCase.3/@toViewId|" outlinks="pf155016232165013 pf155016232165014" inlinks="pf155016232165013 pf155016232165014 pf155016232165015" path="Admin/request.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2098" id="pf155016232165016" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf155016232165011 pf155016232165017 pf155016232165018 pf155016232165015 pf155016232165019 pf155016232165020 pf155016232165021 pf155016232165022 pf15501623216506 pf155016232165023" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2098" id="pf155016232165016" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf155016232165011 pf155016232165017 pf155016232165018 pf155016232165015 pf155016232165019 pf155016232165020 pf155016232165021 pf155016232165022 pf15501623216506 pf155016232165023 pf15504163929512" path="/*"/>
   <nodes xsi:type="pageflow:PFPage" name="Admin/category.xhtml" x="338" y="1714" id="pf155016232165024" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" inlinks="pf155016232165017" path="Admin/category.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Admin/book.xhtml" x="338" y="2098" id="pf155016232165025" referenceLink="//@navigationRule.4/@navigationCase.2/@toViewId|" inlinks="pf155016232165018" path="Admin/book.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="Admin/choose-roles.xhtml" x="338" y="2482" id="pf155016232165026" referenceLink="//@navigationRule.3/@fromViewId|" inlinks="pf155016232165019" path="Admin/choose-roles.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Admin/choose-roles.xhtml" x="338" y="2482" id="pf155016232165026" referenceLink="//@navigationRule.4/@navigationCase.5/@toViewId|" inlinks="pf155016232165019" path="Admin/choose-roles.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Student/reserve.xhtml" x="338" y="2866" id="pf155016232165127" referenceLink="//@navigationRule.4/@navigationCase.5/@toViewId|" inlinks="pf155016232165020" path="Student/reserve.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Secretary/manage-books.xhtml" x="338" y="3250" id="pf155016232165128" referenceLink="//@navigationRule.4/@navigationCase.6/@toViewId|" inlinks="pf155016232165021" path="Secretary/manage-books.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Secretary/deliver-books.xhtml" x="338" y="3634" id="pf155016232165129" referenceLink="//@navigationRule.4/@navigationCase.7/@toViewId|" inlinks="pf155016232165022" path="Secretary/deliver-books.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Secretary/free-books.xhtml" id="pf155016232165130" referenceLink="//@navigationRule.4/@navigationCase.8/@toViewId|" inlinks="pf155016232165023" path="Secretary/free-books.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Admin/create-user.xhtml" id="pf15504163929513" referenceLink="//@navigationRule.4/@navigationCase.5/@toViewId|" inlinks="pf15504163929512" path="Admin/create-user.xhtml"/>
   <links id="pf15501623216502" target="pf15501623216503" source="pf15501623216501" outcome="added" fromaction="#{bookBean.addBook}"/>
   <links id="pf15501623216505" target="pf15501623216507" source="pf15501623216504" outcome="changed" redirect="true" fromaction="#{userBean.change}"/>
   <links id="pf15501623216509" target="pf155016232165010" source="pf15501623216508" outcome="login" fromaction="#{loginBean.login}"/>
@@ -38,4 +39,5 @@
     <bendPoints d1Width="-94" d2Width="-94"/>
   </links>
   <links id="pf155016232165023" target="pf155016232165130" source="pf155016232165016" outcome="free" redirect="true"/>
+  <links id="pf15504163929512" target="pf15504163929513" source="pf155016232165016" outcome="create-user" redirect="true"/>
 </pageflow:Pageflow>

@@ -1,5 +1,6 @@
 package org.lms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.lms.dao.RoleDAO;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
@@ -25,7 +27,6 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	@Transactional
 	public Role getRoleById(RoleDTO roleDTO) {
 		return this.roleDAO.getRoleById(roleDTO);
 	}
@@ -46,15 +47,23 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	@Transactional
 	public List<RoleDTO> getRolesOfAUser(UserDTO userDTO) {
 		return roleDAO.rolesOfAUser(userDTO);
 	}
 
-	
+	@Override
+	public List<RoleDTO> getAllRoles() {
+		return roleDAO.getAllRoles();
+	}
 
-	
-	
+	@Override
+	public List<String> getAllRolesAsString() {
+		List<RoleDTO> allRoles = getAllRoles();
+		List<String> listString = new ArrayList<>();
+		for (RoleDTO roleDTO : allRoles) {
+			listString.add(roleDTO.getRoleName());
+		}
+		return listString;
+	}
 
-		
 }

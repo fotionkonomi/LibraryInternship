@@ -1,6 +1,7 @@
 package org.lms.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.lms.converter.CategoryConverter;
@@ -28,17 +29,19 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void addCategory(CategoryDTO categoryDTO) {
-		 this.categoryDAO.addCategory(categoryDTO);
+		categoryDTO.setCreated(new Date());
+		categoryDTO.setModified(new Date());
+		this.categoryDAO.addCategory(categoryDTO);
 	}
 
 	@Override
-	public List<CategoryDTO> listCategory() {
-		return this.categoryDAO.listCategory();
+	public List<CategoryDTO> getAllCategories() {
+		return this.categoryDAO.getAllCategories();
 	}
 
 	@Override
 	public List<String> listCategoriesInString() {
-		List<CategoryDTO> categoriesDTO = listCategory();
+		List<CategoryDTO> categoriesDTO = getAllCategories();
 		List<String> strings = new ArrayList<>();
 		for (CategoryDTO categoryDTO : categoriesDTO) {
 			strings.add(categoryDTO.getCategoryName());
@@ -59,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public CategoryDTO getCategoryById(int id) {
-		Category category =  categoryDAO.getCategoryById(id);
+		Category category = categoryDAO.getCategoryById(id);
 		return CategoryConverter.toDTO(category);
 	}
 }

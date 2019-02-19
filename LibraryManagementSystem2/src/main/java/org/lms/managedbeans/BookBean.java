@@ -31,11 +31,34 @@ public class BookBean implements Serializable {
 	private CategoryService categoryService;
 	@ManagedProperty(value = "#{reservationService}")
 	private ReservationService reservationService;
+	/**
+	 * List of filtered books in the datatable
+	 */
 	private List<BookDTO> filteredBooks;
+
+	/**
+	 * The book that will be added to the system
+	 */
 	private BookDTO bookDTO;
+
+	/**
+	 * Category name of the book's category
+	 */
 	private String categoryString;
+
+	/**
+	 * All books in the system
+	 */
 	private List<BookDTO> listAllBooks;
+
+	/**
+	 * The book that is selected in the datatable
+	 */
 	private BookDTO bookSelected;
+
+	/**
+	 * The name of the image of the book
+	 */
 	private String image;
 
 	@PostConstruct
@@ -56,10 +79,13 @@ public class BookBean implements Serializable {
 		image = event.getFile().getFileName();
 	}
 
+	/**
+	 * Adds a book in the system
+	 * 
+	 * @return
+	 */
 	public String addBook() {
 		bookDTO.setCategoryOfThisBook(categoryService.categoryViaString(categoryString));
-		bookDTO.setCreated(new Date());
-		bookDTO.setModified(new Date());
 		if (image != null) {
 			if (image.endsWith(".png") || image.endsWith(".jpg")) {
 				bookDTO.setImage(image);
@@ -80,10 +106,19 @@ public class BookBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Isbn is already taken", null));
 			return null;
+		} catch (org.hibernate.exception.DataException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			return null;
 		}
 
 	}
 
+	/**
+	 * It is called when the image in the view is set
+	 * 
+	 * @param event
+	 */
 	public void handleFileUpload(FileUploadEvent event) {
 		FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -113,6 +148,11 @@ public class BookBean implements Serializable {
 		this.categoryService = categoryService;
 	}
 
+	/**
+	 * Redirects to book.xhtml
+	 * 
+	 * @return
+	 */
 	public String goToCreateBook() {
 		return "book?faces-redirect=true";
 	}
@@ -141,6 +181,12 @@ public class BookBean implements Serializable {
 		this.bookSelected = bookSelected;
 	}
 
+	/**
+	 * Redirects to book-edit.xhtml and puts the id of the selected book as a
+	 * parameter in the URI of the page
+	 * 
+	 * @return
+	 */
 	public String goToEditBook() {
 		return "book-edit?faces-redirect=true&id=" + bookSelected.getBookId();
 	}

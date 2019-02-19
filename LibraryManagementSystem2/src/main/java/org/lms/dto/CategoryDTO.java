@@ -4,15 +4,31 @@ import java.util.Date;
 
 public class CategoryDTO {
 
+	/**
+	 * A unique identifier for a category
+	 */
 	private Integer categoryId;
+
+	/**
+	 * Name of the category
+	 */
 	private String categoryName;
+
+	/**
+	 * Description of the category
+	 */
 	private String categoryDescription;
+
+	/**
+	 * The date that the administrators have added this category to the system
+	 */
 	private Date created;
+
+	/**
+	 * The date when the administrators have edited this book. If this book hasn't
+	 * been edited, this date contains the date when it was created
+	 */
 	private Date modified;
-
-	public CategoryDTO() {
-
-	}
 
 	public Integer getCategoryId() {
 		return categoryId;

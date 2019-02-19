@@ -8,21 +8,54 @@ public class UserDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer userId;
-	private String firstName;
-	private String lastName;
-	private String username;
-	private Integer age;
-	private Boolean gender;
-	private String email;
-	private Integer activated;
-	private String password;
-	//private List<RoleDTO> rolesOfThisUser = new ArrayList<>();
 	
-	public UserDTO() {
-
-	}
-
+	/**
+	 * A unique identifier for a user
+	 */
+	private Integer userId;
+	/**
+	 * First name of a user
+	 */
+	private String firstName;
+	
+	/**
+	 * Last name of a user
+	 */
+	private String lastName;
+	
+	/**
+	 * Username of a user
+	 */
+	private String username;
+	
+	/**
+	 * Age of a user
+	 */
+	private Integer age;
+	
+	/**
+	 * Gender of a user
+	 */
+	private Boolean gender;
+	
+	/**
+	 * Email of a user
+	 */
+	private String email;
+	
+	/**
+	 * 0 -> User's profile has not been activated by the administrators yet
+	 * 1 -> User's profile is activated
+	 * -1 -> User's profile has not been approved by the administrators
+	 * -2 -> User's profile has been deactivated
+	 */
+	private Integer activated;
+	
+	/**
+	 * Password of a user
+	 */
+	private String password;
+	
 	public Integer getUserId() {
 		return userId;
 	}
@@ -102,14 +135,80 @@ public class UserDTO implements Serializable{
 				+ "]";
 	}
 
-/*	public List<RoleDTO> getRolesOfThisUser() {
-		return rolesOfThisUser;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((activated == null) ? 0 : activated.hashCode());
+		result = prime * result + ((age == null) ? 0 : age.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
-	public void setRolesOfThisUser(List<RoleDTO> rolesOfThisUser) {
-		this.rolesOfThisUser = rolesOfThisUser;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof UserDTO))
+			return false;
+		UserDTO other = (UserDTO) obj;
+		if (activated == null) {
+			if (other.activated != null)
+				return false;
+		} else if (!activated.equals(other.activated))
+			return false;
+		if (age == null) {
+			if (other.age != null)
+				return false;
+		} else if (!age.equals(other.age))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
-*/	
+
+
 	
 
 }

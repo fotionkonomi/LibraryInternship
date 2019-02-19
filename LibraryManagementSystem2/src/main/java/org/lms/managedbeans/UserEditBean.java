@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -11,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import org.lms.dto.UserDTO;
 import org.lms.service.UserService;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @ManagedBean(name = "userEditBean")
 @ViewScoped
@@ -19,6 +21,9 @@ public class UserEditBean {
 	private UserDTO userToEdit;
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
+	private String newFirstName;
+	private String newLastName;
+	private Integer newAge;
 
 	@PostConstruct
 	public void init() {
@@ -44,6 +49,57 @@ public class UserEditBean {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+
+	public void change() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		boolean checkForError = false;
+		if (newFirstName.length() == 0) {
+			newFirstName = userToEdit.getFirstName();
+		} else if (newFirstName.equals(userToEdit.getFirstName())) {
+			context.addMessage("firstName", new FacesMessage("You entered the same first name as before"));
+			checkForError = true;
+		}
+		if (newLastName.length() == 0) {
+			newLastName = userToEdit.getLastName();
+		} else if (newLastName.equals(userToEdit.getLastName())) {
+			context.addMessage("lastName", new FacesMessage("You entered the same last name as before"));
+			checkForError = true;
+		}
+
+		if (newAge == null) {
+			newAge = userToEdit.getAge();
+		} else if (newAge == userToEdit.getAge()) {
+			context.addMessage("age",
+					new FacesMessage("You entered the same age as before!\nYou keep getting older you know!"));
+			checkForError = true;
+		}
+
+		if (checkForError == true) {
+			return;
+		}
+		if (userToEdit.getFirstName().equals(newFirstName) && userToEdit.getLastName().equals(newLastName)
+				&& userToEdit.getAge() == newAge) {
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You did not enter any new data!", null));
+			return;
+		}
+		userToEdit.setFirstName(newFirstName);
+		userToEdit.setLastName(newLastName);
+		userToEdit.setAge(newAge);
+		try {
+			userService.updateUser(userToEdit);
+			
+		} catch (DataIntegrityViolationException e) {
+			context.addMessage("Existing", new FacesMessage("Username or email are already taken"));
+			userToEdit = (UserDTO) context.getExternalContext().getSessionMap().get("user");
+			return;
+		} catch(org.hibernate.exception.DataException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			return;
 		}
 	}
 
@@ -72,6 +128,34 @@ public class UserEditBean {
 			e.printStackTrace();
 		}
 
+	}
+
+	public String getNewFirstName() {
+		return newFirstName;
+	}
+
+	public void setNewFirstName(String newFirstName) {
+		this.newFirstName = newFirstName;
+	}
+
+	public String getNewLastName() {
+		return newLastName;
+	}
+
+	public void setNewLastName(String newLastName) {
+		this.newLastName = newLastName;
+	}
+
+	public Integer getNewAge() {
+		return newAge;
+	}
+
+	public void setNewAge(Integer newAge) {
+		this.newAge = newAge;
+	}
+
+	public boolean isUserAdmin() {
+		return userService.isAUserAdmin(userToEdit);
 	}
 
 }

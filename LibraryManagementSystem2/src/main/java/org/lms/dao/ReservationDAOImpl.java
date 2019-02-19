@@ -39,14 +39,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 		session.clear();
 		session.update((ReservationConverter.toModel(reservationDTO)));
 	}
-	
+
 	@Override
 	public void bookFree(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
 		ReservationDTO reservationDTO = getReservationOfTheBookDelivered(bookDTO);
 		reservationDTO.setStatus(0);
 		session.clear();
-		session.update((ReservationConverter.toModel(reservationDTO)));	}
+		session.update((ReservationConverter.toModel(reservationDTO)));
+	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -65,7 +66,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Reservation reservation = (Reservation) query.uniqueResult();
 		return ReservationConverter.toDTO(reservation);
 	}
-	
+
 	@Override
 	public UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -108,18 +109,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public boolean isBookFree(BookDTO bookDTO) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Book book = bookDAO.getBookById(bookDTO.getBookId());
-		Query query = session.createQuery("Select r from Reservation r where r.book= :book and (r.status=1 or r.status=2)");
+		Query query = session
+				.createQuery("Select r from Reservation r where r.book= :book and (r.status=1 or r.status=2)");
 		query.setParameter("book", book);
-		if( (Reservation)query.uniqueResult() != null ) {
+		if ((Reservation) query.uniqueResult() != null) {
 			return false;
 		} else {
 			return true;
 		}
-		
 
 	}
-
-	
-
 
 }

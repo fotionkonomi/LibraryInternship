@@ -14,15 +14,17 @@ import org.lms.dto.UserDTO;
 import org.lms.service.BookService;
 import org.lms.service.ReservationService;
 
-@ManagedBean(name = "bookDeliverBean")
+@ManagedBean(name = "bookSecretaryBean")
 @ViewScoped
-public class BookDeliverBean {
+public class BookSecretaryBean {
 
 	private List<BookDTO> listBooksBooked;
 
 	private List<BookDTO> booksSelected;
 
 	private List<BookDTO> filteredBooks;
+
+	private List<BookDTO> listBooksDelivered;
 
 	@ManagedProperty(value = "#{bookService}")
 	private BookService bookService;
@@ -33,6 +35,7 @@ public class BookDeliverBean {
 	@PostConstruct
 	public void init() {
 		listBooksBooked = bookService.getBooksBooked();
+		listBooksDelivered = bookService.getBooksDelivered();
 	}
 
 	public void deliverBooks() {
@@ -41,6 +44,14 @@ public class BookDeliverBean {
 		}
 		FacesContext.getCurrentInstance().addMessage("delivered", new FacesMessage("Delivered"));
 		listBooksBooked = bookService.getBooksBooked();
+	}
+
+	public void freeBooks() {
+		for (BookDTO bookDTO : booksSelected) {
+			reservationService.bookFree(bookDTO);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Freed!"));
+		setListBooksDelivered(bookService.getBooksDelivered());
 	}
 
 	public List<BookDTO> getListBooksBooked() {
@@ -85,5 +96,17 @@ public class BookDeliverBean {
 
 	public UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO) {
 		return reservationService.getUserThatHasBookedTheBook(bookDTO);
+	}
+	
+	public UserDTO getUserThatHasTheBook(BookDTO bookDTO) {
+		return reservationService.getUserThatTheBookIsDelivered(bookDTO);
+	}
+
+	public List<BookDTO> getListBooksDelivered() {
+		return listBooksDelivered;
+	}
+
+	public void setListBooksDelivered(List<BookDTO> listBooksDelivered) {
+		this.listBooksDelivered = listBooksDelivered;
 	}
 }
