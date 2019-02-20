@@ -1,6 +1,8 @@
 package org.lms.managedbeans;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,7 +20,7 @@ import org.lms.service.UserService;
 @ManagedBean(name = "loginBean")
 @RequestScoped
 public class LoginBean {
-
+	private static final Logger LOGGER = Logger.getLogger(LoginBean.class.getName());
 	private UserDTO userDTO;
 	private String username;
 	private String password;
@@ -45,15 +47,18 @@ public class LoginBean {
 			if (userDTO.getActivated() == 0) {
 				context.addMessage(null,
 						new FacesMessage("This account has not been activated yet by the administrators, please wait"));
+				LOGGER.log(Level.INFO, "Account not approved yet");
 				return null;
 			} else if (userDTO.getActivated() == -2) {
 				context.addMessage(null, new FacesMessage("This account has been deactivated"));
+				LOGGER.log(Level.INFO, "Deactivated Account");
 				return null;
 
 			} else if (userDTO.getActivated() == -1) {
 				context.addMessage(null,
 						new FacesMessage("Your profile was not approved, this profile is now deleted\r\n"
 								+ "		from our database, please create a new profile with correct data"));
+				LOGGER.log(Level.INFO, "Disapproved Account");
 				userService.deleteUser(userDTO);
 				return null;
 			}
@@ -67,6 +72,7 @@ public class LoginBean {
 			context.getExternalContext().getSessionMap().put("email", userDTO.getEmail());
 			context.getExternalContext().getSessionMap().put("age", userDTO.getAge());
 			context.getExternalContext().getSessionMap().put("roles", rolesOfThisUser);
+			LOGGER.log(Level.INFO, "Logged user: " + userDTO.getUsername());
 			return ("login");
 		}
 	}

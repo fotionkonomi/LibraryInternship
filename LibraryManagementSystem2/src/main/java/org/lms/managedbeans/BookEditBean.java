@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,9 +18,11 @@ import org.lms.service.BookService;
 import org.lms.service.CategoryService;
 import org.primefaces.event.FileUploadEvent;
 
+
 @ManagedBean(name = "bookEditBean")
 @ViewScoped
 public class BookEditBean {
+	private static final Logger LOGGER = Logger.getLogger(BookEditBean.class.getName());
 
 	private BookDTO bookSelected;
 	@ManagedProperty(value = "#{bookService}")
@@ -48,6 +51,7 @@ public class BookEditBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
 			return;
 		}
+		LOGGER.log(Level.INFO, "Book to be edited: " + bookSelected);
 	}
 
 	public void upload(FileUploadEvent event) {
@@ -63,14 +67,12 @@ public class BookEditBean {
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "This file is not supported!", null));
+				LOGGER.log(Level.WARNING, "File not supported");
 				return;
 			}
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter an image!", null));
-			return;
 		}
 		bookService.updateBook(bookSelected);
+		LOGGER.log(Level.INFO, "Book updated");
 		FacesMessage msg = new FacesMessage("Book Edited", bookSelected.getBookTitle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 

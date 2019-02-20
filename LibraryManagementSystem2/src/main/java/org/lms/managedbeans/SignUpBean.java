@@ -1,5 +1,6 @@
 package org.lms.managedbeans;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -33,13 +34,13 @@ public class SignUpBean {
 	}
 
 	public String addUser() {
-	/*	LOGGER.info("First Name entered in the form: " + firstName);
-		LOGGER.info("Last Name entered in the form: " + lastName);
-		LOGGER.info("Username entered in the form: " + username);
-		LOGGER.info("Email entered in the form: " + email);
+		LOGGER.info("First Name entered in the form: " + userDTO.getFirstName());
+		LOGGER.info("Last Name entered in the form: " + userDTO.getLastName());
+		LOGGER.info("Username entered in the form: " + userDTO.getUsername());
+		LOGGER.info("Email entered in the form: " + userDTO.getEmail());
 		LOGGER.info("Gender entered in the form: " + gender);
-		LOGGER.info("Age entered in the form: " + age);
-		LOGGER.info("Password entered in the form: ******************** "); */
+		LOGGER.info("Age entered in the form: " + userDTO.getAge());
+		LOGGER.info("Password entered in the form: ******************** "); 
 
 		
 		userDTO.setPassword(Encryptor.encrypt(userDTO.getPassword(), 12));
@@ -50,26 +51,36 @@ public class SignUpBean {
 		} else {
 			FacesContext.getCurrentInstance().addMessage("gender",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select your gender!", null));
+			LOGGER.log(Level.WARNING, "Enter your gender");
 			return null;
 		}
 		if(userDTO.getAge() < 5 || userDTO.getAge() > 120) {
 			FacesContext.getCurrentInstance().addMessage("gender",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your correct age!", null));
+			LOGGER.log(Level.WARNING, "Enter your correct age");
+
 			return null;
 		}
 		userDTO.setActivated(0);
 		try {
 			signUpService.addUser(userDTO);
+			LOGGER.log(Level.INFO, "User added Successfully");
+
 		} catch (ConstraintViolationException e) {
 			FacesContext.getCurrentInstance().addMessage("Existing",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or email is already taken", null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or email already exists!", null));
+			LOGGER.log(Level.WARNING, "Username or email is already taken");
+
 			return null;
 		} catch(org.hibernate.exception.DataException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			LOGGER.log(Level.WARNING, "Data you put was too long");
+
 			return null;
 		}
 		userService.makeUserStudent(userDTO);
+		LOGGER.log(Level.INFO, "User was set to be a student");
 		return "user-signed";
 	}
 

@@ -2,6 +2,8 @@ package org.lms.managedbeans;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,6 +20,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 @ViewScoped
 public class UserEditBean {
 
+	private static final Logger LOGGER = Logger.getLogger(UserEditBean.class.getName());
+
 	private UserDTO userToEdit;
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
@@ -33,10 +37,13 @@ public class UserEditBean {
 		try {
 			Integer userId = Integer.parseInt(userIdString);
 			userToEdit = userService.getUserById(userId);
+			LOGGER.log(Level.INFO, "User was gotten successfully");
 		} catch (NullPointerException e) {
+			LOGGER.log(Level.WARNING, "User was not found");
 			redirectTo404();
 
 		} catch (NumberFormatException e) {
+			LOGGER.log(Level.INFO, "User was gotten successfully");
 			redirectTo404();
 		}
 	}
@@ -78,6 +85,8 @@ public class UserEditBean {
 		}
 
 		if (checkForError == true) {
+			LOGGER.log(Level.WARNING, "User Data Not Changed");
+
 			return;
 		}
 		if (userToEdit.getFirstName().equals(newFirstName) && userToEdit.getLastName().equals(newLastName)
@@ -91,14 +100,20 @@ public class UserEditBean {
 		userToEdit.setAge(newAge);
 		try {
 			userService.updateUser(userToEdit);
-			
+			context.addMessage("age", new FacesMessage("User was edited successfully"));
+			LOGGER.log(Level.INFO, "User Data Was Changed Successfully");
+
 		} catch (DataIntegrityViolationException e) {
 			context.addMessage("Existing", new FacesMessage("Username or email are already taken"));
 			userToEdit = (UserDTO) context.getExternalContext().getSessionMap().get("user");
+			LOGGER.log(Level.WARNING, "User Data Not Changed");
+
 			return;
-		} catch(org.hibernate.exception.DataException ex) {
+		} catch (org.hibernate.exception.DataException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			LOGGER.log(Level.WARNING, "User Data Not Changed");
+
 			return;
 		}
 	}

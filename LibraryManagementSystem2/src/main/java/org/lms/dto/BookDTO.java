@@ -207,10 +207,10 @@ public class BookDTO {
 	}
 
 	public String getShortDescription() {
-		if (description.length() < 200) {
+		if (description.length() < 350) {
 			return description;
 		} else {
-			String shortDescription = description.substring(0, 200);
+			String shortDescription = description.substring(0, 350);
 			shortDescription += "...";
 			return shortDescription;
 		}

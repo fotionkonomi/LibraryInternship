@@ -1,8 +1,9 @@
 package org.lms.managedbeans;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,10 +22,9 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean(name = "bookBean")
 @ViewScoped
 public class BookBean implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(BookBean.class.getName());
+
 	@ManagedProperty(value = "#{bookService}")
 	private BookService bookService;
 	@ManagedProperty(value = "#{categoryService}")
@@ -92,23 +92,29 @@ public class BookBean implements Serializable {
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "This file is not supported!", null));
+				LOGGER.log(Level.WARNING, "File not supported");
+
 				return null;
 			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter an image!", null));
+			LOGGER.log(Level.WARNING, "Please enter an image");
 			return null;
 		}
 		try {
 			bookService.addBook(bookDTO);
+			LOGGER.log(Level.INFO, "Book added");
 			return "book-added?faces-redirect=true&isbn=" + bookDTO.getIsbn();
 		} catch (ConstraintViolationException e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Isbn is already taken", null));
+			LOGGER.log(Level.WARNING, "ISBN is taken");
 			return null;
 		} catch (org.hibernate.exception.DataException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			LOGGER.log(Level.WARNING, "Data you put was too long!");
 			return null;
 		}
 

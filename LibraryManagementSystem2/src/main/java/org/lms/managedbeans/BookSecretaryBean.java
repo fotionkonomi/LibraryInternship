@@ -1,6 +1,8 @@
 package org.lms.managedbeans;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,6 +19,8 @@ import org.lms.service.ReservationService;
 @ManagedBean(name = "bookSecretaryBean")
 @ViewScoped
 public class BookSecretaryBean {
+
+	private static final Logger LOGGER = Logger.getLogger(BookSecretaryBean.class.getName());
 
 	private List<BookDTO> listBooksBooked;
 
@@ -43,6 +47,7 @@ public class BookSecretaryBean {
 			reservationService.bookDelivering(bookDTO);
 		}
 		FacesContext.getCurrentInstance().addMessage("delivered", new FacesMessage("Delivered"));
+		LOGGER.log(Level.INFO, "Books Delivered Successfully");
 		listBooksBooked = bookService.getBooksBooked();
 	}
 
@@ -52,6 +57,8 @@ public class BookSecretaryBean {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Freed!"));
 		setListBooksDelivered(bookService.getBooksDelivered());
+		LOGGER.log(Level.INFO, "Books Delivered Successfully");
+
 	}
 
 	public List<BookDTO> getListBooksBooked() {
@@ -97,7 +104,7 @@ public class BookSecretaryBean {
 	public UserDTO getUserThatHasBookedTheBook(BookDTO bookDTO) {
 		return reservationService.getUserThatHasBookedTheBook(bookDTO);
 	}
-	
+
 	public UserDTO getUserThatHasTheBook(BookDTO bookDTO) {
 		return reservationService.getUserThatTheBookIsDelivered(bookDTO);
 	}

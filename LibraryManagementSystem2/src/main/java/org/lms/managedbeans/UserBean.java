@@ -1,6 +1,7 @@
 package org.lms.managedbeans;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -86,27 +87,39 @@ public class UserBean {
 	public Boolean isUserAdmin() {
 		for (RoleDTO roleDTO : rolesOfThisUser) {
 			if (roleDTO.getRoleName().equals("Admin")) {
+				LOGGER.log(Level.INFO, "Admin");
+
 				return true;
 			}
 		}
+		LOGGER.log(Level.INFO, "Not Admin");
+
 		return false;
 	}
 
 	public Boolean isUserStudent() {
 		for (RoleDTO roleDTO : rolesOfThisUser) {
 			if (roleDTO.getRoleName().equals("Student")) {
+				LOGGER.log(Level.INFO, "Student");
+
 				return true;
 			}
 		}
+		LOGGER.log(Level.INFO, "Not Student");
+
 		return false;
 	}
 
 	public Boolean isUserSecretary() {
 		for (RoleDTO roleDTO : rolesOfThisUser) {
 			if (roleDTO.getRoleName().equals("Secretary")) {
+				LOGGER.log(Level.INFO, "Secretary");
+
 				return true;
 			}
 		}
+		LOGGER.log(Level.INFO, "Not Secretary");
+
 		return false;
 	}
 
@@ -193,6 +206,8 @@ public class UserBean {
 			checkForEncryption = true;
 		}
 		if (checkForError == true) {
+			LOGGER.log(Level.WARNING, "User Data Not Changed");
+
 			return null;
 		}
 		if (newFirstName.equals(userDTOLogged.getFirstName()) && newLastName.equals(userDTOLogged.getLastName())
@@ -232,6 +247,8 @@ public class UserBean {
 		context.getExternalContext().getSessionMap().replace("username", userDTOLogged.getUsername());
 		context.getExternalContext().getSessionMap().replace("email", userDTOLogged.getEmail());
 		context.getExternalContext().getSessionMap().replace("age", userDTOLogged.getAge());
+		LOGGER.log(Level.INFO, "Users Data was changed");
+
 		return ("changed");
 	}
 

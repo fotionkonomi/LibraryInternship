@@ -70,6 +70,14 @@ public class CategoryDTO {
 		this.modified = modified;
 	}
 
+	public String getShortDescription() {
+		if (categoryDescription.length() > 200) {
+			return categoryDescription.substring(0, 200);
+		} else {
+			return categoryDescription;
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -102,7 +102,7 @@
 					<div class="wrap-input100 validate-input">
 						<h:inputSecret class="input100" value="#{signUpBean.userDTO.password}"
 							required="true" requiredMessage="Please enter a password"
-							validatorMessage="Password must contain at least an uppercase, a lowercase and a number"
+							validatorMessage="Password must contain at least a letter and a number"
 							a:placeholder="Password" id="password">
 							<f:validateRegex pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
 						</h:inputSecret>

@@ -2,6 +2,8 @@ package org.lms.managedbeans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -23,6 +25,7 @@ import org.primefaces.model.DualListModel;
 @ManagedBean(name = "userCreateBean")
 @ViewScoped
 public class UserCreateBean {
+	private static final Logger LOGGER = Logger.getLogger(UserCreateBean.class.getName());
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
@@ -44,15 +47,14 @@ public class UserCreateBean {
 	}
 
 	public void addUser() {
-		/*
-		 * LOGGER.info("First Name entered in the form: " + firstName);
-		 * LOGGER.info("Last Name entered in the form: " + lastName);
-		 * LOGGER.info("Username entered in the form: " + username);
-		 * LOGGER.info("Email entered in the form: " + email);
-		 * LOGGER.info("Gender entered in the form: " + gender);
-		 * LOGGER.info("Age entered in the form: " + age);
-		 * LOGGER.info("Password entered in the form: ******************** ");
-		 */
+
+		LOGGER.info("First Name entered in the form: " + userDTO.getFirstName());
+		LOGGER.info("Last Name entered in the form: " + userDTO.getLastName());
+		LOGGER.info("Username entered in the form: " + userDTO.getUsername());
+		LOGGER.info("Email entered in the form: " + userDTO.getEmail());
+		LOGGER.info("Gender entered in the form: " + gender);
+		LOGGER.info("Age entered in the form: " + userDTO.getAge());
+		LOGGER.info("Password entered in the form: ******************** ");
 
 		userDTO.setPassword(Encryptor.encrypt(userDTO.getPassword(), 12));
 		if (gender.equals("Male")) {
@@ -81,14 +83,18 @@ public class UserCreateBean {
 			userService.setRolesToUserViaListString(roles.getTarget(), userDTO);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"User " + userDTO.getUsername() + " was registered successfully!", null));
+			LOGGER.log(Level.INFO, "User Created");
 			return;
 		} catch (ConstraintViolationException e) {
 			FacesContext.getCurrentInstance().addMessage("Existing",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or email is already taken", null));
+			LOGGER.log(Level.WARNING, "User Not Created");
 			return;
-		} catch(org.hibernate.exception.DataException ex) {
+		} catch (org.hibernate.exception.DataException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data you put was too long!", null));
+			LOGGER.log(Level.WARNING, "User Not Created");
+
 			return;
 		}
 

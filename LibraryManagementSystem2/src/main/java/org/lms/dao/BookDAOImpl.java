@@ -112,7 +112,11 @@ public class BookDAOImpl implements BookDAO {
 		Query query = session.createQuery("Select b from Book b where b.isbn = :isbn");
 		query.setParameter("isbn", isbn);
 		Book book = (Book) query.uniqueResult();
-		return BookConverter.toDTO(book);
+		if (book != null) {
+			return BookConverter.toDTO(book);
+		} else {
+			return null;
+		}
 	}
 
 }

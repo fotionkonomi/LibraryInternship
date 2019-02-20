@@ -112,7 +112,7 @@ public class CategoryBean implements Serializable {
 	}
 	
 	public String getShortDescription(CategoryDTO categoryDTO) {
-		return categoryDTO.getCategoryDescription().substring(0, 200) + " ... ";
+		return categoryDTO.getShortDescription() + "...";
 	}
 
 }

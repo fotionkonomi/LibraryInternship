@@ -1,6 +1,9 @@
 package org.lms.managedbeans;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +20,8 @@ public class CategoryAddedBean {
 
 	private CategoryDTO categoryAdded;
 
+	private static final Logger LOGGER = Logger.getLogger(CategoryAddedBean.class.getName());
+
 	@ManagedProperty(value = "#{categoryService}")
 	private CategoryService categoryService;
 
@@ -24,8 +29,16 @@ public class CategoryAddedBean {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		String catName = paramMap.get("name");
-		categoryAdded = categoryService.categoryViaString(catName);
+		try {
+			String catName = paramMap.get("name");
+			categoryAdded = categoryService.categoryViaString(catName);
+			LOGGER.log(Level.INFO, "Category added : " + catName);
+
+		} catch (Exception e) {
+			LOGGER.log(Level.WARNING, "Category not found");
+
+			redirectTo404();
+		}
 	}
 
 	public CategoryDTO getCategoryAdded() {
@@ -46,6 +59,17 @@ public class CategoryAddedBean {
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+
+	private void redirectTo404() {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/LibraryManagementSystem/error/error-404.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

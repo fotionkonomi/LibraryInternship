@@ -1,6 +1,8 @@
 package org.lms.managedbeans;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,6 +18,7 @@ import org.lms.service.ReservationService;
 @ManagedBean
 @ViewScoped
 public class BookReserveBean {
+	private static final Logger LOGGER = Logger.getLogger(BookReserveBean.class.getName());
 
 	@ManagedProperty(value = "#{bookService}")
 	private BookService bookService;
@@ -40,21 +43,31 @@ public class BookReserveBean {
 		for (BookDTO bookDTO : booksNotReserved) {
 			books += bookDTO.getBookTitle() + " ";
 		}
+		LOGGER.log(Level.INFO, "Books not reserved from the list" + books);
+
 		if (booksNotReserved.isEmpty()) {
 			if (booksSelected.size() > 1) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("You have successfully booked the selected books"));
+				LOGGER.log(Level.INFO, "Books from your list were not booked before: SUCCESS!");
+
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("You have successfully booked the selected book"));
+				LOGGER.log(Level.INFO, "Books from your list were not booked before: SUCCESS!");
+
 			}
 		} else if (booksNotReserved.size() == booksSelected.size()) {
 			if (booksSelected.size() > 1) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Sorry, " + books + " were booked just a moment ago", null));
+				LOGGER.log(Level.INFO, books + " books were just booked before");
+
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Sorry, " + books + " was booked just a moment ago", null));
+				LOGGER.log(Level.INFO, books + " books were just booked before");
+
 			}
 		} else {
 			if (booksNotReserved.size() > 1) {
@@ -64,6 +77,8 @@ public class BookReserveBean {
 									"Sorry, " + books
 											+ " were booked, however, you have successfully booked the other books",
 									null));
+					LOGGER.log(Level.INFO,
+							books + " books were just booked before , but you have booked the other books");
 
 				} else {
 					FacesContext.getCurrentInstance().addMessage(null,
@@ -71,6 +86,9 @@ public class BookReserveBean {
 									"Sorry, " + books
 											+ " were booked, however, you have successfully booked the other book",
 									null));
+					LOGGER.log(Level.INFO,
+							books + " books were just booked before , but you have booked the other books");
+
 				}
 			} else {
 				if (booksSelected.size() > 1) {
@@ -79,12 +97,18 @@ public class BookReserveBean {
 									"Sorry, " + books
 											+ " was booked, however, you have successfully booked the other books",
 									null));
+					LOGGER.log(Level.INFO,
+							books + " books were just booked before , but you have booked the other books");
+
 				} else {
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_ERROR,
 									"Sorry, " + books
 											+ " was booked, however, you have successfully booked the other book",
 									null));
+					LOGGER.log(Level.INFO,
+							books + " books were just booked before , but you have booked the other books");
+
 				}
 			}
 
@@ -95,9 +119,12 @@ public class BookReserveBean {
 	public void reserveSelectedBook() {
 		BookDTO bookToReserve = booksSelected.get(0);
 		if (reservationService.isBookFree(bookToReserve)) {
+			LOGGER.log(Level.INFO, bookToReserve + " is free");
 			reservationService.bookReservation(bookToReserve, userBean.getUserDTOLogged());
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("You have successfully booked the selected book"));
+			LOGGER.log(Level.INFO, "You have successfully booked the selected book");
+
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Sorry! The book was reserved just a moment ago!", null));
